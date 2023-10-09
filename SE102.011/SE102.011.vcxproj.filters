@@ -13,6 +13,33 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="Header Files\Scencess">
+      <UniqueIdentifier>{5f64bbf7-8693-4e0f-9961-401a43a40b18}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Objects">
+      <UniqueIdentifier>{444f274b-87ad-4db9-a4cf-928f68cb614a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Graphics">
+      <UniqueIdentifier>{830e3618-690a-4c48-8f05-311df49c2ea7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Keyboards">
+      <UniqueIdentifier>{4b96dfb4-d7a6-49b4-909d-11f1496250cf}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Graphics">
+      <UniqueIdentifier>{1d4f902c-d022-41ae-99e1-6283afbbdea3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Objects">
+      <UniqueIdentifier>{80452ef6-66c3-4340-845a-67cda0d71706}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Scences">
+      <UniqueIdentifier>{c38ede9b-0876-48ee-9936-96a1b0f5d66e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Keyboards">
+      <UniqueIdentifier>{796889fc-04b7-40f2-a6d2-0a019be4c614}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Maps">
+      <UniqueIdentifier>{2efac84f-4f56-4631-bb0e-8e72067ce6cf}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -24,56 +51,56 @@
     <ClCompile Include="Game.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Animation.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Animations.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Brick.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Coin.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="Collision.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="GameObject.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Goomba.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Mario.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Platform.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="PlayScene.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Portal.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="SampleKeyEventHandler.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Scence.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Sprite.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Sprites.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Textures.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Utils.cpp">
       <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Animation.cpp">
+      <Filter>Source Files\Graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="Animations.cpp">
+      <Filter>Source Files\Graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="Brick.cpp">
+      <Filter>Source Files\Objects</Filter>
+    </ClCompile>
+    <ClCompile Include="Coin.cpp">
+      <Filter>Source Files\Objects</Filter>
+    </ClCompile>
+    <ClCompile Include="GameObject.cpp">
+      <Filter>Source Files\Objects</Filter>
+    </ClCompile>
+    <ClCompile Include="Goomba.cpp">
+      <Filter>Source Files\Objects</Filter>
+    </ClCompile>
+    <ClCompile Include="Platform.cpp">
+      <Filter>Source Files\Objects</Filter>
+    </ClCompile>
+    <ClCompile Include="Mario.cpp">
+      <Filter>Source Files\Objects</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayScene.cpp">
+      <Filter>Source Files\Scences</Filter>
+    </ClCompile>
+    <ClCompile Include="Portal.cpp">
+      <Filter>Source Files\Objects</Filter>
+    </ClCompile>
+    <ClCompile Include="SampleKeyEventHandler.cpp">
+      <Filter>Source Files\Keyboards</Filter>
+    </ClCompile>
+    <ClCompile Include="Scence.cpp">
+      <Filter>Source Files\Scences</Filter>
+    </ClCompile>
+    <ClCompile Include="Sprite.cpp">
+      <Filter>Source Files\Graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="Sprites.cpp">
+      <Filter>Source Files\Graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="Textures.cpp">
+      <Filter>Source Files\Graphics</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -83,71 +110,71 @@
     <ClInclude Include="debug.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Texture.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Animation.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="AnimationFrame.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Animations.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="AssetIDs.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Brick.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Coin.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="Collision.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Game.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="GameObject.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Goomba.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="KeyEventHandler.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Mario.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Platform.h">
+    <ClInclude Include="Utils.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="PlayScene.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Portal.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="SampleKeyEventHandler.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\Scencess</Filter>
     </ClInclude>
     <ClInclude Include="Scene.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\Scencess</Filter>
+    </ClInclude>
+    <ClInclude Include="Brick.h">
+      <Filter>Header Files\Objects</Filter>
+    </ClInclude>
+    <ClInclude Include="Coin.h">
+      <Filter>Header Files\Objects</Filter>
+    </ClInclude>
+    <ClInclude Include="GameObject.h">
+      <Filter>Header Files\Objects</Filter>
+    </ClInclude>
+    <ClInclude Include="Mario.h">
+      <Filter>Header Files\Objects</Filter>
+    </ClInclude>
+    <ClInclude Include="Animation.h">
+      <Filter>Header Files\Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="AnimationFrame.h">
+      <Filter>Header Files\Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="Animations.h">
+      <Filter>Header Files\Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="Goomba.h">
+      <Filter>Header Files\Objects</Filter>
+    </ClInclude>
+    <ClInclude Include="Platform.h">
+      <Filter>Header Files\Objects</Filter>
     </ClInclude>
     <ClInclude Include="Sprite.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="Portal.h">
+      <Filter>Header Files\Objects</Filter>
     </ClInclude>
     <ClInclude Include="Sprites.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="Texture.h">
+      <Filter>Header Files\Graphics</Filter>
     </ClInclude>
     <ClInclude Include="Textures.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\Graphics</Filter>
     </ClInclude>
-    <ClInclude Include="Utils.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="KeyEventHandler.h">
+      <Filter>Header Files\Keyboards</Filter>
+    </ClInclude>
+    <ClInclude Include="SampleKeyEventHandler.h">
+      <Filter>Header Files\Keyboards</Filter>
+    </ClInclude>
+    <ClInclude Include="AssetIDs.h">
+      <Filter>Header Files\Graphics</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

@@ -2,6 +2,7 @@
 
 #include "Utils.h"
 
+
 vector<string> split(string line, string delimeter)
 {
 	vector<string> tokens;
@@ -50,4 +51,25 @@ LPCWSTR ToLPCWSTR(string st)
 
 	// delete wcstring   // << can I ? 
 	return w->c_str();
+}
+
+Json::Value GetRootJson(LPCSTR jsonPath)
+{
+	std::ifstream jsonFile(jsonPath);
+
+	if (!jsonFile.is_open())
+	{
+		//ThrowGameException("Can't open json file", jsonPath);
+	}
+
+	Json::Reader reader;
+	Json::Value  root;
+
+	if (!reader.parse(jsonFile, root))
+	{
+		const auto msg = reader.getFormattedErrorMessages();
+		//ThrowGameException("Parse json file failed:", msg.c_str());
+	}
+
+	return root;
 }

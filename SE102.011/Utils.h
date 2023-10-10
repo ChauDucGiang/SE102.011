@@ -9,6 +9,10 @@
 #include <time.h>
 #include <stdlib.h>
 #include <vector>
+#include <json/json.h>
+#include <iostream>
+#include <fstream>
+#include "GameException.h"
 
 
 using namespace std;
@@ -17,3 +21,4 @@ vector<string> split(string line, string delimeter = "\t");
 wstring ToWSTR(string st);
 
 LPCWSTR ToLPCWSTR(string st);
+Json::Value GetRootJson(LPCSTR jsonPath);

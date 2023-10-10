@@ -1,0 +1,1 @@
+###Load resoure Game::Load(filePath)

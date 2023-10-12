@@ -19,6 +19,7 @@ using namespace std;
 #define KEYBOARD_STATE_SIZE 256
 #define SCREEN_WIDTH 272
 #define SCREEN_HEIGHT 256
+#define FULL_WEIGHT_1_1 2816
 
 
 

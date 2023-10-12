@@ -94,7 +94,6 @@ void CPlayScene::_ParseSection_ANIMATIONS(string line)
 */
 void CPlayScene::_ParseSection_OBJECTS(string line)
 {
-	DebugOut(L"[INFO] Start _ParseSection_OBJECTS\n");
 	vector<string> tokens = split(line);
 
 	// skip invalid lines - an object set must have at least id, x, y
@@ -103,7 +102,7 @@ void CPlayScene::_ParseSection_OBJECTS(string line)
 	int object_type = atoi(tokens[0].c_str());
 	float x = (float)atof(tokens[1].c_str());
 	float y = (float)atof(tokens[2].c_str());
-
+	DebugOut(L"[INFO] Start _ParseSection_OBJECTS type: %d\n", object_type);
 	CGameObject *obj = NULL;
 
 	switch (object_type)
@@ -119,25 +118,25 @@ void CPlayScene::_ParseSection_OBJECTS(string line)
 
 		DebugOut(L"[INFO] Player object has been created!\n");
 		break;
-	case OBJECT_TYPE_GOOMBA: obj = new CGoomba(x,y); break;
-	case OBJECT_TYPE_BRICK: obj = new CBrick(x,y); break;
-	case OBJECT_TYPE_COIN: obj = new CCoin(x, y); break;
+		//case OBJECT_TYPE_GOOMBA: obj = new CGoomba(x,y); break;
+		case OBJECT_TYPE_BRICK: obj = new CBrick(x,y); break;
+		//case OBJECT_TYPE_COIN: obj = new CCoin(x, y); break;
 
 	case OBJECT_TYPE_PLATFORM:
 	{
 
-		//float cell_width = (float)atof(tokens[3].c_str());
-		//float cell_height = (float)atof(tokens[4].c_str());
-		//int length = atoi(tokens[5].c_str());
-		//int sprite_begin = atoi(tokens[6].c_str());
-		//int sprite_middle = atoi(tokens[7].c_str());
-		//int sprite_end = atoi(tokens[8].c_str());
+		float cell_width = (float)atof(tokens[3].c_str());
+		float cell_height = (float)atof(tokens[4].c_str());
+		int length = atoi(tokens[5].c_str());
+		int sprite_begin = atoi(tokens[6].c_str());
+		int sprite_middle = atoi(tokens[7].c_str());
+		int sprite_end = atoi(tokens[8].c_str());
 
-		//obj = new CPlatform(
-		//	x, y,
-		//	cell_width, cell_height, length,
-		//	sprite_begin, sprite_middle, sprite_end
-		//);
+		obj = new CPlatform(
+			x, y,
+			cell_width, cell_height, length,
+			sprite_begin, sprite_middle, sprite_end
+		);
 
 		break;
 	}
@@ -304,7 +303,7 @@ void CPlayScene::Update(DWORD dt)
 
 void CPlayScene::Render()
 {
-	//current_map->Render();
+	current_map->Render();
 	//hidden_map->Render();
 	for (int i = 0; i < objects.size(); i++)
 		objects[i]->Render();

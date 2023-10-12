@@ -1,5 +1,4 @@
 #pragma once
-#pragma once
 #include <d3d10.h>
 #include"Textures.h"
 #include "Sprites.h"

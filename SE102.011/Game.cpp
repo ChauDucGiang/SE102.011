@@ -27,6 +27,9 @@ void CGame::Init(HWND hWnd, HINSTANCE hInstance)
 	backBufferWidth = r.right + 1;
 	backBufferHeight = r.bottom + 1;
 
+	screen_height = r.bottom + 1;
+	screen_width = FULL_WEIGHT_1_1;
+
 	DebugOut(L"[INFO] Window's client area: width= %d, height= %d\n", r.right - 1, r.bottom - 1);
 
 	// Create & clear the DXGI_SWAP_CHAIN_DESC structure
@@ -466,7 +469,7 @@ void CGame::_ParseSection_SCENES(string line)
 	//scenes[id] = scene;
 
 	int type = atoi(tokens[2].c_str());
-	DebugOut(L"TYPE CUA CAI VUA LOAD %d\n", type);
+	DebugOut(L"[INFO] _ParseSection_SCENES type: %d\n", type);
 	switch (type) {
 	case TYPE_WORLD_PLAY:
 		scene = new CPlayScene(id, path);

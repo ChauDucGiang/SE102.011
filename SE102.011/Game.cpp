@@ -480,10 +480,10 @@ void CGame::Load(LPCWSTR gameFile)
 	Json::Value root;
 	Json::CharReaderBuilder builder;
 	std::string errors;
-	if (!Json::parseFromStream(builder, file, &root, &errors)) {
-		DebugOut(L"Failed to parse JSON: : %s\n", gameFile);
-		return;
-	}
+	//if (!Json::parseFromStream(builder, file, &root, &errors)) {
+	//	DebugOut(L"Failed to parse JSON: : %s\n", gameFile);
+	//	return;
+	//}
 	// Access the data
 	const Json::Value textures = root["textures"];
 	const Json::Value sprites = root["sprites"];

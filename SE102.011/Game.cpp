@@ -436,6 +436,10 @@ void CGame::ProcessKeyboard()
 #define GAME_FILE_SECTION_SETTINGS 1
 #define GAME_FILE_SECTION_SCENES 2
 #define GAME_FILE_SECTION_TEXTURES 3
+#define TYPE_WORLD_UNKNOWN 0
+#define TYPE_WORLD_INTRO 1
+#define TYPE_WORLD_MAP 2
+#define TYPE_WORLD_PLAY 3
 
 
 void CGame::_ParseSection_SETTINGS(string line)
@@ -454,11 +458,29 @@ void CGame::_ParseSection_SCENES(string line)
 	vector<string> tokens = split(line);
 
 	if (tokens.size() < 2) return;
+	LPSCENE scene;
 	int id = atoi(tokens[0].c_str());
 	LPCWSTR path = ToLPCWSTR(tokens[1]);   // file: ASCII format (single-byte char) => Wide Char
 
-	LPSCENE scene = new CPlayScene(id, path);
-	scenes[id] = scene;
+	//LPSCENE scene = new CPlayScene(id, path);
+	//scenes[id] = scene;
+
+	int type = atoi(tokens[2].c_str());
+	DebugOut(L"TYPE CUA CAI VUA LOAD %d\n", type);
+	switch (type) {
+	case TYPE_WORLD_PLAY:
+		scene = new CPlayScene(id, path);
+		scenes[id] = scene;
+		break;
+	//case TYPE_WORLD_MAP:
+	//	scene = new CWorldMapScene(id, path);
+	//	scenes[id] = scene;
+	//	break;
+	//case TYPE_WORLD_INTRO:
+	//	scene = new CIntroScene(id, path);
+	//	scenes[id] = scene;
+	//	break;
+	}
 }
 
 /*
@@ -469,35 +491,35 @@ void CGame::Load(LPCWSTR gameFile)
 	DebugOut(L"[INFO] Start loading game file : %s\n", gameFile);
 
 	// Open the file
-	std::ifstream file("resources\\Data\\resources.json");
-	if (!file.is_open()) {
-		DebugOut(L"[ERROR] Failed to open file : %s\n", gameFile);
-		return;
-	}
-	//const auto root = GetRootJson("resources\\Data\\resources.json");
-
-	// Parse the JSON data
-	Json::Value root;
-	Json::CharReaderBuilder builder;
-	std::string errors;
-	//if (!Json::parseFromStream(builder, file, &root, &errors)) {
-	//	DebugOut(L"Failed to parse JSON: : %s\n", gameFile);
+	//std::ifstream file("resources\\Data\\resources.json");
+	//if (!file.is_open()) {
+	//	DebugOut(L"[ERROR] Failed to open file : %s\n", gameFile);
 	//	return;
 	//}
-	// Access the data
-	const Json::Value textures = root["textures"];
-	const Json::Value sprites = root["sprites"];
-	const Json::Value sounds = root["sounds"];
-	const Json::Value customfonts = root["customfonts"];
-	const Json::Value texts = root["texts"];
-	const Json::Value keycodefonts = root["keycodefonts"];
+	////const auto root = GetRootJson("resources\\Data\\resources.json");
 
-	// Print the data
-	//std::cout << "Textures:" << std::endl;
-	for (const auto& texture : textures) {
-		DebugOut(L"[INFO] Loaded Texture : %s\n", texture[1].asString());
-		//std::cout << "  textureId: " << texture[0].asInt() << ", texturePath: " << texture[1].asString() << ", transparentColor: " << texture[2] << std::endl;
-	}
+	//// Parse the JSON data
+	//Json::Value root;
+	//Json::CharReaderBuilder builder;
+	//std::string errors;
+	////if (!Json::parseFromStream(builder, file, &root, &errors)) {
+	////	DebugOut(L"Failed to parse JSON: : %s\n", gameFile);
+	////	return;
+	////}
+	//// Access the data
+	//const Json::Value textures = root["textures"];
+	//const Json::Value sprites = root["sprites"];
+	//const Json::Value sounds = root["sounds"];
+	//const Json::Value customfonts = root["customfonts"];
+	//const Json::Value texts = root["texts"];
+	//const Json::Value keycodefonts = root["keycodefonts"];
+
+	//// Print the data
+	////std::cout << "Textures:" << std::endl;
+	//for (const auto& texture : textures) {
+	//	DebugOut(L"[INFO] Loaded Texture : %s\n", texture[1].asString());
+	//	//std::cout << "  textureId: " << texture[0].asInt() << ", texturePath: " << texture[1].asString() << ", transparentColor: " << texture[2] << std::endl;
+	//}
 
 	ifstream f;
 	f.open(gameFile);
@@ -511,7 +533,6 @@ void CGame::Load(LPCWSTR gameFile)
 		string line(str);
 
 		if (line[0] == '#') continue;	// skip comment lines	
-
 		if (line == "[SETTINGS]") { section = GAME_FILE_SECTION_SETTINGS; continue; }
 		if (line == "[TEXTURES]") { section = GAME_FILE_SECTION_TEXTURES; continue; }
 		if (line == "[SCENES]") { section = GAME_FILE_SECTION_SCENES; continue; }
@@ -527,8 +548,11 @@ void CGame::Load(LPCWSTR gameFile)
 		//
 		switch (section)
 		{
+			// Load SETTINGS Default [start scence, width, height]
 		case GAME_FILE_SECTION_SETTINGS: _ParseSection_SETTINGS(line); break;
+			// Load SCENES Resources [id,  path, type]
 		case GAME_FILE_SECTION_SCENES: _ParseSection_SCENES(line); break;
+			// Load TEXTURES [id,  path]
 		case GAME_FILE_SECTION_TEXTURES: _ParseSection_TEXTURES(line); break;
 		}
 	}
@@ -543,9 +567,9 @@ void CGame::SwitchScene()
 {
 	if (next_scene < 0 || next_scene == current_scene) return; 
 
-	DebugOut(L"[INFO] Switching to scene %d\n", next_scene);
+	DebugOut(L"[INFO] Switching from scene %d to scene %d\n", current_scene, next_scene);
 
-	scenes[current_scene]->Unload();
+	//scenes[current_scene]->Unload();
 
 	CSprites::GetInstance()->Clear();
 	CAnimations::GetInstance()->Clear();

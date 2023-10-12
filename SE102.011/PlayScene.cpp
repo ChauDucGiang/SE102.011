@@ -25,6 +25,7 @@ CPlayScene::CPlayScene(int id, LPCWSTR filePath):
 #define SCENE_SECTION_UNKNOWN -1
 #define SCENE_SECTION_ASSETS	1
 #define SCENE_SECTION_OBJECTS	2
+#define SCENE_SECTION_TILEMAP_DATA	3
 
 #define ASSETS_SECTION_UNKNOWN -1
 #define ASSETS_SECTION_SPRITES 1
@@ -57,6 +58,7 @@ void CPlayScene::_ParseSection_SPRITES(string line)
 
 void CPlayScene::_ParseSection_ASSETS(string line)
 {
+	DebugOut(L"[INFO] Start _ParseSection_ASSETS\n");
 	vector<string> tokens = split(line);
 
 	if (tokens.size() < 1) return;
@@ -92,6 +94,7 @@ void CPlayScene::_ParseSection_ANIMATIONS(string line)
 */
 void CPlayScene::_ParseSection_OBJECTS(string line)
 {
+	DebugOut(L"[INFO] Start _ParseSection_OBJECTS\n");
 	vector<string> tokens = split(line);
 
 	// skip invalid lines - an object set must have at least id, x, y
@@ -123,18 +126,18 @@ void CPlayScene::_ParseSection_OBJECTS(string line)
 	case OBJECT_TYPE_PLATFORM:
 	{
 
-		float cell_width = (float)atof(tokens[3].c_str());
-		float cell_height = (float)atof(tokens[4].c_str());
-		int length = atoi(tokens[5].c_str());
-		int sprite_begin = atoi(tokens[6].c_str());
-		int sprite_middle = atoi(tokens[7].c_str());
-		int sprite_end = atoi(tokens[8].c_str());
+		//float cell_width = (float)atof(tokens[3].c_str());
+		//float cell_height = (float)atof(tokens[4].c_str());
+		//int length = atoi(tokens[5].c_str());
+		//int sprite_begin = atoi(tokens[6].c_str());
+		//int sprite_middle = atoi(tokens[7].c_str());
+		//int sprite_end = atoi(tokens[8].c_str());
 
-		obj = new CPlatform(
-			x, y,
-			cell_width, cell_height, length,
-			sprite_begin, sprite_middle, sprite_end
-		);
+		//obj = new CPlatform(
+		//	x, y,
+		//	cell_width, cell_height, length,
+		//	sprite_begin, sprite_middle, sprite_end
+		//);
 
 		break;
 	}
@@ -159,6 +162,38 @@ void CPlayScene::_ParseSection_OBJECTS(string line)
 
 
 	objects.push_back(obj);
+}
+
+/*
+	Parse a line in section [TILEMAP_DATA]
+*/
+void CPlayScene::_ParseSection_TILEMAP_DATA(string line)
+{
+	DebugOut(L"[INFO] Start ParseSection_TILEMAP_DATA\n");
+	//	200	27		176			10			11		102			0		0
+	int ID, rowMap, columnMap, columnTile, rowTile, totalTiles, startX, startY;
+	LPCWSTR path = ToLPCWSTR(line);
+	ifstream f;
+
+	f.open(path);
+	f >> ID >> rowMap >> columnMap >> rowTile >> columnTile >> totalTiles >> startX >> startY;
+	//Init Map Matrix
+
+	int** TileMapData = new int* [rowMap];
+	for (int i = 0; i < rowMap; i++)
+	{
+		TileMapData[i] = new int[columnMap];
+		for (int j = 0; j < columnMap; j++)
+		{
+			f >> TileMapData[i][j];
+		}
+
+	}
+	f.close();
+
+	current_map = new CMap(ID, rowMap, columnMap, rowTile, columnTile, totalTiles, startX, startY);
+	current_map->ExtractTileFromTileSet();
+	current_map->SetTileMapData(TileMapData);
 }
 
 void CPlayScene::LoadAssets(LPCWSTR assetFile)
@@ -214,6 +249,7 @@ void CPlayScene::Load()
 		if (line[0] == '#') continue;	// skip comment lines	
 		if (line == "[ASSETS]") { section = SCENE_SECTION_ASSETS; continue; };
 		if (line == "[OBJECTS]") { section = SCENE_SECTION_OBJECTS; continue; };
+		if (line == "[TILEMAP]") { section = SCENE_SECTION_TILEMAP_DATA; continue; }
 		if (line[0] == '[') { section = SCENE_SECTION_UNKNOWN; continue; }	
 
 		//
@@ -223,6 +259,7 @@ void CPlayScene::Load()
 		{ 
 			case SCENE_SECTION_ASSETS: _ParseSection_ASSETS(line); break;
 			case SCENE_SECTION_OBJECTS: _ParseSection_OBJECTS(line); break;
+			case SCENE_SECTION_TILEMAP_DATA: _ParseSection_TILEMAP_DATA(line); break;
 		}
 	}
 
@@ -267,6 +304,8 @@ void CPlayScene::Update(DWORD dt)
 
 void CPlayScene::Render()
 {
+	//current_map->Render();
+	//hidden_map->Render();
 	for (int i = 0; i < objects.size(); i++)
 		objects[i]->Render();
 }

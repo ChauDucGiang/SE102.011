@@ -40,6 +40,12 @@
     <Filter Include="Source Files\Maps">
       <UniqueIdentifier>{2efac84f-4f56-4631-bb0e-8e72067ce6cf}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Map">
+      <UniqueIdentifier>{76ed3428-f00e-43bc-a010-658cbc4d1a47}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Map">
+      <UniqueIdentifier>{4a14d38d-f146-4929-b435-0bb633a093cd}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -101,6 +107,9 @@
     </ClCompile>
     <ClCompile Include="Textures.cpp">
       <Filter>Source Files\Graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="Map.cpp">
+      <Filter>Source Files\Map</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -181,6 +190,12 @@
     </ClInclude>
     <ClInclude Include="enums.h">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="CIntroScene.h">
+      <Filter>Header Files\Scencess</Filter>
+    </ClInclude>
+    <ClInclude Include="Map.h">
+      <Filter>Header Files\Map</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

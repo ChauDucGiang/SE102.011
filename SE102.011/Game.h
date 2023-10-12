@@ -17,6 +17,8 @@ using namespace std;
 #define MAX_FRAME_RATE 100
 #define KEYBOARD_BUFFER_SIZE 1024
 #define KEYBOARD_STATE_SIZE 256
+#define SCREEN_WIDTH 272
+#define SCREEN_HEIGHT 256
 
 
 
@@ -30,6 +32,8 @@ class CGame
 
 	int backBufferWidth = 0;					// Backbuffer width & height, will be set during Direct3D initialization
 	int backBufferHeight = 0;
+	int screen_height;
+	int screen_width;
 
 	ID3D10Device* pD3DDevice = NULL;
 	IDXGISwapChain* pSwapChain = NULL;
@@ -114,6 +118,10 @@ public:
 
 	void _ParseSection_TEXTURES(string line);
 
+	float GetCamX() { return cam_x; }
+	float GetCamY() { return cam_y; }
+	int GetScreenWidth() { return screen_width; }
+	int GetScreenHeight() { return screen_height; }
 
 	~CGame();
 };

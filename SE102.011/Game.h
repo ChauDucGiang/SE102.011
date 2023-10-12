@@ -20,6 +20,11 @@ using namespace std;
 #define SCREEN_WIDTH 272
 #define SCREEN_HEIGHT 256
 #define FULL_WEIGHT_1_1 2816
+#define ADJUST_CAM_MIN_Y 224
+#define ADJUST_CAM_MAX_Y 256
+#define ADJUST_CAM_HIDDEN_MAP 0
+#define HIDDEN_POSITION_X 3000
+#define ADJUST_CAMERA_X	264
 
 
 

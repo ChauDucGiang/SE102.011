@@ -26,9 +26,9 @@ public:
 	template <typename ...Args>
 	static void Throw(UINT line, LPCSTR func, LPCSTR file, Args... msgs)
 	{
-		std::ostringstream ss;
-		((ss << msgs << " "), ...);
-		throw MyException(ss.str().c_str(), line, func, file);
+		//std::ostringstream ss;
+		//((ss << msgs << " "), ...);
+		//throw MyException(ss.str().c_str(), line, func, file);
 	}
 
 #define ThrowMyException(...)      MyException::Throw(__LINE__, __func__, __FILE__, __VA_ARGS__)

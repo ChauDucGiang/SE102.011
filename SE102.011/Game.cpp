@@ -468,6 +468,37 @@ void CGame::Load(LPCWSTR gameFile)
 {
 	DebugOut(L"[INFO] Start loading game file : %s\n", gameFile);
 
+	// Open the file
+	std::ifstream file("resources\\Data\\resources.json");
+	if (!file.is_open()) {
+		DebugOut(L"[ERROR] Failed to open file : %s\n", gameFile);
+		return;
+	}
+	//const auto root = GetRootJson("resources\\Data\\resources.json");
+
+	// Parse the JSON data
+	Json::Value root;
+	Json::CharReaderBuilder builder;
+	std::string errors;
+	if (!Json::parseFromStream(builder, file, &root, &errors)) {
+		DebugOut(L"Failed to parse JSON: : %s\n", gameFile);
+		return;
+	}
+	// Access the data
+	const Json::Value textures = root["textures"];
+	const Json::Value sprites = root["sprites"];
+	const Json::Value sounds = root["sounds"];
+	const Json::Value customfonts = root["customfonts"];
+	const Json::Value texts = root["texts"];
+	const Json::Value keycodefonts = root["keycodefonts"];
+
+	// Print the data
+	//std::cout << "Textures:" << std::endl;
+	for (const auto& texture : textures) {
+		DebugOut(L"[INFO] Loaded Texture : %s\n", texture[1].asString());
+		//std::cout << "  textureId: " << texture[0].asInt() << ", texturePath: " << texture[1].asString() << ", transparentColor: " << texture[2] << std::endl;
+	}
+
 	ifstream f;
 	f.open(gameFile);
 	char str[MAX_GAME_LINE];

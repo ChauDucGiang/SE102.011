@@ -37,9 +37,6 @@
     <Filter Include="Source Files\Keyboards">
       <UniqueIdentifier>{796889fc-04b7-40f2-a6d2-0a019be4c614}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source Files\Maps">
-      <UniqueIdentifier>{2efac84f-4f56-4631-bb0e-8e72067ce6cf}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Header Files\Map">
       <UniqueIdentifier>{76ed3428-f00e-43bc-a010-658cbc4d1a47}</UniqueIdentifier>
     </Filter>

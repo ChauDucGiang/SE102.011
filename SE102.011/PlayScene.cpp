@@ -176,6 +176,8 @@ void CPlayScene::_ParseSection_TILEMAP_DATA(string line)
 
 	f.open(path);
 	f >> ID >> rowMap >> columnMap >> rowTile >> columnTile >> totalTiles >> startX >> startY;
+
+	DebugOut(L"[INFO] ID: %d, rowMap: %d, columnMap: %d, columnTile: %d, rowTile: %d, totalTiles: %d, startX: %d, startY: %d \n", ID, rowMap, columnMap, columnTile, rowTile, totalTiles, startX, startY);
 	//Init Map Matrix
 
 	int** TileMapData = new int* [rowMap];

@@ -30,7 +30,6 @@ bool CMap::checkObjectInCamera(float x, float y) {
 }
 void CMap::Render()
 {
-	DebugOut(L"[INFO] CamX %d CamY: %d\n", CamX, CamY);
 	int FirstColumn = int(floor(CamX / TILE_WIDTH));
 	int LastColumn = int(ceil((CamX * TILE_WIDTH + CGame::GetInstance()->GetScreenWidth()) / TILE_WIDTH));
 	if (LastColumn >= TotalColumnsOfMap)

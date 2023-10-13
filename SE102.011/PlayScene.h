@@ -7,6 +7,7 @@
 #include "Mario.h"
 #include "Goomba.h"
 #include "Map.h"
+#include "Hud.h"
 //#include "Koopas.h"
 
 
@@ -17,6 +18,7 @@ protected:
 	LPGAMEOBJECT player;					
 	CMap* current_map = NULL;
 	CMap* hidden_map = NULL;
+	CHud* hud = NULL;
 	vector<LPGAMEOBJECT> objects;
 
 	void _ParseSection_SPRITES(string line);

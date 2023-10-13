@@ -19,6 +19,7 @@ CPlayScene::CPlayScene(int id, LPCWSTR filePath):
 {
 	player = NULL;
 	key_handler = new CSampleKeyHandler(this);
+	hud = CHud::GetInstance();
 }
 
 
@@ -320,6 +321,7 @@ void CPlayScene::Render()
 {
 	current_map->Render();
 	//hidden_map->Render();
+	hud->Render();
 	for (int i = 0; i < objects.size(); i++)
 		objects[i]->Render();
 }

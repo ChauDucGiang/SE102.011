@@ -194,6 +194,7 @@
     <ClCompile Include="Goomba.cpp" />
     <ClCompile Include="Hammer.cpp" />
     <ClCompile Include="Hud.cpp" />
+    <ClCompile Include="Koopa.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Map.cpp" />
     <ClCompile Include="Mario.cpp" />
@@ -228,6 +229,7 @@
     <ClInclude Include="Hammer.h" />
     <ClInclude Include="Hud.h" />
     <ClInclude Include="KeyEventHandler.h" />
+    <ClInclude Include="Koopa.h" />
     <ClInclude Include="Map.h" />
     <ClInclude Include="Mario.h" />
     <ClInclude Include="Platform.h" />

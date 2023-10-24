@@ -43,6 +43,30 @@
     <Filter Include="Source Files\Map">
       <UniqueIdentifier>{4a14d38d-f146-4929-b435-0bb633a093cd}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Objects\Enemies">
+      <UniqueIdentifier>{c59ede3d-3883-4ae3-b697-1a079d42f9d3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Objects\Enemies">
+      <UniqueIdentifier>{de6f77d9-40b2-4513-83e3-0c767376ec02}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Objects\Bricks">
+      <UniqueIdentifier>{df572e1c-9694-43be-9a61-f4d48fa7a054}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Objects\Bricks">
+      <UniqueIdentifier>{b4af2293-aa0b-4667-9dcf-664f29ee3b09}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Objects\Platfrom">
+      <UniqueIdentifier>{fc19fda0-7f65-4756-b94c-c529892226db}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Objects\Platform">
+      <UniqueIdentifier>{cdddf53f-cc08-4e9a-8ab4-b37b50afc430}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Objects\Items">
+      <UniqueIdentifier>{5ee33be4-2ae0-4f02-baac-406205b18194}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Objects\Items">
+      <UniqueIdentifier>{14941cbd-33b9-4436-a728-3f5bca2b6771}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -66,19 +90,7 @@
     <ClCompile Include="Animations.cpp">
       <Filter>Source Files\Graphics</Filter>
     </ClCompile>
-    <ClCompile Include="Brick.cpp">
-      <Filter>Source Files\Objects</Filter>
-    </ClCompile>
-    <ClCompile Include="Coin.cpp">
-      <Filter>Source Files\Objects</Filter>
-    </ClCompile>
     <ClCompile Include="GameObject.cpp">
-      <Filter>Source Files\Objects</Filter>
-    </ClCompile>
-    <ClCompile Include="Goomba.cpp">
-      <Filter>Source Files\Objects</Filter>
-    </ClCompile>
-    <ClCompile Include="Platform.cpp">
       <Filter>Source Files\Objects</Filter>
     </ClCompile>
     <ClCompile Include="Mario.cpp">
@@ -111,6 +123,21 @@
     <ClCompile Include="Hud.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Goomba.cpp">
+      <Filter>Source Files\Objects\Enemies</Filter>
+    </ClCompile>
+    <ClCompile Include="Brick.cpp">
+      <Filter>Source Files\Objects\Bricks</Filter>
+    </ClCompile>
+    <ClCompile Include="Platform.cpp">
+      <Filter>Source Files\Objects\Platfrom</Filter>
+    </ClCompile>
+    <ClCompile Include="Coin.cpp">
+      <Filter>Source Files\Objects\Items</Filter>
+    </ClCompile>
+    <ClCompile Include="Hammer.cpp">
+      <Filter>Source Files\Objects\Enemies</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
@@ -134,12 +161,6 @@
     <ClInclude Include="Scene.h">
       <Filter>Header Files\Scencess</Filter>
     </ClInclude>
-    <ClInclude Include="Brick.h">
-      <Filter>Header Files\Objects</Filter>
-    </ClInclude>
-    <ClInclude Include="Coin.h">
-      <Filter>Header Files\Objects</Filter>
-    </ClInclude>
     <ClInclude Include="GameObject.h">
       <Filter>Header Files\Objects</Filter>
     </ClInclude>
@@ -154,12 +175,6 @@
     </ClInclude>
     <ClInclude Include="Animations.h">
       <Filter>Header Files\Graphics</Filter>
-    </ClInclude>
-    <ClInclude Include="Goomba.h">
-      <Filter>Header Files\Objects</Filter>
-    </ClInclude>
-    <ClInclude Include="Platform.h">
-      <Filter>Header Files\Objects</Filter>
     </ClInclude>
     <ClInclude Include="Sprite.h">
       <Filter>Header Files\Graphics</Filter>
@@ -199,6 +214,21 @@
     </ClInclude>
     <ClInclude Include="Hud.h">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Goomba.h">
+      <Filter>Header Files\Objects\Enemies</Filter>
+    </ClInclude>
+    <ClInclude Include="Brick.h">
+      <Filter>Header Files\Objects\Bricks</Filter>
+    </ClInclude>
+    <ClInclude Include="Platform.h">
+      <Filter>Header Files\Objects\Platform</Filter>
+    </ClInclude>
+    <ClInclude Include="Coin.h">
+      <Filter>Header Files\Objects\Items</Filter>
+    </ClInclude>
+    <ClInclude Include="Hammer.h">
+      <Filter>Header Files\Objects\Enemies</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

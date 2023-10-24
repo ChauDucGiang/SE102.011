@@ -25,7 +25,7 @@ void CKoopa::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects) {
 
 void CKoopa::Render() {
 	int aniId = ID_ANI_GREEN_WALK_LEFT;
-
+	DebugOut(L"[INFO] Koopa rendered!\n");
 	CAnimations::GetInstance()->Get(aniId)->Render(x, y);
 	RenderBoundingBox();
 }
@@ -48,6 +48,7 @@ void CKoopa::OnCollisionWithPlatform(LPCOLLISIONEVENT e) {
 
 void CKoopa::OnCollisionWith(LPCOLLISIONEVENT e) {
 	if (!e->obj->IsBlocking()) return;
+
 	if (dynamic_cast<CKoopa*>(e->obj)) return;
 
 	if (e->ny != 0)

@@ -9,6 +9,7 @@
 #include "Portal.h"
 #include "Coin.h"
 #include "Platform.h"
+#include "Koopa.h"
 
 #include "SampleKeyEventHandler.h"
 
@@ -117,11 +118,15 @@ void CPlayScene::_ParseSection_OBJECTS(string line)
 		obj = new CMario(x,y); 
 		player = (CMario*)obj;  
 
-		DebugOut(L"[INFO] Player object has been created!\n");
+		
 		break;
-		case OBJECT_TYPE_GOOMBA: obj = new CGoomba(x,y); break;
-		case OBJECT_TYPE_BRICK: obj = new CBrick(x,y); break;
-		//case OBJECT_TYPE_COIN: obj = new CCoin(x, y); break;
+	case OBJECT_TYPE_GOOMBA: obj = new CGoomba(x,y); break;
+	case OBJECT_TYPE_BRICK: obj = new CBrick(x,y); break;
+	//case OBJECT_TYPE_COIN: obj = new CCoin(x, y); break;
+
+	case OBJECT_TYPE_KOOPA_GREEN: obj = new CKoopa(x, y, KOOPA_GREEN); break;
+	case OBJECT_TYPE_KOOPA_GREEN_FLY: obj = new CKoopa(x, y, KOOPA_GREEN_WING); break;
+	case OBJECT_TYPE_KOOPA_RED: obj = new CKoopa(x, y, KOOPA_RED); break;
 
 	case OBJECT_TYPE_PLATFORM:
 	{

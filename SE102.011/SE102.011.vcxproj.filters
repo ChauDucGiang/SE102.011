@@ -141,6 +141,9 @@
     <ClCompile Include="Koopa.cpp">
       <Filter>Source Files\Objects\Enemies</Filter>
     </ClCompile>
+    <ClCompile Include="Plant.cpp">
+      <Filter>Source Files\Objects\Enemies</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
@@ -234,6 +237,9 @@
       <Filter>Header Files\Objects\Enemies</Filter>
     </ClInclude>
     <ClInclude Include="Koopa.h">
+      <Filter>Header Files\Objects\Enemies</Filter>
+    </ClInclude>
+    <ClInclude Include="Plant.h">
       <Filter>Header Files\Objects\Enemies</Filter>
     </ClInclude>
   </ItemGroup>

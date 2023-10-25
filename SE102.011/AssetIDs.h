@@ -4,25 +4,43 @@
 // This file contains all IDs of game assets 
 //
 
+#pragma region TEXTURES 
+
 #define ID_TEX_MARIO 0
 #define ID_TEX_ENEMY 10
 #define ID_TEX_MISC 20
 
+#pragma endregion
 
+#pragma region OBJECTS 
+// Mario
 #define OBJECT_TYPE_MARIO	0
+
+// Items
 #define OBJECT_TYPE_BRICK	1
-#define OBJECT_TYPE_GOOMBA	2
 #define OBJECT_TYPE_KOOPAS	3
 #define OBJECT_TYPE_COIN 4
 #define OBJECT_TYPE_PLATFORM 40
 #define OBJECT_TYPE_HAMMER 43
 
+// Goomba
+#define OBJECT_TYPE_GOOMBA	2
 #define OBJECT_TYPE_GOOMBA_FLY	3
+
+// Koopa
 #define OBJECT_TYPE_KOOPA_GREEN	4
 #define OBJECT_TYPE_KOOPA_GREEN_FLY 5
 #define OBJECT_TYPE_KOOPA_RED 6
 
+// Plant
+#define OBJECT_TYPE_PLANT_SHOOT 80
+#define OBJECT_TYPE_PLANT_NOT_SHOOT 90
+
+// Portal
 #define OBJECT_TYPE_PORTAL	50
+
+#pragma endregion 
+
 
 
 #pragma region MARIO 

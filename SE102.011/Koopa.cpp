@@ -25,9 +25,8 @@ void CKoopa::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects) {
 
 void CKoopa::Render() {
 	int aniId = ID_ANI_GREEN_WALK_LEFT;
-	DebugOut(L"[INFO] Koopa rendered!\n");
 	CAnimations::GetInstance()->Get(aniId)->Render(x, y);
-	RenderBoundingBox();
+	//RenderBoundingBox();
 }
 
 void CKoopa::GetBoundingBox(float& left, float& top, float& right, float& bottom)

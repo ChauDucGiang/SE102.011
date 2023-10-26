@@ -1,6 +1,9 @@
 #include "Leaf.h"
 
 CLeaf::CLeaf(float x, float y) : CGameObject(x, y) {
+	this->ax = 0;
+	this->ay = 0;
+
 }
 
 void CLeaf::Render() {

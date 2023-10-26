@@ -6,6 +6,8 @@
 
 class CLeaf : public CGameObject
 {
+	protected:
+		float ax, ay;
 	public:
 		CLeaf(float x, float y);
 		void Render();

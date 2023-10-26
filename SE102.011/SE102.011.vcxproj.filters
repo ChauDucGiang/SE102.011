@@ -248,5 +248,8 @@
     <ClInclude Include="Leaf.h">
       <Filter>Header Files\Objects\Items</Filter>
     </ClInclude>
+    <ClInclude Include="MushRoom.h">
+      <Filter>Header Files\Objects\Items</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

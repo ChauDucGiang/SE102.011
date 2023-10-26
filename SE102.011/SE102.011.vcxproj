@@ -235,6 +235,7 @@
     <ClInclude Include="Leaf.h" />
     <ClInclude Include="Map.h" />
     <ClInclude Include="Mario.h" />
+    <ClInclude Include="MushRoom.h" />
     <ClInclude Include="Plant.h" />
     <ClInclude Include="Platform.h" />
     <ClInclude Include="PlayScene.h" />

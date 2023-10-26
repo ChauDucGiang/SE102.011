@@ -144,6 +144,9 @@
     <ClCompile Include="Plant.cpp">
       <Filter>Source Files\Objects\Enemies</Filter>
     </ClCompile>
+    <ClCompile Include="Leaf.cpp">
+      <Filter>Source Files\Objects\Items</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
@@ -241,6 +244,9 @@
     </ClInclude>
     <ClInclude Include="Plant.h">
       <Filter>Header Files\Objects\Enemies</Filter>
+    </ClInclude>
+    <ClInclude Include="Leaf.h">
+      <Filter>Header Files\Objects\Items</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

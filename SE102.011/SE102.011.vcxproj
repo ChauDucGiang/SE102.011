@@ -195,6 +195,7 @@
     <ClCompile Include="Hammer.cpp" />
     <ClCompile Include="Hud.cpp" />
     <ClCompile Include="Koopa.cpp" />
+    <ClCompile Include="Leaf.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Map.cpp" />
     <ClCompile Include="Mario.cpp" />
@@ -231,6 +232,7 @@
     <ClInclude Include="Hud.h" />
     <ClInclude Include="KeyEventHandler.h" />
     <ClInclude Include="Koopa.h" />
+    <ClInclude Include="Leaf.h" />
     <ClInclude Include="Map.h" />
     <ClInclude Include="Mario.h" />
     <ClInclude Include="Plant.h" />

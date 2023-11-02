@@ -9,7 +9,7 @@ CPlant::CPlant(float x, float y, int model) :CGameObject(x, y) {
 
 void CPlant::Render() {
 	int aniId = ID_ANI_PLANT_LEFT_UNDER_NOT_SHOOT;
-	CAnimations::GetInstance()->Get(aniId)->Render(50, y);
+	CAnimations::GetInstance()->Get(aniId)->Render(x, y);
 }
 
 void CPlant::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects) {

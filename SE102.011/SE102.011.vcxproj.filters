@@ -49,12 +49,6 @@
     <Filter Include="Source Files\Objects\Enemies">
       <UniqueIdentifier>{de6f77d9-40b2-4513-83e3-0c767376ec02}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Header Files\Objects\Bricks">
-      <UniqueIdentifier>{df572e1c-9694-43be-9a61-f4d48fa7a054}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\Objects\Bricks">
-      <UniqueIdentifier>{b4af2293-aa0b-4667-9dcf-664f29ee3b09}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Source Files\Objects\Platfrom">
       <UniqueIdentifier>{fc19fda0-7f65-4756-b94c-c529892226db}</UniqueIdentifier>
     </Filter>
@@ -66,6 +60,12 @@
     </Filter>
     <Filter Include="Source Files\Objects\Items">
       <UniqueIdentifier>{14941cbd-33b9-4436-a728-3f5bca2b6771}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Objects\Items\Bricks">
+      <UniqueIdentifier>{df572e1c-9694-43be-9a61-f4d48fa7a054}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Objects\Items\Bricks">
+      <UniqueIdentifier>{b4af2293-aa0b-4667-9dcf-664f29ee3b09}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -127,7 +127,7 @@
       <Filter>Source Files\Objects\Enemies</Filter>
     </ClCompile>
     <ClCompile Include="Brick.cpp">
-      <Filter>Source Files\Objects\Bricks</Filter>
+      <Filter>Source Files\Objects\Items\Bricks</Filter>
     </ClCompile>
     <ClCompile Include="Platform.cpp">
       <Filter>Source Files\Objects\Platfrom</Filter>
@@ -149,6 +149,9 @@
     </ClCompile>
     <ClCompile Include="Pipe.cpp">
       <Filter>Source Files\Objects\Items</Filter>
+    </ClCompile>
+    <ClCompile Include="BrickQuestion.cpp">
+      <Filter>Source Files\Objects\Items\Bricks</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -231,7 +234,7 @@
       <Filter>Header Files\Objects\Enemies</Filter>
     </ClInclude>
     <ClInclude Include="Brick.h">
-      <Filter>Header Files\Objects\Bricks</Filter>
+      <Filter>Header Files\Objects\Items\Bricks</Filter>
     </ClInclude>
     <ClInclude Include="Platform.h">
       <Filter>Header Files\Objects\Platform</Filter>
@@ -256,6 +259,9 @@
     </ClInclude>
     <ClInclude Include="Pipe.h">
       <Filter>Header Files\Objects\Items</Filter>
+    </ClInclude>
+    <ClInclude Include="BrickQuestion.h">
+      <Filter>Header Files\Objects\Items\Bricks</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

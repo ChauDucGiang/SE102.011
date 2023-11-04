@@ -5,6 +5,7 @@ CBrickQuestion::CBrickQuestion(float x, float y, int model) :CGameObject(x, y)
 {
 	this->model = model;
 	this->ay = 0;
+	this->minY = y - BRICK_QUESTION_BBOX_HEIGHT + ADJUST_UP_DOWN;
 	this->startY = y;
 	this->startX = x;
 }
@@ -30,3 +31,8 @@ void CBrickQuestion::Render(){
 
 	CAnimations::GetInstance()->Get(aniId)->Render(x, y);
 }
+
+void CBrickQuestion::OnNoCollision(DWORD dt)
+{
+	y += vy * dt;
+};

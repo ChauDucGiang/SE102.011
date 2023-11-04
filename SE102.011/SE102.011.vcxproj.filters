@@ -67,6 +67,12 @@
     <Filter Include="Source Files\Objects\Items\Bricks">
       <UniqueIdentifier>{b4af2293-aa0b-4667-9dcf-664f29ee3b09}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Objects\Player">
+      <UniqueIdentifier>{0784591a-0caf-46d0-aa71-2fa84a621fc8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Objects\Player">
+      <UniqueIdentifier>{b89add46-89bf-4dfa-823a-390080baf9c3}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -93,14 +99,8 @@
     <ClCompile Include="GameObject.cpp">
       <Filter>Source Files\Objects</Filter>
     </ClCompile>
-    <ClCompile Include="Mario.cpp">
-      <Filter>Source Files\Objects</Filter>
-    </ClCompile>
     <ClCompile Include="PlayScene.cpp">
       <Filter>Source Files\Scences</Filter>
-    </ClCompile>
-    <ClCompile Include="Portal.cpp">
-      <Filter>Source Files\Objects</Filter>
     </ClCompile>
     <ClCompile Include="SampleKeyEventHandler.cpp">
       <Filter>Source Files\Keyboards</Filter>
@@ -153,6 +153,12 @@
     <ClCompile Include="BrickQuestion.cpp">
       <Filter>Source Files\Objects\Items\Bricks</Filter>
     </ClCompile>
+    <ClCompile Include="Mario.cpp">
+      <Filter>Source Files\Objects\Player</Filter>
+    </ClCompile>
+    <ClCompile Include="Portal.cpp">
+      <Filter>Source Files\Objects\Items</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
@@ -179,9 +185,6 @@
     <ClInclude Include="GameObject.h">
       <Filter>Header Files\Objects</Filter>
     </ClInclude>
-    <ClInclude Include="Mario.h">
-      <Filter>Header Files\Objects</Filter>
-    </ClInclude>
     <ClInclude Include="Animation.h">
       <Filter>Header Files\Graphics</Filter>
     </ClInclude>
@@ -193,9 +196,6 @@
     </ClInclude>
     <ClInclude Include="Sprite.h">
       <Filter>Header Files\Graphics</Filter>
-    </ClInclude>
-    <ClInclude Include="Portal.h">
-      <Filter>Header Files\Objects</Filter>
     </ClInclude>
     <ClInclude Include="Sprites.h">
       <Filter>Header Files\Graphics</Filter>
@@ -262,6 +262,12 @@
     </ClInclude>
     <ClInclude Include="BrickQuestion.h">
       <Filter>Header Files\Objects\Items\Bricks</Filter>
+    </ClInclude>
+    <ClInclude Include="Mario.h">
+      <Filter>Header Files\Objects\Player</Filter>
+    </ClInclude>
+    <ClInclude Include="Portal.h">
+      <Filter>Header Files\Objects\Items</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

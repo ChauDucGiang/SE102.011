@@ -6,6 +6,7 @@
 #include "Utils.h"
 #include "Textures.h"
 #include "Sprites.h"
+
 #include "Portal.h"
 #include "Coin.h"
 #include "Platform.h"
@@ -13,6 +14,7 @@
 #include "Plant.h"
 #include "Pipe.h"
 #include "BrickQuestion.h"
+#include "Leaf.h"
 
 #include "SampleKeyEventHandler.h"
 
@@ -145,6 +147,9 @@ void CPlayScene::_ParseSection_OBJECTS(string line)
 	case OBJECT_TYPE_BRICK_QUESTION_COIN: obj = new CBrickQuestion(x, y, BRICK_QUESTION_COIN); break;
 	case OBJECT_TYPE_BRICK_QUESTION_ITEM: obj = new CBrickQuestion(x, y, BRICK_QUESTION_ITEM); break;
 	case OBJECT_TYPE_BRICK: obj = new CBrick(x, y); break;
+
+	//Leaf
+	//case OBJECT_TYPE_LEAF: obj = new CLeaf(x, y); break;
 
 	case OBJECT_TYPE_PLATFORM:
 	{

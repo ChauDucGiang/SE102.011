@@ -9,7 +9,7 @@ CLeaf::CLeaf(float x, float y) : CGameObject(x, y) {
 void CLeaf::Render() {
 	CAnimations* animations = CAnimations::GetInstance();
 	if (vx <= 0) animations->Get(ID_ANI_LEAF_LEFT)->Render(x, y);
-	else if (vx > 0) animations->Get(ID_ANI_LEAF_RIGHT)->Render(x, y);
+	else if (vx > 0) animations->Get(ID_ANI_LEAF_RIGHT)->Render(50, y);
 }
 
 

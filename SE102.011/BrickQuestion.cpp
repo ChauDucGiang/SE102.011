@@ -28,5 +28,5 @@ void CBrickQuestion::Render(){
 	int aniId;
 	aniId = ID_ANI_QUESTION_BRICK;
 
-	CAnimations::GetInstance()->Get(aniId)->Render(50, y);
+	CAnimations::GetInstance()->Get(aniId)->Render(x, y);
 }

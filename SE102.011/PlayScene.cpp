@@ -123,15 +123,17 @@ void CPlayScene::_ParseSection_OBJECTS(string line)
 
 		
 		break;
-	case OBJECT_TYPE_GOOMBA: obj = new CGoomba(x,y); break;
-	//case OBJECT_TYPE_COIN: obj = new CCoin(x, y); break;
 
+	//Enemy
+	case OBJECT_TYPE_GOOMBA: obj = new CGoomba(x, y); break;
 	case OBJECT_TYPE_KOOPA_GREEN: obj = new CKoopa(x, y, KOOPA_GREEN); break;
 	case OBJECT_TYPE_KOOPA_GREEN_FLY: obj = new CKoopa(x, y, KOOPA_GREEN_WING); break;
 	case OBJECT_TYPE_KOOPA_RED: obj = new CKoopa(x, y, KOOPA_RED); break;
 	case OBJECT_TYPE_PLANT_SHOOT: obj = new CPlant(x, y, PLANT_SHOOT_RED); break;
-	case OBJECT_TYPE_PLANT_NOT_SHOOT: obj = new CPlant(x, y, PLANT_NOT_SHOOT); break;
 
+	/*Items*/
+	//case OBJECT_TYPE_COIN: obj = new CCoin(x, y); break;
+	//Pipe
 	case OBJECT_TYPE_PIPE_SHORT: obj = new CPipe(x, y, PIPE_SHORT_MODEL, PLANT_NOT_SHOOT); break;
 	case OBJECT_TYPE_PIPE_LONG: obj = new CPipe(x, y, PIPE_LONG_MODEL, PLANT_SHOOT_RED); break;
 	case OBJECT_TYPE_PIPE_LONG_GREEN: obj = new CPipe(x, y, PIPE_LONG_MODEL, PLANT_SHOOT_GREEN); break;

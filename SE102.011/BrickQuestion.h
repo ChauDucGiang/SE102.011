@@ -37,4 +37,14 @@ class CBrickQuestion : public CGameObject
 
 		virtual int IsCollidable() { return 1; }
 		virtual int IsBlocking() { return 1; }
+
+		BOOLEAN GetIsOpened() { return isOpened; }
+		void SetIsOpened(bool isOpened) { isOpened = isOpened; }
+
+		BOOLEAN GetIsEmpty() { return isEmpty; }
+		void SetIsEmpty(bool isEmpty){ isEmpty = isEmpty; }
+
+		void SetModel(int model) { this->model = model; }
+		int GetModel() { return model; }
+		float GetMinY() { return minY; }
 };

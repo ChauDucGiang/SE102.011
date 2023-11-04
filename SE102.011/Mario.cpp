@@ -14,6 +14,8 @@
 
 #include "Collision.h"
 
+#include "PlayScene.h"
+
 void CMario::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 {
 	vy += ay * dt;
@@ -136,6 +138,19 @@ void CMario::OnCollisionWithPortal(LPCOLLISIONEVENT e)
 void CMario::OnCollisionWithBrickQuestion(LPCOLLISIONEVENT e) {
 	DebugOut(L"[INFO] Mario OnCollisionWithBrickQuestion\n");
 	CBrickQuestion* brickQuestion = dynamic_cast<CBrickQuestion*>(e->obj);
+	CPlayScene* scene = (CPlayScene*)CGame::GetInstance()->GetCurrentScene();
+
+	if (!brickQuestion->GetIsOpened() && !brickQuestion->GetIsEmpty())
+	{
+		if (brickQuestion->GetModel() == BRICK_QUESTION_COIN) {
+			//coin++;
+			//CCoin* coin = new CCoin(brickQuestion->GetX(), brickQuestion->GetY());
+			//coin->SetState(COIN_SUMMON_STATE);
+			brickQuestion->SetIsEmpty(true);
+			//scene->AddObject(coin);
+			DebugOut(L"[INFO] Mario OnCollisionWithBrickQuestion \n");
+		}
+	}
 }
 #pragma  endregion
 

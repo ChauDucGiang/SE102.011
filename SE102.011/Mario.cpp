@@ -7,6 +7,10 @@
 #include "Goomba.h"
 #include "Coin.h"
 #include "Portal.h"
+#include "BrickQuestion.h"
+#include "Koopa.h"
+#include "Leaf.h"
+#include "Plant.h"
 
 #include "Collision.h"
 
@@ -54,10 +58,20 @@ void CMario::OnCollisionWith(LPCOLLISIONEVENT e)
 		OnCollisionWithCoin(e);
 	else if (dynamic_cast<CPortal*>(e->obj))
 		OnCollisionWithPortal(e);
+	else if (dynamic_cast<CBrickQuestion*>(e->obj))
+		OnCollisionWithBrickQuestion(e);
+	else if (dynamic_cast<CKoopa*>(e->obj))
+		OnCollisionWithBrickQuestion(e);
+	else if (dynamic_cast<CPlant*>(e->obj))
+		OnCollisionWithPlant(e);
+	else if (dynamic_cast<CLeaf*>(e->obj))
+		OnCollisionWithLeaf(e);
 }
 
+#pragma region CollisionWithGameObject
 void CMario::OnCollisionWithGoomba(LPCOLLISIONEVENT e)
 {
+	DebugOut(L"[INFO] Mario OnCollisionWithGoomba\n");
 	CGoomba* goomba = dynamic_cast<CGoomba*>(e->obj);
 
 	// jump on top >> kill Goomba and deflect a bit 
@@ -90,17 +104,40 @@ void CMario::OnCollisionWithGoomba(LPCOLLISIONEVENT e)
 	}
 }
 
+void CMario::OnCollisionWithKoopa(LPCOLLISIONEVENT e) {
+	DebugOut(L"[INFO] Mario OnCollisionWithKoopa\n");
+	CKoopa* koopa = dynamic_cast<CKoopa*>(e->obj);
+}
+
+void CMario::OnCollisionWithPlant(LPCOLLISIONEVENT e) {
+	DebugOut(L"[INFO] Mario OnCollisionWithPlant\n");
+	CPlant* plant = dynamic_cast<CPlant*>(e->obj);
+}
+
+void CMario::OnCollisionWithLeaf(LPCOLLISIONEVENT e) {
+	DebugOut(L"[INFO] Mario OnCollisionWithLeaf\n");
+	CLeaf* leaf = dynamic_cast<CLeaf*>(e->obj);
+}
+
 void CMario::OnCollisionWithCoin(LPCOLLISIONEVENT e)
 {
+	DebugOut(L"[INFO] Mario OnCollisionWithCoin\n");
 	e->obj->Delete();
 	coin++;
 }
 
 void CMario::OnCollisionWithPortal(LPCOLLISIONEVENT e)
 {
+	//DebugOut(L"[INFO] Mario OnCollisionWithPortal\n");
 	CPortal* p = (CPortal*)e->obj;
 	CGame::GetInstance()->InitiateSwitchScene(p->GetSceneId());
 }
+
+void CMario::OnCollisionWithBrickQuestion(LPCOLLISIONEVENT e) {
+	DebugOut(L"[INFO] Mario OnCollisionWithBrickQuestion\n");
+	CBrickQuestion* brickQuestion = dynamic_cast<CBrickQuestion*>(e->obj);
+}
+#pragma  endregion
 
 //
 // Get animation ID for small Mario

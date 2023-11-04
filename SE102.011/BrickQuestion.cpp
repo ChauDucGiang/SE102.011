@@ -20,6 +20,28 @@ void CBrickQuestion::GetBoundingBox(float& left, float& top, float& right, float
 
 void CBrickQuestion::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects) {
 
+	if (isOpened) {
+		vy = 0;
+		ay = 0;
+		vx = 0;
+		y = startY;
+		x = startX;
+	}
+	else {
+		vy += ay * dt;
+		if (y <= minY)
+		{
+			vy = BRICK_QUESTION_SPEED_DOWN;
+		}
+		if (y > startY + BRICK_QUESTION_BBOX_HEIGHT - ADJUST_UP_DOWN)
+		{
+			y = startY;
+			vy = 0;
+			isEmpty = true;
+			isOpened = true;
+		}
+	}
+
 	CGameObject::Update(dt, coObjects);
 	CCollision::GetInstance()->Process(this, dt, coObjects);
 }

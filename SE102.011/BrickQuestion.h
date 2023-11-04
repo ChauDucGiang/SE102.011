@@ -25,6 +25,8 @@ class CBrickQuestion : public CGameObject
 	protected:
 		int model;
 		float ax, ay, startX, startY, minY;
+		bool isEmpty = false, isOpened = false;
+	
 	public:
 		CBrickQuestion(float x, float y, int model);
 

@@ -129,7 +129,10 @@ void CPlayScene::_ParseSection_OBJECTS(string line)
 	case OBJECT_TYPE_KOOPA_GREEN: obj = new CKoopa(x, y, KOOPA_GREEN); break;
 	case OBJECT_TYPE_KOOPA_GREEN_FLY: obj = new CKoopa(x, y, KOOPA_GREEN_WING); break;
 	case OBJECT_TYPE_KOOPA_RED: obj = new CKoopa(x, y, KOOPA_RED); break;
+
+	//Plant
 	case OBJECT_TYPE_PLANT_SHOOT: obj = new CPlant(x, y, PLANT_SHOOT_RED); break;
+	case OBJECT_TYPE_PLANT_NOT_SHOOT: obj = new CPlant(x, y, PLANT_NOT_SHOOT); break;
 
 	/*Items*/
 	//case OBJECT_TYPE_COIN: obj = new CCoin(x, y); break;

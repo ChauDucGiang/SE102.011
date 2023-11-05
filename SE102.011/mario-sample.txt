@@ -19,8 +19,8 @@ start	3
 0	textures\mario.png
 10	textures\enemies.png
 15	textures\enemies_2.png
-#20	textures\misc.png
-#25	textures\mario-left.png
+20	textures\misc.png
+25	textures\mario-left.png
 30	textures\mario-right.png
 40	textures\enemies_3.png
 50	textures\enemies_4.png

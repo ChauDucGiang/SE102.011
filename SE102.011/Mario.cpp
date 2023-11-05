@@ -139,15 +139,19 @@ void CMario::OnCollisionWithBrickQuestion(LPCOLLISIONEVENT e) {
 	DebugOut(L"[INFO] Mario OnCollisionWithBrickQuestion\n");
 	CBrickQuestion* brickQuestion = dynamic_cast<CBrickQuestion*>(e->obj);
 	CPlayScene* scene = (CPlayScene*)CGame::GetInstance()->GetCurrentScene();
+	float x, y;
+	x = brickQuestion->GetX();
+	y = brickQuestion->GetY();
 
 	if (!brickQuestion->GetIsOpened() && !brickQuestion->GetIsEmpty())
 	{
 		if (brickQuestion->GetModel() == BRICK_QUESTION_COIN) {
-			//coin++;
-			//CCoin* coin = new CCoin(brickQuestion->GetX(), brickQuestion->GetY());
+			coin++;
+			CCoin* coin = new CCoin(50, 50);
 			//coin->SetState(COIN_SUMMON_STATE);
-			brickQuestion->SetIsEmpty(true);
-			//scene->AddObject(coin);
+			DebugOut(L"[INFO] Mario OnCollisionWithBrickQuestion at X: %d Y: %d\n", x,y);
+			//brickQuestion->SetIsEmpty(true);
+			scene->AddObject(coin);
 			DebugOut(L"[INFO] Mario OnCollisionWithBrickQuestion \n");
 		}
 	}

@@ -147,12 +147,9 @@ void CMario::OnCollisionWithBrickQuestion(LPCOLLISIONEVENT e) {
 	{
 		if (brickQuestion->GetModel() == BRICK_QUESTION_COIN) {
 			coin++;
-			CCoin* coin = new CCoin(50, 50);
-			//coin->SetState(COIN_SUMMON_STATE);
-			DebugOut(L"[INFO] Mario OnCollisionWithBrickQuestion at X: %d Y: %d\n", x,y);
-			//brickQuestion->SetIsEmpty(true);
+			CCoin* coin = new CCoin(x, y);
+			brickQuestion->SetIsEmpty(true);
 			scene->AddObject(coin);
-			DebugOut(L"[INFO] Mario OnCollisionWithBrickQuestion \n");
 		}
 	}
 }

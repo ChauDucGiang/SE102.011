@@ -8,7 +8,9 @@ CPipe::CPipe(float x, float y, int model, int platType) : CGameObject(x, y) {
 	this->y = y;
 	this->model = model;
 	this->plantType = plantType;
-	CPlant* plant = new CPlant(x, y - PLANT_BBOX_HEIGHT / 4 + 1, PLANT_SHOOT_RED);
+
+	/* Add Plant To Scence*/
+	CPlant* plant = new CPlant(x, y - PLANT_BBOX_HEIGHT / 4 + 1, plantType);
 	scene->AddObject(plant);
 }
 

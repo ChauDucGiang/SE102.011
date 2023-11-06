@@ -17,7 +17,7 @@ class CPipe : public CGameObject
 		int model, plantType;
 	public:
 
-		CPipe(float x, float y, int model, int typeFlower);
+		CPipe(float x, float y, int model, int plantType);
 		void Render();
 		void Update(DWORD dt) {}
 		void GetBoundingBox(float& left, float& top, float& right, float& bottom);

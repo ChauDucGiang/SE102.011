@@ -20,6 +20,14 @@ void CBrickQuestion::GetBoundingBox(float& left, float& top, float& right, float
 
 void CBrickQuestion::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects) {
 
+	if (x != startX) {
+		x = startX;
+	}
+	if (!isEmpty) {
+		if (y != startY) y = startY;
+		if (x != startX) x = startX;
+	}
+
 	if (isOpened) {
 		vy = 0;
 		ay = 0;

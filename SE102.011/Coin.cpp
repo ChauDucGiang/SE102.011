@@ -23,7 +23,8 @@ void CCoin::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects) {
 	if (state == COIN_SUMMON_STATE) vy += ay * dt;
 
 	if (vy > COIN_MAX_SPEED_FALL) {
-		Delete();
+		isDeleted = true;
+		return;
 	}
 	CGameObject::Update(dt, coObjects);
 	CCollision::GetInstance()->Process(this, dt, coObjects);

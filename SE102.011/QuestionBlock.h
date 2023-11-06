@@ -20,7 +20,7 @@
 
 #define ADJUST_UP_DOWN 13
 
-class CBrickQuestion : public CGameObject
+class CQuestionBlock : public CGameObject
 {
 	protected:
 		int model;
@@ -28,7 +28,7 @@ class CBrickQuestion : public CGameObject
 		bool isEmpty = false, isOpened = false;
 	
 	public:
-		CBrickQuestion(float x, float y, int model);
+		QuestionBlock(float x, float y, int model);
 
 		virtual void GetBoundingBox(float& left, float& top, float& right, float& bottom);
 		virtual void Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects);

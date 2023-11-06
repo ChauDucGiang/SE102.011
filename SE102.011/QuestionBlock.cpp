@@ -1,7 +1,7 @@
-#include "BrickQuestion.h"
+#include "QuestionBlock.h"
 
 
-CBrickQuestion::CBrickQuestion(float x, float y, int model) :CGameObject(x, y)
+CQuestionBlock::CQuestionBlock(float x, float y, int model) :CGameObject(x, y)
 {
 	this->model = model;
 	this->ay = 0;
@@ -10,7 +10,7 @@ CBrickQuestion::CBrickQuestion(float x, float y, int model) :CGameObject(x, y)
 	this->startX = x;
 }
 
-void CBrickQuestion::GetBoundingBox(float& left, float& top, float& right, float& bottom)
+void CQuestionBlock::GetBoundingBox(float& left, float& top, float& right, float& bottom)
 {
 	left = x - BRICK_QUESTION_BBOX_WIDTH / 2;
 	top = y - BRICK_QUESTION_BBOX_HEIGHT / 2;
@@ -18,7 +18,7 @@ void CBrickQuestion::GetBoundingBox(float& left, float& top, float& right, float
 	bottom = top + BRICK_QUESTION_BBOX_HEIGHT;
 }
 
-void CBrickQuestion::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects) {
+void CQuestionBlock::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects) {
 
 	if (x != startX) {
 		x = startX;
@@ -54,7 +54,7 @@ void CBrickQuestion::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects) {
 	CCollision::GetInstance()->Process(this, dt, coObjects);
 }
 
-void CBrickQuestion::Render(){
+void CQuestionBlock::Render(){
 
 	int aniId;
 	aniId = ID_ANI_QUESTION_BRICK;
@@ -62,7 +62,7 @@ void CBrickQuestion::Render(){
 	CAnimations::GetInstance()->Get(aniId)->Render(x, y);
 }
 
-void CBrickQuestion::OnNoCollision(DWORD dt)
+void CQuestionBlock::OnNoCollision(DWORD dt)
 {
 	y += vy * dt;
 };

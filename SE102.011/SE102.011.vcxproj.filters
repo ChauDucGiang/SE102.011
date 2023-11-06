@@ -150,7 +150,7 @@
     <ClCompile Include="Pipe.cpp">
       <Filter>Source Files\Objects\Items</Filter>
     </ClCompile>
-    <ClCompile Include="BrickQuestion.cpp">
+    <ClCompile Include="QuestionBlock.cpp">
       <Filter>Source Files\Objects\Items\Bricks</Filter>
     </ClCompile>
     <ClCompile Include="Mario.cpp">
@@ -260,13 +260,13 @@
     <ClInclude Include="Pipe.h">
       <Filter>Header Files\Objects\Items</Filter>
     </ClInclude>
-    <ClInclude Include="BrickQuestion.h">
-      <Filter>Header Files\Objects\Items\Bricks</Filter>
-    </ClInclude>
     <ClInclude Include="Mario.h">
       <Filter>Header Files\Objects\Player</Filter>
     </ClInclude>
     <ClInclude Include="Portal.h">
+      <Filter>Header Files\Objects\Items</Filter>
+    </ClInclude>
+    <ClInclude Include="QuestionBlock.h">
       <Filter>Header Files\Objects\Items</Filter>
     </ClInclude>
   </ItemGroup>

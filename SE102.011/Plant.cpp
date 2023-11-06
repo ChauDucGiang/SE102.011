@@ -5,10 +5,14 @@ CPlant::CPlant(float x, float y, int model) :CGameObject(x, y) {
 	this->startX = x;
 	this->startY = y;
 	this->model = model;
+	this->model = model;
+	startY = y;
+	minY = startY - PLANT_BBOX_HEIGHT;
+	SetState(PLANT_STATE_UP);
 }
 
 void CPlant::Render() {
-	int aniId = ID_ANI_PLANT_NOT_SHOOT;
+	int aniId = 305;
 	CAnimations::GetInstance()->Get(aniId)->Render(x, y);
 }
 
@@ -21,6 +25,12 @@ void CPlant::GetBoundingBox(float& left, float& top, float& right, float& bottom
 
 }
 
-void CPlant::SetState(int state) {
+void CPlant::OnNoCollision(DWORD dt) {
+	x += vx * dt;
+	y += vy * dt;
+}
 
+
+void CPlant::SetState(int state) {
+	CGameObject::SetState(state);
 }

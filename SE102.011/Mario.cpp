@@ -150,6 +150,7 @@ void CMario::OnCollisionWithBrickQuestion(LPCOLLISIONEVENT e) {
 			coin++;
 			CCoin* coin = new CCoin(x, y);
 			brickQuestion->SetIsEmpty(true);
+			brickQuestion->SetIsOpened(true);
 			scene->AddObject(coin);
 		}
 	}

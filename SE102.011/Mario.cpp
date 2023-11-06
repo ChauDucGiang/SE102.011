@@ -7,7 +7,7 @@
 #include "Goomba.h"
 #include "Coin.h"
 #include "Portal.h"
-#include "BrickQuestion.h"
+#include "QuestionBlock.h"
 #include "Koopa.h"
 #include "Leaf.h"
 #include "Plant.h"
@@ -60,10 +60,10 @@ void CMario::OnCollisionWith(LPCOLLISIONEVENT e)
 		OnCollisionWithCoin(e);
 	else if (dynamic_cast<CPortal*>(e->obj))
 		OnCollisionWithPortal(e);
-	else if (dynamic_cast<CBrickQuestion*>(e->obj))
-		OnCollisionWithBrickQuestion(e);
+	else if (dynamic_cast<CQuestionBlock*>(e->obj))
+		OnCollisionWithQuestionBlock(e);
 	else if (dynamic_cast<CKoopa*>(e->obj))
-		OnCollisionWithBrickQuestion(e);
+		OnCollisionWithKoopa(e);
 	else if (dynamic_cast<CPlant*>(e->obj))
 		OnCollisionWithPlant(e);
 	else if (dynamic_cast<CLeaf*>(e->obj))
@@ -136,21 +136,21 @@ void CMario::OnCollisionWithPortal(LPCOLLISIONEVENT e)
 	CGame::GetInstance()->InitiateSwitchScene(p->GetSceneId());
 }
 
-void CMario::OnCollisionWithBrickQuestion(LPCOLLISIONEVENT e) {
-	DebugOut(L"[INFO] Mario OnCollisionWithBrickQuestion\n");
-	CBrickQuestion* brickQuestion = dynamic_cast<CBrickQuestion*>(e->obj);
+void CMario::OnCollisionWithQuestionBlock(LPCOLLISIONEVENT e) {
+	DebugOut(L"[INFO] Mario OnCollisionWithQuestionBlock\n");
+	CQuestionBlock* q = dynamic_cast<CQuestionBlock*>(e->obj);
 	CPlayScene* scene = (CPlayScene*)CGame::GetInstance()->GetCurrentScene();
 	float x, y;
-	x = brickQuestion->GetX();
-	y = brickQuestion->GetY();
+	x = q->GetX();
+	y = q->GetY();
 
-	if (!brickQuestion->GetIsOpened() && !brickQuestion->GetIsEmpty())
+	if (!q->GetIsOpened() && !q->GetIsEmpty())
 	{
-		if (brickQuestion->GetModel() == BRICK_QUESTION_COIN) {
+		if (q->GetModel() == BRICK_QUESTION_COIN) {
 			coin++;
 			CCoin* coin = new CCoin(x, y);
-			brickQuestion->SetIsEmpty(true);
-			brickQuestion->SetIsOpened(true);
+			q->SetIsEmpty(true);
+			q->SetIsOpened(true);
 			scene->AddObject(coin);
 		}
 	}

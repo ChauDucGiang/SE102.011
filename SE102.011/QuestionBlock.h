@@ -28,7 +28,7 @@ class CQuestionBlock : public CGameObject
 		bool isEmpty = false, isOpened = false;
 	
 	public:
-		QuestionBlock(float x, float y, int model);
+		CQuestionBlock(float x, float y, int model);
 
 		virtual void GetBoundingBox(float& left, float& top, float& right, float& bottom);
 		virtual void Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects);

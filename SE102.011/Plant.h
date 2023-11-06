@@ -17,7 +17,7 @@
 #define PLANT_STATE_DEATH 300
 
 // Animations
-#define ID_ANI_PLANT_LEFT_UNDER_NOT_SHOOT	301
+#define ID_ANI_PLANT_NOT_SHOOT 311
 
 class  CPlant : public CGameObject
 {

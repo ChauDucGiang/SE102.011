@@ -1,10 +1,15 @@
 #include "Pipe.h"
+#include "Plant.h"
+#include "PlayScene.h"
 
 CPipe::CPipe(float x, float y, int model, int platType) : CGameObject(x, y) {
+	CPlayScene*  scene = (CPlayScene*)CGame::GetInstance()->GetCurrentScene();
 	this->x = x;
 	this->y = y;
 	this->model = model;
 	this->plantType = plantType;
+	CPlant* plant = new CPlant(x, y - PLANT_BBOX_HEIGHT / 4 + 1, PLANT_SHOOT_RED);
+	scene->AddObject(plant);
 }
 
 void CPipe::Render() {

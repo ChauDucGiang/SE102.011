@@ -5,17 +5,17 @@ CQuestionBlock::CQuestionBlock(float x, float y, int model) :CGameObject(x, y)
 {
 	this->model = model;
 	this->ay = 0;
-	this->minY = y - BRICK_QUESTION_BBOX_HEIGHT + ADJUST_UP_DOWN;
+	this->minY = y - BLOCK_QUESTION_BBOX_HEIGHT + ADJUST_UP_DOWN;
 	this->startY = y;
 	this->startX = x;
 }
 
 void CQuestionBlock::GetBoundingBox(float& left, float& top, float& right, float& bottom)
 {
-	left = x - BRICK_QUESTION_BBOX_WIDTH / 2;
-	top = y - BRICK_QUESTION_BBOX_HEIGHT / 2;
-	right = left + BRICK_QUESTION_BBOX_WIDTH;
-	bottom = top + BRICK_QUESTION_BBOX_HEIGHT;
+	left = x - BLOCK_QUESTION_BBOX_WIDTH / 2;
+	top = y - BLOCK_QUESTION_BBOX_HEIGHT / 2;
+	right = left + BLOCK_QUESTION_BBOX_WIDTH;
+	bottom = top + BLOCK_QUESTION_BBOX_HEIGHT;
 }
 
 void CQuestionBlock::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects) {
@@ -39,9 +39,9 @@ void CQuestionBlock::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects) {
 		vy += ay * dt;
 		if (y <= minY)
 		{
-			vy = BRICK_QUESTION_SPEED_DOWN;
+			vy = BLOCK_QUESTION_SPEED_DOWN;
 		}
-		if (y > startY + BRICK_QUESTION_BBOX_HEIGHT - ADJUST_UP_DOWN)
+		if (y > startY + BLOCK_QUESTION_BBOX_HEIGHT - ADJUST_UP_DOWN)
 		{
 			y = startY;
 			vy = 0;
@@ -57,8 +57,10 @@ void CQuestionBlock::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects) {
 void CQuestionBlock::Render(){
 
 	int aniId;
-	aniId = ID_ANI_QUESTION_BRICK;
-
+	aniId = ID_ANI_BLOCK_QUESTION;
+	if (isEmpty) {
+		aniId = ID_ANI_BLOCK_QUESTION_EMPTY;
+	}
 	CAnimations::GetInstance()->Get(aniId)->Render(x, y);
 }
 

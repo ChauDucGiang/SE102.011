@@ -20,6 +20,27 @@ void CCoin::GetBoundingBox(float& left, float& top, float& right, float& bottom)
 }
 
 void CCoin::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects) {
+	if (state == COIN_SUMMON_STATE) vy += ay * dt;
+
+	if (vy > COIN_MAX_SPEED_FALL) {
+		Delete();
+	}
 	CGameObject::Update(dt, coObjects);
 	CCollision::GetInstance()->Process(this, dt, coObjects);
+}
+
+void CCoin::OnNoCollision(DWORD dt)
+{
+	x += vx * dt;
+	y += vy * dt;
+};
+
+void CCoin::SetState(int state) {
+	CGameObject::SetState(state);
+	switch (state)
+	{
+	case COIN_SUMMON_STATE:
+		vy = -COIN_OUT_BRICK_SPEED_Y;
+		break;
+	}
 }

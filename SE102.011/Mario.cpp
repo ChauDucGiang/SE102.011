@@ -146,9 +146,11 @@ void CMario::OnCollisionWithQuestionBlock(LPCOLLISIONEVENT e) {
 
 	if (!q->GetIsOpened() && !q->GetIsEmpty())
 	{
-		if (q->GetModel() == BRICK_QUESTION_COIN) {
+
+		if (q->GetModel() == BLOCK_QUESTION_COIN) {
 			coin++;
 			CCoin* coin = new CCoin(x, y);
+			coin->SetState(COIN_SUMMON_STATE);
 			q->SetIsEmpty(true);
 			q->SetIsOpened(true);
 			scene->AddObject(coin);

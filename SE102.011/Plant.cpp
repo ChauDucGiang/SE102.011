@@ -5,7 +5,6 @@ CPlant::CPlant(float x, float y, int model) :CGameObject(x, y) {
 	this->startX = x;
 	this->startY = y;
 	this->model = model;
-	this->model = model;
 	startY = y;
 	minY = startY - PLANT_BBOX_HEIGHT;
 	SetState(PLANT_STATE_UP);
@@ -17,6 +16,29 @@ void CPlant::Render() {
 }
 
 void CPlant::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects) {
+	if (isUpping) {
+		if (y > minY) {
+			vy = -PLANT_SPEED_UP_DOWN;
+		}
+		else
+		{
+			vy = 0;
+			y = minY;
+			SetState(PLANT_STATE_DOWN);
+		}
+	}
+	else if (isDowning) {
+		if (model == PLANT_SHOOT_GREEN || model == PLANT_SHOOT_RED) {
+			if ((y < startY + 2)) {
+				vy = PLANT_SPEED_UP_DOWN;
+			}
+			else {
+				vy = 0;
+				y = startY + 2;
+				SetState(PLANT_STATE_UP);
+			}
+		}
+	}
 	CGameObject::Update(dt, coObjects);
 	CCollision::GetInstance()->Process(this, dt, coObjects);
 }

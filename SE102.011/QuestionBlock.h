@@ -47,4 +47,6 @@ class CQuestionBlock : public CGameObject
 		void SetModel(int model) { this->model = model; }
 		int GetModel() { return model; }
 		float GetMinY() { return minY; }
+
+		void Unbox();
 };

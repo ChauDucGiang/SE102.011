@@ -1,4 +1,6 @@
 #include "QuestionBlock.h"
+#include "Coin.h"
+#include "PlayScene.h"
 
 
 CQuestionBlock::CQuestionBlock(float x, float y, int model) :CGameObject(x, y)
@@ -68,3 +70,18 @@ void CQuestionBlock::OnNoCollision(DWORD dt)
 {
 	y += vy * dt;
 };
+
+void CQuestionBlock::Unbox() {
+	SetIsOpened(true);
+	SetIsEmpty(true);
+
+	CPlayScene* scene = (CPlayScene*)CGame::GetInstance()->GetCurrentScene();
+	CMario* mario = (CMario*)((LPPLAYSCENE)CGame::GetInstance()->GetCurrentScene())->GetPlayer();
+
+	if (model == BLOCK_QUESTION_COIN) {
+		mario->SetCoin();
+		CCoin* coin = new CCoin(x, y);
+		coin->SetState(COIN_SUMMON_STATE);
+		scene->AddObject(coin);
+	}
+}

@@ -139,22 +139,10 @@ void CMario::OnCollisionWithPortal(LPCOLLISIONEVENT e)
 void CMario::OnCollisionWithQuestionBlock(LPCOLLISIONEVENT e) {
 	DebugOut(L"[INFO] Mario OnCollisionWithQuestionBlock\n");
 	CQuestionBlock* q = dynamic_cast<CQuestionBlock*>(e->obj);
-	CPlayScene* scene = (CPlayScene*)CGame::GetInstance()->GetCurrentScene();
-	float x, y;
-	x = q->GetX();
-	y = q->GetY();
 
 	if (!q->GetIsOpened() && !q->GetIsEmpty())
 	{
-
-		if (q->GetModel() == BLOCK_QUESTION_COIN) {
-			coin++;
-			CCoin* coin = new CCoin(x, y);
-			coin->SetState(COIN_SUMMON_STATE);
-			q->SetIsEmpty(true);
-			q->SetIsOpened(true);
-			scene->AddObject(coin);
-		}
+		q->Unbox();
 	}
 }
 #pragma  endregion

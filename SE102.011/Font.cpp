@@ -2,7 +2,7 @@
 
 void CFont::Render() {
     int aniId = -1;
-    switch (model) {
+    switch (num) {
     case 0:
         aniId = ID_ANI_0;
         break;
@@ -35,3 +35,21 @@ void CFont::Render() {
     }
     CAnimations::GetInstance()->Get(aniId)->Render(x, y);
 }
+
+std::vector<int> CFont::GetDigits(int num) {
+    std::vector<int> digits;
+    while (num > 0) {
+        digits.push_back(num % 10);
+        num /= 10;
+    }
+    std::reverse(digits.begin(), digits.end());
+    return digits;
+}
+
+void CFont::DrawNumber(int num, float startX, float startY) {
+    std::vector<int> digits = GetDigits(num);
+    for (int digit : digits) {
+        //new CFont(startX, startY, digit);
+    }
+}
+

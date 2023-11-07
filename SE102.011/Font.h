@@ -14,12 +14,14 @@
 class CFont : public CGameObject {
 private:
 	ULONGLONG start_delete;
-	int model;
+	int num;
+	std::vector<int> GetDigits(int num);
 public:
-	CFont(float x, float y, int model) : CGameObject(x, y) {
-		this->model = model;
+	CFont(float x, float y, int num) : CGameObject(x, y) {
+		this->num = num;
 	}
 	void Render();
 	void Update(DWORD dt);
 	virtual int IsCollidable() { return 0; }
+	void DrawNumber(int num, float startX, float startY);
 };

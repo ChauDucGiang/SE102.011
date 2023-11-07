@@ -47,7 +47,7 @@ class  CPlant : public CGameObject
 		float startX, startY, minY;
 		int model;
 		ULONGLONG defend_start, die_start, comeback_start;
-		bool isUpping, isDowning, isShoottng = false;
+		bool isUpping, isDowning, isShooting = false;
 		virtual void Render();
 		virtual void Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects);
 		virtual void GetBoundingBox(float& left, float& top, float& right, float& bottom);

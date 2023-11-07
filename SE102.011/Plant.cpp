@@ -54,5 +54,21 @@ void CPlant::OnNoCollision(DWORD dt) {
 
 
 void CPlant::SetState(int state) {
+	switch (state) {
+	case PLANT_STATE_UP:
+		isUpping = true;
+		isDowning = false;
+		isShooting = false;
+
+		break;
+	case PLANT_STATE_DOWN:
+		isUpping = false;
+		isDowning = true;
+		isShooting = false;
+		break;
+	case PLANT_STATE_DEATH:
+		isDeleted = true;
+		break;
+	}
 	CGameObject::SetState(state);
 }

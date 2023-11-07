@@ -114,7 +114,7 @@ void CMario::OnCollisionWithKoopa(LPCOLLISIONEVENT e) {
 void CMario::OnCollisionWithPlant(LPCOLLISIONEVENT e) {
 	DebugOut(L"[INFO] Mario OnCollisionWithPlant\n");
 	CPlant* plant = dynamic_cast<CPlant*>(e->obj);
-	e->obj->Delete();
+	plant->SetState(PLANT_STATE_DEATH);
 }
 
 void CMario::OnCollisionWithLeaf(LPCOLLISIONEVENT e) {

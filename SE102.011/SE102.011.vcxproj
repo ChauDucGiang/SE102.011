@@ -186,6 +186,7 @@
     <ClCompile Include="Animation.cpp" />
     <ClCompile Include="Animations.cpp" />
     <ClCompile Include="Brick.cpp" />
+    <ClCompile Include="Font.cpp" />
     <ClCompile Include="QuestionBlock.cpp" />
     <ClCompile Include="Coin.cpp" />
     <ClCompile Include="Collision.cpp" />
@@ -221,6 +222,7 @@
     <ClInclude Include="Animations.h" />
     <ClInclude Include="AssetIDs.h" />
     <ClInclude Include="Brick.h" />
+    <ClInclude Include="Font.h" />
     <ClInclude Include="QuestionBlock.h" />
     <ClInclude Include="CIntroScene.h" />
     <ClInclude Include="Coin.h" />

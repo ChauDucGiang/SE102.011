@@ -162,6 +162,9 @@
     <ClCompile Include="Font.cpp">
       <Filter>Source Files\Objects</Filter>
     </ClCompile>
+    <ClCompile Include="FireBullet.cpp">
+      <Filter>Source Files\Objects\Items</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
@@ -274,6 +277,9 @@
     </ClInclude>
     <ClInclude Include="Font.h">
       <Filter>Header Files\Objects</Filter>
+    </ClInclude>
+    <ClInclude Include="FireBullet.h">
+      <Filter>Header Files\Objects\Items</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

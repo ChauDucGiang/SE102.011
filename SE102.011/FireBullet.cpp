@@ -10,10 +10,9 @@ void CFireBullet::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 }
 void CFireBullet::Render()
 {
-	if (!checkObjectInCamera(this)) return;
-
 	CAnimations* animations = CAnimations::GetInstance();
-	//RenderBoundingBox();
+	int aniId = ID_ANI_BULLET_LEFT;
+	animations->Get(aniId)->Render(x, y);
 }
 void CFireBullet::GetBoundingBox(float& l, float& t, float& r, float& b)
 {

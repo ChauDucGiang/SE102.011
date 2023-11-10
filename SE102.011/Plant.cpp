@@ -1,4 +1,6 @@
 #include "Plant.h"
+#include "FireBullet.h"
+#include "PlayScene.h"
 
 
 CPlant::CPlant(float x, float y, int model) :CGameObject(x, y) {
@@ -8,6 +10,10 @@ CPlant::CPlant(float x, float y, int model) :CGameObject(x, y) {
 	startY = y;
 	minY = startY - PLANT_BBOX_HEIGHT;
 	SetState(PLANT_STATE_UP);
+
+	CPlayScene* scene = (CPlayScene*)CGame::GetInstance()->GetCurrentScene();
+	CFireBullet* fire = new CFireBullet(50, y);
+	scene->AddObject(fire);
 }
 
 void CPlant::Render() {

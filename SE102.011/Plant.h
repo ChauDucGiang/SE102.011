@@ -64,4 +64,5 @@ class  CPlant : public CGameObject
 
 		virtual void SetState(int state);
 		int GetState() { return state; };
+		std::pair<int, int> PositionWithMario();
 };

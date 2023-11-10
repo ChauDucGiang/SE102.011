@@ -17,11 +17,22 @@ CPlant::CPlant(float x, float y, int model) :CGameObject(x, y) {
 }
 
 void CPlant::Render() {
+	std::pair<int, int> position = PositionWithMario();
+
+	int nx = position.first;
+	int ny = position.second;
+
 	int aniId = 305;
 	CAnimations::GetInstance()->Get(aniId)->Render(x, y);
 }
 
 void CPlant::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects) {
+
+	std::pair<int, int> position = PositionWithMario();
+
+	int nx = position.first;
+	int ny = position.second;
+
 	if (isUpping) {
 		if (y > minY) {
 			vy = -PLANT_SPEED_UP_DOWN;
@@ -77,4 +88,17 @@ void CPlant::SetState(int state) {
 		break;
 	}
 	CGameObject::SetState(state);
+}
+
+std::pair<int, int> CPlant::PositionWithMario() {
+	CMario* mario = (CMario*)((LPPLAYSCENE)CGame::GetInstance()->GetCurrentScene())->GetPlayer();
+	int nx, ny;
+
+	// -1: mario on the left
+	nx = (mario->GetX() < x) ? 1 : -1;
+
+	// -1: mario on the top
+	ny = (mario->GetY() < y) ? 1 : -1;
+
+	return std::make_pair(nx, ny);
 }

@@ -1,6 +1,6 @@
 #include "FireBullet.h"
 
-CFireBullet::CFireBullet(float bx, float by)
+CFireBullet::CFireBullet(float x, float y, int nx, int ny)
 {
 }
 void CFireBullet::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)

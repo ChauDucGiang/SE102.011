@@ -22,7 +22,7 @@ protected:
 	virtual int IsCollidable() { return 0; }
 
 public:
-	CFireBullet(float x, float y);
+	CFireBullet(float x, float y, int nx, int ny);
 	virtual void Render();
 	virtual void Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects);
 	virtual void OnNoCollision(DWORD dt) {

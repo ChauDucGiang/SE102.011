@@ -10,10 +10,6 @@ CPlant::CPlant(float x, float y, int model) :CGameObject(x, y) {
 	startY = y;
 	minY = startY - PLANT_BBOX_HEIGHT;
 	SetState(PLANT_STATE_UP);
-
-	CPlayScene* scene = (CPlayScene*)CGame::GetInstance()->GetCurrentScene();
-	CFireBullet* fire = new CFireBullet(50, y);
-	scene->AddObject(fire);
 }
 
 void CPlant::Render() {
@@ -22,7 +18,34 @@ void CPlant::Render() {
 	int nx = position.first;
 	int ny = position.second;
 
-	int aniId = 305;
+	int aniId = -1;
+	//mario on the left
+	if (nx == 1)
+	{
+		//mario on the top
+		if (ny == -1)
+			if (!isShooting) aniId = ID_ANI_PLANT_LEFT_UNDER_NOT_SHOOT;
+			else aniId = ID_ANI_PLANT_LEFT_UNDER_SHOOT;
+		//mario on the bottom
+		else if (ny == 1)
+			if (!isShooting) aniId = ID_ANI_PLANT_LEFT_TOP_NOT_SHOOT;
+			else aniId = ID_ANI_PLANT_LEFT_TOP_SHOOT;
+
+	}
+	//mario on the right
+	else
+	{
+		if (ny == -1)
+		{
+			if (!isShooting) aniId = ID_ANI_PLANT_RIGHT_TOP_NOT_SHOOT;
+			else aniId = ID_ANI_PLANT_RIGHT_TOP_SHOOT;
+		}
+		else
+		{
+			if (!isShooting) aniId = ID_ANI_PLANT_RIGHT_UNDER_NOT_SHOOT;
+			else aniId = ID_ANI_PLANT_RIGHT_UNDER_SHOOT;
+		}
+	}
 	CAnimations::GetInstance()->Get(aniId)->Render(x, y);
 }
 
@@ -56,6 +79,12 @@ void CPlant::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects) {
 			}
 		}
 	}
+
+	// Create Bullet
+	CPlayScene* scene = (CPlayScene*)CGame::GetInstance()->GetCurrentScene();
+	CFireBullet* fire = new CFireBullet(50, y, nx, ny);
+	scene->AddObject(fire);
+
 	CGameObject::Update(dt, coObjects);
 	CCollision::GetInstance()->Process(this, dt, coObjects);
 }

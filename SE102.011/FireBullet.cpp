@@ -1,7 +1,12 @@
-#include "FireBullet.h"
+﻿#include "FireBullet.h"
+#include "Pipe.h"
+#include "Plant.h"
 
-CFireBullet::CFireBullet(float x, float y, int nx, int ny)
+CFireBullet::CFireBullet(float x, float y, int nx, int ny):CGameObject(x, y)
 {
+	vx = nx  * BULLET_SPEED_X_PLANT;
+	vy = -ny *BULLET_SPEED_Y_PLANT;
+
 }
 void CFireBullet::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 {
@@ -11,7 +16,11 @@ void CFireBullet::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 void CFireBullet::Render()
 {
 	CAnimations* animations = CAnimations::GetInstance();
-	int aniId = ID_ANI_BULLET_LEFT;
+	int aniId = -1;
+	if (vx > 0)
+		aniId = ID_ANI_BULLET_RIGHT;
+	else
+		aniId = ID_ANI_BULLET_LEFT;
 	animations->Get(aniId)->Render(x, y);
 }
 void CFireBullet::GetBoundingBox(float& l, float& t, float& r, float& b)
@@ -22,5 +31,8 @@ void CFireBullet::GetBoundingBox(float& l, float& t, float& r, float& b)
 	b = y + BULLET_BBOX_HEIGHT_PLANT;
 }
 
+//xoá nêu chạm đất hoặc pipe
 void CFireBullet::OnCollisionWith(LPCOLLISIONEVENT e) {
+	if (dynamic_cast<CPipe*>(e->obj)) return;
+	if (e->obj->IsBlocking()) isDeleted = true;
 }

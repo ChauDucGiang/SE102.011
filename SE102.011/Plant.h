@@ -5,7 +5,7 @@
 
 #define TIME_OUT_PIPE 5000
 #define TIME_SHOOT 100
-#define TIME_DOWN_PIPE 3000
+#define TIME_IN_PIPE 3000
 
 #define PLANT_SHOOT_RED 1
 #define PLANT_SHOOT_GREEN 2
@@ -46,7 +46,7 @@ class  CPlant : public CGameObject
 	protected:
 		float startX, startY, minY;
 		int model;
-		ULONGLONG defend_start, die_start, comeback_start;
+		ULONGLONG timeShoot, timeOutPipe, timeInPipe;
 		bool isUpping, isDowning, isShooting = false;
 		virtual void Render();
 		virtual void Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects);
@@ -65,4 +65,6 @@ class  CPlant : public CGameObject
 		virtual void SetState(int state);
 		int GetState() { return state; };
 		std::pair<int, int> PositionWithMario();
+
+		virtual void Shoot();
 };

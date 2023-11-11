@@ -11,6 +11,7 @@
 #include "Koopa.h"
 #include "Leaf.h"
 #include "Plant.h"
+#include "FireBullet.h"
 
 #include "Collision.h"
 
@@ -68,6 +69,8 @@ void CMario::OnCollisionWith(LPCOLLISIONEVENT e)
 		OnCollisionWithPlant(e);
 	else if (dynamic_cast<CLeaf*>(e->obj))
 		OnCollisionWithLeaf(e);
+	else if (dynamic_cast<CFireBullet*>(e->obj))
+		OnCollisionWithFireBullet(e);
 }
 
 #pragma region CollisionWithGameObject
@@ -143,6 +146,24 @@ void CMario::OnCollisionWithQuestionBlock(LPCOLLISIONEVENT e) {
 	if (!q->GetIsOpened() && !q->GetIsEmpty())
 	{
 		q->Unbox();
+	}
+}
+
+void CMario::OnCollisionWithFireBullet(LPCOLLISIONEVENT e) {
+	DebugOut(L"[INFO] Mario OnCollisionWithFireBullet\n");
+	CFireBullet* bullet = dynamic_cast<CFireBullet*>(e->obj);
+
+	if (untouchable == 0){
+		if (level > MARIO_LEVEL_SMALL)
+		{
+			level = MARIO_LEVEL_SMALL;
+			StartUntouchable();
+		}
+		else
+		{
+			DebugOut(L">>> Mario DIE >>> \n");
+			SetState(MARIO_STATE_DIE);
+		}
 	}
 }
 #pragma  endregion

@@ -2,7 +2,7 @@
 #include "Plant.h"
 #include "PlayScene.h"
 
-CPipe::CPipe(float x, float y, int model, int platType) : CGameObject(x, y) {
+CPipe::CPipe(float x, float y, int model, int plantType) : CGameObject(x, y) {
 	CPlayScene*  scene = (CPlayScene*)CGame::GetInstance()->GetCurrentScene();
 	this->x = x;
 	this->y = y;

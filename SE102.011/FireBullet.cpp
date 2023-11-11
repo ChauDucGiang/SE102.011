@@ -5,7 +5,7 @@
 CFireBullet::CFireBullet(float x, float y, int nx, int ny):CGameObject(x, y)
 {
 	vx = nx  * BULLET_SPEED_X_PLANT;
-	vy = -ny *BULLET_SPEED_Y_PLANT;
+	vy = -ny * BULLET_SPEED_Y_PLANT;
 
 }
 void CFireBullet::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)

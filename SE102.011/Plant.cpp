@@ -72,31 +72,14 @@ void CPlant::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects) {
 		}
 	}
 	else if (isDowning) {
-
-		if (model == PLANT_SHOOT_GREEN || model == PLANT_SHOOT_RED) {
-
-			if ((y < startY + 2)) {
-				vy = PLANT_SPEED_UP_DOWN;
-			}
-			else {
-				vy = 0;
-				y = startY + 2 - DISTANCE_PIPE_LONG_SHORT;
-				if (GetTickCount64() - timeInPipe > TIME_IN_PIPE) {
-					SetState(PLANT_STATE_UP);
-				}
-			}
+		if (y < startY) {
+			vy = PLANT_SPEED_UP_DOWN;
 		}
-		else
-		{
-			if (y < startY) {
-				vy = PLANT_SPEED_UP_DOWN;
-			}
-			else {
-				vy = 0;
-				y = startY;
-				if (GetTickCount64() - timeInPipe > TIME_IN_PIPE) {
-					SetState(PLANT_STATE_UP);
-				}
+		else {
+			vy = 0;
+			y = startY;
+			if (GetTickCount64() - timeInPipe > TIME_IN_PIPE) {
+				SetState(PLANT_STATE_UP);
 			}
 		}
 	}
@@ -129,8 +112,8 @@ void CPlant::SetState(int state) {
 		isUpping = false;
 		isDowning = true;
 		isShooting = false;
-		timeOutPipe = GetTickCount64();
-		timeInPipe = 0;
+		timeOutPipe = 0;
+		timeInPipe = GetTickCount64();
 
 		break;
 	case PLANT_STATE_DEATH:

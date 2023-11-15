@@ -10,7 +10,7 @@ CMap::CMap(int TileSetID, int TotalRowsOfMap, int TotalColumnsOfMap, int TotalRo
 	this->TotalRowsOfTileSet = TotalRowsOfTileSet;
 	this->TotalColumnsOfTileSet = TotalColumnsOfTileSet;
 	this->TotalTiles = TotalTiles;
-	this->startX = startX;
+	this->startX = startX;   
 	this->startY = startY;
 	CamX = CamY = 0;
 	TileMap = NULL;

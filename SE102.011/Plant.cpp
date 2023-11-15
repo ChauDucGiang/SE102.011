@@ -21,7 +21,7 @@ void CPlant::Render() {
 	//mario on the left
 	if (nx == -1)
 	{
-		//mario on the bottom
+		//mario on the top
 		if (ny == -1)
 			if (!isShooting) aniId = ID_ANI_PLANT_LEFT_UNDER_NOT_SHOOT;
 			else aniId = ID_ANI_PLANT_LEFT_UNDER_SHOOT;

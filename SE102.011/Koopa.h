@@ -48,7 +48,6 @@ class CKoopa : public CGameObject
 
 		virtual int IsCollidable() { return 1; }
 		virtual int IsBlocking() { return 0; }
-		virtual int IsEnemy() { return 1; }
 
 		virtual void OnNoCollision(DWORD dt);
 		virtual void OnCollisionWithPlatform(LPCOLLISIONEVENT e);

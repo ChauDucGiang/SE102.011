@@ -22,3 +22,4 @@ wstring ToWSTR(string st);
 
 LPCWSTR ToLPCWSTR(string st);
 Json::Value GetRootJson(LPCSTR jsonPath);
+

@@ -117,7 +117,18 @@ void CMario::OnCollisionWithKoopa(LPCOLLISIONEVENT e) {
 void CMario::OnCollisionWithPlant(LPCOLLISIONEVENT e) {
 	DebugOut(L"[INFO] Mario OnCollisionWithPlant\n");
 	CPlant* plant = dynamic_cast<CPlant*>(e->obj);
-	plant->SetState(PLANT_STATE_DEATH);
+	if (untouchable == 0) {
+		if (level > MARIO_LEVEL_SMALL)
+		{
+			level = MARIO_LEVEL_SMALL;
+			StartUntouchable();
+		}
+		else
+		{
+			DebugOut(L">>> Mario DIE >>> \n");
+			SetState(MARIO_STATE_DIE);
+		}
+	}
 }
 
 void CMario::OnCollisionWithLeaf(LPCOLLISIONEVENT e) {

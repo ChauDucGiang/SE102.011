@@ -12,13 +12,11 @@ CKoopa::CKoopa(float x, float y, int model) :CGameObject(x, y) {
 		isWing = false;
 		SetState(KOOPA_STATE_WALKING);
 	}
-
-	isOnPlatform = false;
-	isUpside = false;
-	isDead = false;
 }
 
 void CKoopa::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects) {
+	vy += ay * dt;
+	vx += ax * dt;
 	CGameObject::Update(dt, coObjects);
 	CCollision::GetInstance()->Process(this, dt, coObjects);
 }
@@ -38,7 +36,8 @@ void CKoopa::GetBoundingBox(float& left, float& top, float& right, float& bottom
 }
 
 void CKoopa::OnNoCollision(DWORD dt) {
-
+	x += vx * dt;
+	y += vy * dt;
 }
 
 void CKoopa::OnCollisionWithPlatform(LPCOLLISIONEVENT e) {
@@ -46,18 +45,7 @@ void CKoopa::OnCollisionWithPlatform(LPCOLLISIONEVENT e) {
 }
 
 void CKoopa::OnCollisionWith(LPCOLLISIONEVENT e) {
-	if (!e->obj->IsBlocking()) return;
 
-	if (dynamic_cast<CKoopa*>(e->obj)) return;
-
-	if (e->ny != 0)
-	{
-		vy = 0;
-	}
-	else if (e->nx != 0)
-	{
-		vx = -vx;
-	}
 }
 
 void CKoopa::SetState(int state) {

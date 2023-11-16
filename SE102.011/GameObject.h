@@ -41,9 +41,9 @@ public:
 	virtual void Delete() { isDeleted = true;  }
 	bool IsDeleted() { return isDeleted; }
 
-	float GetX() { return x; }
+	float GetX() { return this->x; }
 	void SetX(float x) { this->x =  x; }
-	float GetY() { return y; }
+	float GetY() { return this->y; }
 	void SetY(float y) { this->y = y; }
 
 	void RenderBoundingBox();

@@ -24,7 +24,9 @@ void CKoopa::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects) {
 }
 
 void CKoopa::Render() {
-	int aniId = ID_ANI_GREEN_WALK_LEFT;
+	int aniId = -1;
+	if (vx > 0) aniId = ID_ANI_GREEN_WALK_RIGHT;
+	else aniId = ID_ANI_GREEN_WALK_LEFT;
 	CAnimations::GetInstance()->Get(aniId)->Render(x, y);
 	//RenderBoundingBox();
 }
@@ -45,16 +47,26 @@ void CKoopa::OnNoCollision(DWORD dt) {
 void CKoopa::OnCollisionWithPlatform(LPCOLLISIONEVENT e) {
 
 	CPlatform* platform = dynamic_cast<CPlatform*>(e->obj);
+	int pX = platform->GetX();
+	int pL = platform->GetLength();
+	int kX =  GetX();
+	DebugOut(L"[INFOR] Platform X : %d\n", pX);
+	DebugOut(L"[INFOR] Platform Length : %d\n", pL);
+	DebugOut(L"[INFOR] Koopa X : %d\n", kX);
 	if ((state == KOOPA_STATE_WALKING))
 	{
-		if (platform->GetX() - KOOPA_BBOX_WIDTH / 2 > GetX()) {
-			SetX(platform->GetX() - KOOPA_BBOX_WIDTH / 2);
+		if (platform->GetX() > (GetX() + KOOPA_BBOX_WIDTH / 2) && vx < 0) {
 			vx = -vx;
+		
+			SetX(platform->GetX() + KOOPA_BBOX_WIDTH / 2);
 		}
-		if ((GetX() > (platform->GetX() + (platform->GetLength() - 0.5) * KOOPA_BBOX_WIDTH))) {
-			SetX(platform->GetX() + (float(platform->GetLength() - 0.5)) * KOOPA_BBOX_WIDTH);
+		else if ((platform->GetX() + 22) < (GetX()) && vx > 0)
+		{
 			vx = -vx;
+
+			SetX(platform->GetX() + 22 - KOOPA_BBOX_WIDTH / 2);
 		}
+
 
 	}
 }

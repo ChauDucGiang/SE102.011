@@ -1,4 +1,5 @@
 #include "Koopa.h"
+#include "PlayScene.h"
 
 CKoopa::CKoopa(float x, float y, int model) :CGameObject(x, y) {
 	this->ax = 0;
@@ -49,7 +50,14 @@ void CKoopa::OnCollisionWith(LPCOLLISIONEVENT e) {
 }
 
 void CKoopa::SetState(int state) {
-
+	CMario* mario = (CMario*)((LPPLAYSCENE)CGame::GetInstance()->GetCurrentScene())->GetPlayer();
+	switch (state) {
+	case KOOPA_STATE_WALKING:
+		vx = -KOOPA_WALKING_SPEED;
+		vy = 0;
+		ay = KOOPA_GRAVITY;
+		break;
+	}
 }
 
 void SetLevel(int level) {

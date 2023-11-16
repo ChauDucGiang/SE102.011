@@ -1,5 +1,6 @@
 #include "Koopa.h"
 #include "PlayScene.h"
+#include "Platform.h"
 
 CKoopa::CKoopa(float x, float y, int model) :CGameObject(x, y) {
 	this->ax = 0;
@@ -42,7 +43,17 @@ void CKoopa::OnNoCollision(DWORD dt) {
 }
 
 void CKoopa::OnCollisionWithPlatform(LPCOLLISIONEVENT e) {
+	CPlatform* platform = dynamic_cast<CPlatform*>(e->obj);
+	if ((state == KOOPA_STATE_WALKING))
+	{
+		if (platform->GetX() - KOOPA_BBOX_WIDTH / 2 > GetX()) {
+			vx = -vx;
+		}
+		if ((GetX() > (platform->GetX() + (platform->GetLength() - 0.5) * KOOPA_BBOX_WIDTH))) {
+			vx = -vx;
+		}
 
+	}
 }
 
 void CKoopa::OnCollisionWith(LPCOLLISIONEVENT e) {

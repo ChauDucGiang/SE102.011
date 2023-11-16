@@ -50,6 +50,7 @@ void CKoopa::OnCollisionWithPlatform(LPCOLLISIONEVENT e) {
 
 	if ((state == KOOPA_STATE_WALKING))
 	{
+		// go to left
 		if (platform->GetX() > GetX() && vx < 0) {
 			vx = -vx;
 		

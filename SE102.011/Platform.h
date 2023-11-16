@@ -31,6 +31,7 @@ public:
 	void GetBoundingBox(float& l, float& t, float& r, float& b);
 	void RenderBoundingBox();
 	int GetLength() { return length; }
+	float GetCellWidth() { return cellWidth; }
 };
 
 typedef CPlatform* LPPLATFORM;

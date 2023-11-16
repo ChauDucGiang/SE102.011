@@ -47,24 +47,19 @@ void CKoopa::OnNoCollision(DWORD dt) {
 void CKoopa::OnCollisionWithPlatform(LPCOLLISIONEVENT e) {
 
 	CPlatform* platform = dynamic_cast<CPlatform*>(e->obj);
-	int pX = platform->GetX();
-	int pL = platform->GetLength();
-	int kX =  GetX();
-	DebugOut(L"[INFOR] Platform X : %d\n", pX);
-	DebugOut(L"[INFOR] Platform Length : %d\n", pL);
-	DebugOut(L"[INFOR] Koopa X : %d\n", kX);
+
 	if ((state == KOOPA_STATE_WALKING))
 	{
-		if (platform->GetX() > (GetX() + KOOPA_BBOX_WIDTH / 2) && vx < 0) {
+		if (platform->GetX() > GetX() && vx < 0) {
 			vx = -vx;
 		
-			SetX(platform->GetX() + KOOPA_BBOX_WIDTH / 2);
+			SetX(platform->GetX());
 		}
-		else if ((platform->GetX() + 22) < (GetX()) && vx > 0)
+		else if ((platform->GetX() + platform->GetLength() * platform->GetCellWidth()) < (GetX() + KOOPA_BBOX_WIDTH) && vx > 0)
 		{
 			vx = -vx;
 
-			SetX(platform->GetX() + 22 - KOOPA_BBOX_WIDTH / 2);
+			SetX(platform->GetX() + platform->GetLength() * platform->GetCellWidth() - KOOPA_BBOX_WIDTH);
 		}
 
 

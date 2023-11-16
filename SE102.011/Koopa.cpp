@@ -43,13 +43,16 @@ void CKoopa::OnNoCollision(DWORD dt) {
 }
 
 void CKoopa::OnCollisionWithPlatform(LPCOLLISIONEVENT e) {
+
 	CPlatform* platform = dynamic_cast<CPlatform*>(e->obj);
 	if ((state == KOOPA_STATE_WALKING))
 	{
 		if (platform->GetX() - KOOPA_BBOX_WIDTH / 2 > GetX()) {
+			SetX(platform->GetX() - KOOPA_BBOX_WIDTH / 2);
 			vx = -vx;
 		}
 		if ((GetX() > (platform->GetX() + (platform->GetLength() - 0.5) * KOOPA_BBOX_WIDTH))) {
+			SetX(platform->GetX() + (float(platform->GetLength() - 0.5)) * KOOPA_BBOX_WIDTH);
 			vx = -vx;
 		}
 
@@ -57,10 +60,12 @@ void CKoopa::OnCollisionWithPlatform(LPCOLLISIONEVENT e) {
 }
 
 void CKoopa::OnCollisionWith(LPCOLLISIONEVENT e) {
-
+	if (dynamic_cast<CPlatform*>(e->obj))
+		this->OnCollisionWithPlatform(e);
 }
 
 void CKoopa::SetState(int state) {
+	CGameObject::SetState(state);
 	CMario* mario = (CMario*)((LPPLAYSCENE)CGame::GetInstance()->GetCurrentScene())->GetPlayer();
 	switch (state) {
 	case KOOPA_STATE_WALKING:

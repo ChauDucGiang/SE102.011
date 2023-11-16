@@ -42,7 +42,9 @@ public:
 	bool IsDeleted() { return isDeleted; }
 
 	float GetX() { return x; }
+	void SetX(float x) { this->x =  x; }
 	float GetY() { return y; }
+	void SetY(float y) { this->y = y; }
 
 	void RenderBoundingBox();
 

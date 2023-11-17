@@ -1,6 +1,7 @@
 #include "QuestionBlock.h"
 #include "Coin.h"
 #include "PlayScene.h"
+#include "MushRoom.h"
 
 
 CQuestionBlock::CQuestionBlock(float x, float y, int model) :CGameObject(x, y)
@@ -83,5 +84,10 @@ void CQuestionBlock::Unbox() {
 		CCoin* coin = new CCoin(x, y);
 		coin->SetState(COIN_SUMMON_STATE);
 		scene->AddObject(coin);
+	}
+	else if (model == BLOCK_QUESTION_MUSHROOM_GREEN)
+	{
+		CMushRoom* mushroom = new CMushRoom(x, y, MUSHROOM_GREEN);
+		scene->AddObject(mushroom);
 	}
 }

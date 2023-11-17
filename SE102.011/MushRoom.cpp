@@ -47,5 +47,6 @@ void CMushRoom::SetState(int state)
 		vx = MUSHROOM_SPEED;
 		break;
 	}
+	vy = OUT_BRICK;
 	CGameObject::SetState(state);
 }

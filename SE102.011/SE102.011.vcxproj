@@ -188,6 +188,7 @@
     <ClCompile Include="Brick.cpp" />
     <ClCompile Include="FireBullet.cpp" />
     <ClCompile Include="Font.cpp" />
+    <ClCompile Include="MushRoom.cpp" />
     <ClCompile Include="QuestionBlock.cpp" />
     <ClCompile Include="Coin.cpp" />
     <ClCompile Include="Collision.cpp" />

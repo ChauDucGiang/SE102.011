@@ -12,6 +12,17 @@ CMushRoom::CMushRoom(float x, float y, int model) :CGameObject(x, y)
 
 void CMushRoom::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects) {
 
+	if (state == MUSHROOM_STATE_WALKING) {
+		vy += ay * dt;
+		vx += ax * dt;
+	}
+	else if (state == MUSHROOM_STATE_OUTSIDE) {
+		if (startY - MUSHROOM_BBOX_HEIGHT <  y) {
+			vy = MUSHROOM_OUT_BRICK_SPEED_Y;
+			vx = 0;
+		}
+		else SetState(MUSHROOM_STATE_WALKING);
+	}
 	CGameObject::Update(dt, coObjects);
 	CCollision::GetInstance()->Process(this, dt, coObjects);
 }
@@ -47,6 +58,5 @@ void CMushRoom::SetState(int state)
 		vx = MUSHROOM_SPEED;
 		break;
 	}
-	vy = OUT_BRICK;
 	CGameObject::SetState(state);
 }

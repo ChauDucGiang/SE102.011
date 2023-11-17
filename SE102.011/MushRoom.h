@@ -16,7 +16,7 @@
 
 #define MUSHROOM_GRAVITY 0.001f
 #define MUSHROOM_SPEED 0.055f
-#define OUT_BRICK -0.016f
+#define MUSHROOM_OUT_BRICK_SPEED_Y -0.016f
 
 class CMushRoom : public CGameObject {
 	protected:

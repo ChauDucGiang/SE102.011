@@ -12,6 +12,7 @@
 #include "Leaf.h"
 #include "Plant.h"
 #include "FireBullet.h"
+#include "MushRoom.h"
 
 #include "Collision.h"
 
@@ -71,6 +72,8 @@ void CMario::OnCollisionWith(LPCOLLISIONEVENT e)
 		OnCollisionWithLeaf(e);
 	else if (dynamic_cast<CFireBullet*>(e->obj))
 		OnCollisionWithFireBullet(e);
+	else if (dynamic_cast<CMushRoom*>(e->obj))
+		OnCollisionWithMushRoom(e);
 }
 
 #pragma region CollisionWithGameObject
@@ -189,6 +192,21 @@ void CMario::OnCollisionWithFireBullet(LPCOLLISIONEVENT e) {
 			SetState(MARIO_STATE_DIE);
 		}
 	}
+}
+
+void CMario::OnCollisionWithMushRoom(LPCOLLISIONEVENT e)
+{
+	CMushRoom* mushroom = dynamic_cast<CMushRoom*>(e->obj);
+
+	if (!mushroom->IsDeleted()) {
+		if (level == MARIO_LEVEL_SMALL)
+		{
+			SetScore(100);
+			SetLevel(MARIO_LEVEL_BIG);
+		}
+		mushroom->Delete();
+	}
+
 }
 #pragma  endregion
 

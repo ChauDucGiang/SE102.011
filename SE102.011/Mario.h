@@ -122,7 +122,8 @@ class CMario : public CGameObject
 	int untouchable; 
 	ULONGLONG untouchable_start;
 	BOOLEAN isOnPlatform;
-	int coin; 
+	int coin;
+	int score;
 
 #pragma region CollisionWithGameObject
 	void OnCollisionWithGoomba(LPCOLLISIONEVENT e);
@@ -133,6 +134,7 @@ class CMario : public CGameObject
 	void OnCollisionWithQuestionBlock(LPCOLLISIONEVENT e);
 	void OnCollisionWithLeaf(LPCOLLISIONEVENT e);
 	void OnCollisionWithFireBullet(LPCOLLISIONEVENT e);
+	void OnCollisionWithMushRoom(LPCOLLISIONEVENT e);
 
 #pragma  endregion
 
@@ -174,4 +176,7 @@ public:
 
 	int GetCoin() { return coin; }
 	void SetCoin(int coin = 1) { this->coin += coin; }
+
+	int GetScore() { return coin; }
+	void SetScore(int score = 1) { this->score += score; }
 };

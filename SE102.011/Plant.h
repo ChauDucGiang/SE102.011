@@ -41,6 +41,8 @@
 #define ID_ANI_PLANT_NOT_SHOOT 311
 #define DISTANCE_PIPE_LONG_SHORT 8
 
+#define HIDE_DISTANCE 100
+
 class  CPlant : public CGameObject
 {
 	protected:

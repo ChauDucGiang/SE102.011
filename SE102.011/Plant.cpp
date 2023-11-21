@@ -50,6 +50,7 @@ void CPlant::Render() {
 
 void CPlant::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects) {
 
+	CMario* mario = (CMario*)((LPPLAYSCENE)CGame::GetInstance()->GetCurrentScene())->GetPlayer();
 	if (isUpping) {
 		if (y > minY) {
 			vy = -PLANT_SPEED_UP_DOWN;
@@ -78,7 +79,8 @@ void CPlant::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects) {
 		else {
 			vy = 0;
 			y = startY;
-			if (GetTickCount64() - timeInPipe > TIME_IN_PIPE) {
+			float distance = abs(mario->GetX() - x);
+			if (GetTickCount64() - timeInPipe > TIME_IN_PIPE && distance > HIDE_DISTANCE) {
 				SetState(PLANT_STATE_UP);
 			}
 		}

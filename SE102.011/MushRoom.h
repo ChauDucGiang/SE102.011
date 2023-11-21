@@ -1,5 +1,6 @@
 #pragma once
 #include "GameObject.h"
+#include "PlayScene.h"
 
 #define ID_ANI_MUSHROOM_RED 11001
 #define ID_ANI_MUSHROOM_GREEN 11008
@@ -36,4 +37,5 @@ class CMushRoom : public CGameObject {
 
 		void SetModel(int model) { this->model = model; }
 		int GetModel() { return model; }
+		std::pair<int, int> PositionWithMario();
 };

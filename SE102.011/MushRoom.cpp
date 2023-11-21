@@ -52,11 +52,28 @@ void CMushRoom::GetBoundingBox(float& left, float& top, float& right, float& bot
 
 void CMushRoom::SetState(int state)
 {
+	std::pair<int, int> position = PositionWithMario();
+
+	int nx = position.first;
+	int ny = position.second;
+
 	switch (state)
 	{
 	case MUSHROOM_STATE_WALKING:
-		vx = MUSHROOM_SPEED;
+		vx = nx * MUSHROOM_SPEED;
 		break;
 	}
 	CGameObject::SetState(state);
+}
+
+std::pair<int, int> CMushRoom::PositionWithMario() {
+	CMario* mario = (CMario*)((LPPLAYSCENE)CGame::GetInstance()->GetCurrentScene())->GetPlayer();
+	int nx, ny;
+	// 1: mario on the left
+	nx = (mario->GetX() > x) ? 1 : -1;
+
+	// 1: mario on the top
+	ny = (mario->GetY() < y) ? 1 : -1;
+
+	return std::make_pair(nx, ny);
 }

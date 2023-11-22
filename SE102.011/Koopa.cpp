@@ -25,10 +25,36 @@ void CKoopa::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects) {
 
 void CKoopa::Render() {
 	int aniId = -1;
+
+	switch (model)
+	{
+	case KOOPA_RED :
+		aniId = GetModelRedAnimation();
+		break;
+	case KOOPA_GREEN:
+		aniId = GetModelGreenAnimation();
+		break;
+	}
+	CAnimations::GetInstance()->Get(aniId)->Render(x, y);
+
 	if (vx > 0) aniId = ID_ANI_GREEN_WALK_RIGHT;
 	else aniId = ID_ANI_GREEN_WALK_LEFT;
 	CAnimations::GetInstance()->Get(aniId)->Render(x, y);
 	//RenderBoundingBox();
+}
+
+int CKoopa::GetModelGreenAnimation() {
+	int aniId ;
+	if (vx > 0) aniId = ID_ANI_RED_WALK_RIGHT;
+	else aniId = ID_ANI_RED_WALK_LEFT;
+	return aniId;
+}
+
+int CKoopa::GetModelRedAnimation() {
+	int aniId;
+	if (vx > 0) aniId = ID_ANI_GREEN_WALK_RIGHT;
+	else aniId = ID_ANI_GREEN_WALK_LEFT;
+	return aniId;
 }
 
 void CKoopa::GetBoundingBox(float& left, float& top, float& right, float& bottom)

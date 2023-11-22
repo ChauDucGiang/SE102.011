@@ -21,6 +21,10 @@
 #define ID_ANI_GREEN_WALK_RIGHT 6001
 #define ID_ANI_GREEN_WALK_LEFT 6002
 
+//Red
+#define ID_ANI_RED_WALK_RIGHT 6101
+#define ID_ANI_RED_WALK_LEFT 6102
+
 // OBJECT
 #define KOOPA_GREEN 1
 #define KOOPA_RED 2
@@ -52,6 +56,9 @@ class CKoopa : public CGameObject
 		virtual void OnNoCollision(DWORD dt);
 		virtual void OnCollisionWithPlatform(LPCOLLISIONEVENT e);
 		virtual void OnCollisionWith(LPCOLLISIONEVENT e);
+
+		int GetModelGreenAnimation();
+		int GetModelRedAnimation();
 
 		//Animations
 	public:

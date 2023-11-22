@@ -35,10 +35,7 @@ void CKoopa::Render() {
 		aniId = GetModelGreenAnimation();
 		break;
 	}
-	CAnimations::GetInstance()->Get(aniId)->Render(x, y);
 
-	if (vx > 0) aniId = ID_ANI_GREEN_WALK_RIGHT;
-	else aniId = ID_ANI_GREEN_WALK_LEFT;
 	CAnimations::GetInstance()->Get(aniId)->Render(x, y);
 	//RenderBoundingBox();
 }

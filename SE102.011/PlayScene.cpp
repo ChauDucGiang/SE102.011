@@ -128,8 +128,8 @@ void CPlayScene::_ParseSection_OBJECTS(string line)
 
 	//Enemy
 	case OBJECT_TYPE_GOOMBA: obj = new CGoomba(x, y); break;
-	case OBJECT_TYPE_KOOPA_GREEN: obj = new CKoopa(x, y, KOOPA_GREEN); break;
-	case OBJECT_TYPE_KOOPA_GREEN_FLY: obj = new CKoopa(x, y, KOOPA_GREEN_WING); break;
+	//case OBJECT_TYPE_KOOPA_GREEN: obj = new CKoopa(x, y, KOOPA_GREEN); break;
+	//case OBJECT_TYPE_KOOPA_GREEN_FLY: obj = new CKoopa(x, y, KOOPA_GREEN_WING); break;
 	case OBJECT_TYPE_KOOPA_RED: obj = new CKoopa(x, y, KOOPA_RED); break;
 
 	//Plant

@@ -49,8 +49,15 @@ int CKoopa::GetModelGreenAnimation() {
 
 int CKoopa::GetModelRedAnimation() {
 	int aniId;
-	if (vx > 0) aniId = ID_ANI_GREEN_WALK_RIGHT;
-	else aniId = ID_ANI_GREEN_WALK_LEFT;
+	if (isDefend) {
+		aniId = ID_ANI_RED_DEFEND;
+	}
+	else
+	{
+		if (vx > 0) aniId = ID_ANI_GREEN_WALK_RIGHT;
+		else aniId = ID_ANI_GREEN_WALK_LEFT;
+	}
+
 	return aniId;
 }
 
@@ -103,6 +110,9 @@ void CKoopa::SetState(int state) {
 		vx = -KOOPA_WALKING_SPEED;
 		vy = 0;
 		ay = KOOPA_GRAVITY;
+		break;
+	case KOOPA_STATE_DEFEND:
+		isDefend = true;
 		break;
 	}
 }

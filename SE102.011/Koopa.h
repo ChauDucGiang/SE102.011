@@ -24,6 +24,7 @@
 //Red
 #define ID_ANI_RED_WALK_RIGHT 6101
 #define ID_ANI_RED_WALK_LEFT 6102
+#define ID_ANI_RED_DEFEND 6103
 
 // OBJECT
 #define KOOPA_GREEN 1
@@ -33,6 +34,7 @@
 //STATE
 #define KOOPA_STATE_JUMP 100
 #define KOOPA_STATE_WALKING 500
+#define KOOPA_STATE_DEFEND 200
 
 
 class CKoopa : public CGameObject 
@@ -44,7 +46,7 @@ class CKoopa : public CGameObject
 		ULONGLONG defend_start, die_start, comeback_start;
 
 		bool walkingChek;
-		bool isDead, isJump, isAttack, isUpside, isOnPlatform, isWing;
+		bool isDead, isJump, isAttack, isUpside, isOnPlatform, isWing, isDefend;
 
 		virtual void Render();
 		virtual void Update(DWORD dt, vector<LPGAMEOBJECT>* coObject);

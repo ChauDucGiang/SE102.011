@@ -75,7 +75,7 @@ void CGoomba::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 		}
 		else
 		{
-			if (!isOnPlatForm)
+			if (GetTickCount64() - timeFly > TIME_FLY && !isOnPlatForm)
 			{
 				SetState(GOOMBA_STATE_WALKING);
 			}
@@ -145,12 +145,14 @@ void CGoomba::SetState(int state)
 			isOnPlatForm = true;
 			isFlying = false;
 			timeOnPlatform = GetTickCount64();
+			timeFly = 0;
 			break;
 		case GOOMBA_STATE_FLY:
 			vy = -GOOMBA_JUMP_SPEED_Y;
 			isOnPlatForm = false;
 			isFlying = true;
 			timeOnPlatform = 0;
+			timeFly = GetTickCount64();
 			break;
 	}
 }

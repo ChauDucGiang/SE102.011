@@ -6,6 +6,7 @@
 #define GOOMBA_WALKING_SPEED 0.05f
 #define GOOMBA_JUMP_SPEED_Y 0.2f
 #define TIME_ON_PLATFORM 2000
+#define TIME_FLY 1000
 
 
 #define GOOMBA_BBOX_WIDTH 16
@@ -38,7 +39,7 @@ protected:
 	float ax, ay; 
 	int model;
 
-	ULONGLONG die_start, timeOnPlatform;
+	ULONGLONG die_start, timeOnPlatform, timeFly;
 
 	bool isOnPlatForm = false, isFlying = false;
 

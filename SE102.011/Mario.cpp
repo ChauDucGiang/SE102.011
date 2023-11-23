@@ -115,19 +115,23 @@ void CMario::OnCollisionWithGoomba(LPCOLLISIONEVENT e)
 void CMario::OnCollisionWithKoopa(LPCOLLISIONEVENT e) {
 	DebugOut(L"[INFO] Mario OnCollisionWithKoopa\n");
 	CKoopa* koopa = dynamic_cast<CKoopa*>(e->obj);
-	koopa->SetState(KOOPA_STATE_DEFEND);
-
-	if (untouchable == 0 && false)
+	if (e->ny < 0) {
+		koopa->SetState(KOOPA_STATE_DEFEND);
+	}
+	else
 	{
-		if (level > MARIO_LEVEL_SMALL)
+		if (untouchable == 0 && false)
 		{
-			level = MARIO_LEVEL_SMALL;
-			StartUntouchable();
-		}
-		else
-		{
-			DebugOut(L">>> Mario DIE >>> \n");
-			SetState(MARIO_STATE_DIE);
+			if (level > MARIO_LEVEL_SMALL)
+			{
+				level = MARIO_LEVEL_SMALL;
+				StartUntouchable();
+			}
+			else
+			{
+				DebugOut(L">>> Mario DIE >>> \n");
+				SetState(MARIO_STATE_DIE);
+			}
 		}
 	}
 }

@@ -1,9 +1,10 @@
 #include "Goomba.h"
 
-CGoomba::CGoomba(float x, float y):CGameObject(x, y)
+CGoomba::CGoomba(float x, float y, int model):CGameObject(x, y)
 {
 	this->ax = 0;
 	this->ay = GOOMBA_GRAVITY;
+	this->model = model;
 	die_start = -1;
 	SetState(GOOMBA_STATE_WALKING);
 }
@@ -49,6 +50,7 @@ void CGoomba::OnCollisionWith(LPCOLLISIONEVENT e)
 
 void CGoomba::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 {
+	CMario* mario = (CMario*)((LPPLAYSCENE)CGame::GetInstance()->GetCurrentScene())->GetPlayer();
 	vy += ay * dt;
 	vx += ax * dt;
 
@@ -57,6 +59,27 @@ void CGoomba::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 		isDeleted = true;
 		return;
 	}
+
+	if (model == GOOMBA_WING)
+	{
+		if (GetTickCount64() - timeOnPlatform > TIME_ON_PLATFORM) {
+			SetState(GOOMBA_STATE_FLY);
+
+			if ((vx >= 0) && (mario->GetX() < GetX()))
+			{
+				vx = -GOOMBA_WALKING_SPEED;
+			}
+			else if ((vx <= 0) && (mario->GetX() > GetX()))
+			{
+				vx = GOOMBA_WALKING_SPEED;
+			}
+		}
+		else
+		{
+			//SetState(GOOMBA_STATE_WALKING);
+		}
+	}
+
 
 	CGameObject::Update(dt, coObjects);
 	CCollision::GetInstance()->Process(this, dt, coObjects);
@@ -71,9 +94,37 @@ void CGoomba::Render()
 		aniId = ID_ANI_GOOMBA_DIE;
 	}
 
+	if (model == GOOMBA_WING) {
+		aniId = GetModelWingAnimation();
+	}
+	else {
+		aniId = GetModelBrownAnimation();
+	}
+
+
 	CAnimations::GetInstance()->Get(aniId)->Render(x,y);
 	//RenderBoundingBox();
 }
+
+int CGoomba::GetModelBrownAnimation() {
+	int aniId = ID_ANI_GOOMBA_WALKING;
+	if (state == GOOMBA_STATE_DIE)
+	{
+		aniId = ID_ANI_GOOMBA_DIE;
+	}
+	return aniId;
+}
+
+
+int CGoomba::GetModelWingAnimation() {
+	int aniId = ID_ANI_GOOMBA_RED_FLY_WALKING;
+		if (!isOnPlatForm) {
+			aniId = ID_ANI_GOOMBA_RED_FLY_JUMP;
+		}
+		else aniId = ID_ANI_GOOMBA_RED_FLY_WALKING;
+	return aniId;
+}
+
 
 void CGoomba::SetState(int state)
 {
@@ -89,6 +140,12 @@ void CGoomba::SetState(int state)
 			break;
 		case GOOMBA_STATE_WALKING: 
 			vx = -GOOMBA_WALKING_SPEED;
+			timeOnPlatform = GetTickCount64();
+			break;
+		case GOOMBA_STATE_FLY:
+			vy = -GOOMBA_JUMP_SPEED_Y;
+			isOnPlatForm = false;
+			timeOnPlatform = 0;
 			break;
 	}
 }

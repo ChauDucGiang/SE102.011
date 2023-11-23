@@ -46,7 +46,7 @@ class CKoopa : public CGameObject
 		ULONGLONG defend_start, die_start, comeback_start;
 
 		bool walkingChek;
-		bool isDead, isJump, isAttack, isUpside, isOnPlatform, isWing, isDefend;
+		bool isDead, isJump, isAttack, isUpside, isOnPlatform, isWing, isDefend = false;
 
 		virtual void Render();
 		virtual void Update(DWORD dt, vector<LPGAMEOBJECT>* coObject);

@@ -40,7 +40,7 @@ protected:
 
 	ULONGLONG die_start, timeOnPlatform;
 
-	bool isOnPlatForm = false;
+	bool isOnPlatForm = false, isFlying = false;
 
 	virtual void GetBoundingBox(float &left, float &top, float &right, float &bottom);
 	virtual void Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects);

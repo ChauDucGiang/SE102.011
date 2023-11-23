@@ -62,21 +62,23 @@ void CGoomba::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 
 	if (model == GOOMBA_WING)
 	{
-		if (GetTickCount64() - timeOnPlatform > TIME_ON_PLATFORM) {
+		// Duoi theo mario
+		if ((mario->GetX() <= x))
+		{
+			vx = -GOOMBA_WALKING_SPEED;
+		}
+		else {
+			vx = GOOMBA_WALKING_SPEED;
+		}
+		if (GetTickCount64() - timeOnPlatform > TIME_ON_PLATFORM && isOnPlatForm) {
 			SetState(GOOMBA_STATE_FLY);
-
-			if ((vx >= 0) && (mario->GetX() < GetX()))
-			{
-				vx = -GOOMBA_WALKING_SPEED;
-			}
-			else if ((vx <= 0) && (mario->GetX() > GetX()))
-			{
-				vx = GOOMBA_WALKING_SPEED;
-			}
 		}
 		else
 		{
-			//SetState(GOOMBA_STATE_WALKING);
+			if (!isOnPlatForm)
+			{
+				SetState(GOOMBA_STATE_WALKING);
+			}
 		}
 	}
 
@@ -140,11 +142,14 @@ void CGoomba::SetState(int state)
 			break;
 		case GOOMBA_STATE_WALKING: 
 			vx = -GOOMBA_WALKING_SPEED;
+			isOnPlatForm = true;
+			isFlying = false;
 			timeOnPlatform = GetTickCount64();
 			break;
 		case GOOMBA_STATE_FLY:
 			vy = -GOOMBA_JUMP_SPEED_Y;
 			isOnPlatForm = false;
+			isFlying = true;
 			timeOnPlatform = 0;
 			break;
 	}

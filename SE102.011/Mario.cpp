@@ -81,7 +81,7 @@ void CMario::OnCollisionWithGoomba(LPCOLLISIONEVENT e)
 {
 	DebugOut(L"[INFO] Mario OnCollisionWithGoomba\n");
 	CGoomba* goomba = dynamic_cast<CGoomba*>(e->obj);
-
+	DebugOut(L"[INFO] Mario OnCollisionWithGoomba %d\n", e->ny);
 	// jump on top >> kill Goomba and deflect a bit 
 	if (e->ny < 0)
 	{
@@ -115,8 +115,16 @@ void CMario::OnCollisionWithGoomba(LPCOLLISIONEVENT e)
 void CMario::OnCollisionWithKoopa(LPCOLLISIONEVENT e) {
 	DebugOut(L"[INFO] Mario OnCollisionWithKoopa\n");
 	CKoopa* koopa = dynamic_cast<CKoopa*>(e->obj);
-	if (e->ny < 0) {
-		koopa->SetState(KOOPA_STATE_DEFEND);
+	if (e->ny == 0) {
+		if ((koopa->GetState() == KOOPA_STATE_WALKING))
+		{
+			koopa->SetState(KOOPA_STATE_DEFEND);
+			vy = -MARIO_JUMP_DEFLECT_SPEED;
+		}
+		else {
+			koopa->SetState(KOOPA_STATE_WAS_KICKED);
+			vy = -MARIO_JUMP_DEFLECT_SPEED;
+		}
 	}
 	else
 	{

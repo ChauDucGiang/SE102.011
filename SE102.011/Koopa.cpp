@@ -19,6 +19,19 @@ CKoopa::CKoopa(float x, float y, int model) :CGameObject(x, y) {
 void CKoopa::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects) {
 	vy += ay * dt;
 	vx += ax * dt;
+
+	if (GetTickCount64() - defendTime > KOOPA_REVIVAL_TIME && isDefend) {
+		isRevival = true;
+	}
+
+	if ((GetTickCount64() - defendTime > KOOPA_DEFEND_TIME && isDefend)) {
+		if (isRevival) {
+			SetState(KOOPA_STATE_WALKING);
+			vy = -KOOPA_ADJUST_NOT_FALL;
+			defendTime = 0;
+		}
+	}
+
 	CGameObject::Update(dt, coObjects);
 	CCollision::GetInstance()->Process(this, dt, coObjects);
 }
@@ -49,8 +62,10 @@ int CKoopa::GetModelGreenAnimation() {
 
 int CKoopa::GetModelRedAnimation() {
 	int aniId;
+
 	if (isDefend) {
 		aniId = ID_ANI_RED_DEFEND;
+		if (isRevival) aniId = ID_ANI_RED_REVIVAL;
 	}
 	else
 	{
@@ -98,6 +113,13 @@ void CKoopa::OnCollisionWithPlatform(LPCOLLISIONEVENT e) {
 }
 
 void CKoopa::OnCollisionWith(LPCOLLISIONEVENT e) {
+	if (!dynamic_cast<CGoomba*>(e->obj) && !dynamic_cast<CMario*>(e->obj)) {
+		if (e->nx != 0 && e->obj->IsBlocking())
+		{
+			vx = -vx;
+		}
+	}
+
 	if (dynamic_cast<CPlatform*>(e->obj))
 		this->OnCollisionWithPlatform(e);
 }
@@ -110,9 +132,17 @@ void CKoopa::SetState(int state) {
 		vx = -KOOPA_WALKING_SPEED;
 		vy = 0;
 		ay = KOOPA_GRAVITY;
+		isRevival = false;
+		isDefend = false;
 		break;
 	case KOOPA_STATE_DEFEND:
+		vx = 0;
+		defendTime = GetTickCount64();
 		isDefend = true;
+		break;
+	case KOOPA_STATE_WAS_KICKED:
+		isOnPlatform = true;
+		vx = -KOOPA_WAS_KICKED_SPEED_X;
 		break;
 	}
 }

@@ -3,14 +3,17 @@
 
 #define KOOPA_GRAVITY 0.0001f	//trong luc
 #define KOOPA_WALKING_SPEED 0.04f	//toc do di bo
-#define KOOPA_IS_KICK_SPEED 0.18f	//toc do da
 #define KOOPA_JUMP_DEATH 0.4f		//nhay
-#define KOOPA_ADJUST_NOT_FAIL 0.1f	// dieu chinh khong that bai
+#define KOOPA_ADJUST_NOT_FALL 0.1f	// dieu chinh khong that bai
 #define KOOPA_ADJUST_KICKED_NOT_FAIL 0.1f // dieu chinh da khong that bai
 #define KOOPA_KICKED_NOT_FAIL 0.04f
+#define KOOPA_WAS_KICKED_SPEED_X 0.18f
 
 #define KOOPA_GRAVITY_WING 0.0005f
 #define KOONPA_JUMP_SPEED 0.2f
+
+#define KOOPA_DEFEND_TIME 8000
+#define KOOPA_REVIVAL_TIME 6000
 
 
 #define KOOPA_BBOX_WIDTH 16
@@ -25,6 +28,7 @@
 #define ID_ANI_RED_WALK_RIGHT 6101
 #define ID_ANI_RED_WALK_LEFT 6102
 #define ID_ANI_RED_DEFEND 6103
+#define ID_ANI_RED_REVIVAL 6106
 
 // OBJECT
 #define KOOPA_GREEN 1
@@ -35,6 +39,7 @@
 #define KOOPA_STATE_JUMP 100
 #define KOOPA_STATE_WALKING 500
 #define KOOPA_STATE_DEFEND 200
+#define KOOPA_STATE_WAS_KICKED 300
 
 
 class CKoopa : public CGameObject 
@@ -43,10 +48,10 @@ class CKoopa : public CGameObject
 		float ax, ay;
 		int model;
 
-		ULONGLONG defend_start, die_start, comeback_start;
+		ULONGLONG defend_start, die_start, comeback_start, revivalTime, defendTime;
 
 		bool walkingChek;
-		bool isDead, isJump, isAttack, isUpside, isOnPlatform, isWing, isDefend = false;
+		bool isDead, isJump, isAttack, isUpside, isOnPlatform, isWing, isDefend = false, isRevival = false;
 
 		virtual void Render();
 		virtual void Update(DWORD dt, vector<LPGAMEOBJECT>* coObject);

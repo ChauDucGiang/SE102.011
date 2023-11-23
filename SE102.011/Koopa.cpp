@@ -1,6 +1,7 @@
 #include "Koopa.h"
 #include "PlayScene.h"
 #include "Platform.h"
+#include "Plant.h"
 
 CKoopa::CKoopa(float x, float y, int model) :CGameObject(x, y) {
 	this->ax = 0;
@@ -84,11 +85,28 @@ void CKoopa::GetBoundingBox(float& left, float& top, float& right, float& bottom
 	bottom = top + KOOPA_BBOX_HEIGHT;
 }
 
+#pragma region Collision
+
 void CKoopa::OnNoCollision(DWORD dt) {
 	x += vx * dt;
 	y += vy * dt;
 }
 
+void CKoopa::OnCollisionWith(LPCOLLISIONEVENT e) {
+	if (!dynamic_cast<CGoomba*>(e->obj) && !dynamic_cast<CMario*>(e->obj)) {
+		if (e->nx != 0 && e->obj->IsBlocking())
+		{
+			vx = -vx;
+		}
+	}
+
+	if (dynamic_cast<CPlatform*>(e->obj))
+		this->OnCollisionWithPlatform(e);
+	else if (dynamic_cast<CGoomba*>(e->obj))
+		this->OnCollisionWithGoomba(e);
+	else if (dynamic_cast<CKoopa*>(e->obj))
+		this->OnCollisionWithKoopa(e);
+}
 void CKoopa::OnCollisionWithPlatform(LPCOLLISIONEVENT e) {
 
 	CPlatform* platform = dynamic_cast<CPlatform*>(e->obj);
@@ -112,17 +130,31 @@ void CKoopa::OnCollisionWithPlatform(LPCOLLISIONEVENT e) {
 	}
 }
 
-void CKoopa::OnCollisionWith(LPCOLLISIONEVENT e) {
-	if (!dynamic_cast<CGoomba*>(e->obj) && !dynamic_cast<CMario*>(e->obj)) {
-		if (e->nx != 0 && e->obj->IsBlocking())
-		{
-			vx = -vx;
-		}
-	}
+void CKoopa::OnCollisionWithGoomba(LPCOLLISIONEVENT e) {
+	CGoomba* goomba = dynamic_cast<CGoomba*>(e->obj);
 
-	if (dynamic_cast<CPlatform*>(e->obj))
-		this->OnCollisionWithPlatform(e);
+	if (state == KOOPA_STATE_WAS_KICKED) {
+		goomba->SetState(GOOMBA_STATE_DIE);
+	}
 }
+
+void CKoopa::OnCollisionWithKoopa(LPCOLLISIONEVENT e) {
+	CKoopa* koopa = dynamic_cast<CKoopa*>(e->obj);
+
+	if (state == KOOPA_STATE_WAS_KICKED) {
+		koopa->SetState(GOOMBA_STATE_DIE);
+	}
+}
+void CKoopa::OnCollisionWithPlant(LPCOLLISIONEVENT e) {
+	CMario* mario = (CMario*)((LPPLAYSCENE)CGame::GetInstance()->GetCurrentScene())->GetPlayer();
+
+	CPlant* plant = dynamic_cast<CPlant*>(e->obj);
+
+	if (state == KOOPA_STATE_WAS_KICKED) {
+		plant->SetState(PLANT_STATE_DIE);
+	}
+}
+#pragma endregion
 
 void CKoopa::SetState(int state) {
 	CGameObject::SetState(state);

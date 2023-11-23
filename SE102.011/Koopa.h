@@ -61,8 +61,11 @@ class CKoopa : public CGameObject
 		virtual int IsBlocking() { return 0; }
 
 		virtual void OnNoCollision(DWORD dt);
-		virtual void OnCollisionWithPlatform(LPCOLLISIONEVENT e);
 		virtual void OnCollisionWith(LPCOLLISIONEVENT e);
+		virtual void OnCollisionWithPlatform(LPCOLLISIONEVENT e);
+		virtual void OnCollisionWithGoomba(LPCOLLISIONEVENT e);
+		virtual void OnCollisionWithKoopa(LPCOLLISIONEVENT e);
+		virtual void OnCollisionWithPlant(LPCOLLISIONEVENT e);
 
 		int GetModelGreenAnimation();
 		int GetModelRedAnimation();

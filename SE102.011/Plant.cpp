@@ -118,7 +118,7 @@ void CPlant::SetState(int state) {
 		timeInPipe = GetTickCount64();
 
 		break;
-	case PLANT_STATE_DEATH:
+	case PLANT_STATE_DIE:
 		isDeleted = true;
 		break;
 	}

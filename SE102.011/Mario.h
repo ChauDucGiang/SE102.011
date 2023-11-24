@@ -33,6 +33,11 @@
 #define MARIO_STATE_SIT				600
 #define MARIO_STATE_SIT_RELEASE		601
 
+#define MARIO_STATE_TAIL_ATTACK		800
+
+//Time
+#define TIME_TAIL_ATTACK 400
+
 
 #pragma region ANIMATION_ID
 
@@ -148,17 +153,13 @@
 
 class CMario : public CGameObject
 {
-	BOOLEAN isSitting;
 	float maxVx;
 	float ax;				// acceleration on x 
 	float ay;				// acceleration on y 
 
-	int level; 
-	int untouchable; 
-	ULONGLONG untouchable_start;
-	BOOLEAN isOnPlatform;
-	int coin;
-	int score;
+	ULONGLONG untouchable_start, tailAttachStart;
+	BOOLEAN isSitting, isOnPlatform, isTailAttack = false;
+	int coin, score, level, untouchable;
 
 #pragma region CollisionWithGameObject
 	void OnCollisionWithGoomba(LPCOLLISIONEVENT e);
@@ -206,6 +207,7 @@ public:
 	void OnCollisionWith(LPCOLLISIONEVENT e);
 
 	void SetLevel(int l);
+	int GetLevel() { return this->level; };
 	void StartUntouchable() { untouchable = 1; untouchable_start = GetTickCount64(); }
 
 	void GetBoundingBox(float& left, float& top, float& right, float& bottom);

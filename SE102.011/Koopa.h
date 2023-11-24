@@ -24,13 +24,19 @@
 #define ID_ANI_GREEN_WALK_RIGHT 6001
 #define ID_ANI_GREEN_WALK_LEFT 6002
 #define ID_ANI_GREEN_DEFEND 6003
+#define ID_ANI_GREEN_UPSIDE 6005
 #define ID_ANI_GREEN_REVIVAL 6006
+#define ID_ANI_GREEN_UPSIDE_KICKED 6007
+#define ID_ANI_GREEN_UPSIDE_REVIVAL 6008
 
 //Red
 #define ID_ANI_RED_WALK_RIGHT 6101
 #define ID_ANI_RED_WALK_LEFT 6102
 #define ID_ANI_RED_DEFEND 6103
+#define ID_ANI_RED_UPSIDE 6105
 #define ID_ANI_RED_REVIVAL 6106
+#define ID_ANI_RED_UPSIDE_KICKED 6107
+#define ID_ANI_RED_UPSIDE_REVIVAL 6108
 
 // OBJECT
 #define KOOPA_GREEN 1
@@ -42,6 +48,7 @@
 #define KOOPA_STATE_WALKING 500
 #define KOOPA_STATE_DEFEND 200
 #define KOOPA_STATE_WAS_KICKED 300
+#define KOOPA_STATE_UPSIDE 400
 
 
 class CKoopa : public CGameObject 
@@ -50,10 +57,9 @@ class CKoopa : public CGameObject
 		float ax, ay;
 		int model;
 
-		ULONGLONG defend_start, die_start, comeback_start, revivalTime, defendTime;
+		ULONGLONG  dieStart, revivalStart, defendStart;
 
-		bool walkingChek;
-		bool isDead, isJump, isAttack, isUpside, isOnPlatform, isWing, isDefend = false, isRevival = false;
+		bool isDead, isJump, isAttack, isUpside = false, isOnPlatform, isWing, isDefend = false, isRevival = false;
 
 		virtual void Render();
 		virtual void Update(DWORD dt, vector<LPGAMEOBJECT>* coObject);
@@ -76,12 +82,11 @@ class CKoopa : public CGameObject
 	public:
 		CKoopa(float x, float y , int model);
 
-		// get
 		bool GetIsDead() { return isDead; }
-		int GetModel() { return model; }
 
-		//set
-		virtual void SetState(int state);
 		void SetModel(int model) { this->model = model; }
+		int GetModel() { return this->model; }
+
+		virtual void SetState(int state);
 		void SetLevel(int level);
 };

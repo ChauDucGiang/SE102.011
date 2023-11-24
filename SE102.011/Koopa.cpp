@@ -21,15 +21,15 @@ void CKoopa::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects) {
 	vy += ay * dt;
 	vx += ax * dt;
 
-	if (GetTickCount64() - defendTime > KOOPA_REVIVAL_TIME && isDefend) {
+	if (GetTickCount64() - defendStart > KOOPA_REVIVAL_TIME && isDefend) {
 		isRevival = true;
 	}
 
-	if ((GetTickCount64() - defendTime > KOOPA_DEFEND_TIME && isDefend)) {
+	if ((GetTickCount64() - defendStart > KOOPA_DEFEND_TIME && isDefend)) {
 		if (isRevival) {
 			SetState(KOOPA_STATE_WALKING);
 			vy = -KOOPA_ADJUST_NOT_FALL;
-			defendTime = 0;
+			defendStart = 0;
 		}
 	}
 
@@ -54,17 +54,24 @@ void CKoopa::Render() {
 	//RenderBoundingBox();
 }
 
+#pragma region Animations
 int CKoopa::GetModelGreenAnimation() {
-	int aniId ;
-
-	if (isDefend) {
-		aniId = ID_ANI_GREEN_DEFEND;
-		if (isRevival) aniId = ID_ANI_GREEN_REVIVAL;
+	int aniId;
+	if (isUpside) {
+		if (isRevival) aniId = ID_ANI_GREEN_UPSIDE_REVIVAL;
+		else aniId = ID_ANI_GREEN_UPSIDE;
 	}
 	else
 	{
-		if (vx > 0) aniId = ID_ANI_GREEN_WALK_RIGHT;
-		else aniId = ID_ANI_GREEN_WALK_LEFT;
+		if (isDefend) {
+			aniId = ID_ANI_GREEN_DEFEND;
+			if (isRevival) aniId = ID_ANI_GREEN_REVIVAL;
+		}
+		else
+		{
+			if (vx > 0) aniId = ID_ANI_GREEN_WALK_RIGHT;
+			else aniId = ID_ANI_GREEN_WALK_LEFT;
+		}
 	}
 
 	return aniId;
@@ -72,19 +79,26 @@ int CKoopa::GetModelGreenAnimation() {
 
 int CKoopa::GetModelRedAnimation() {
 	int aniId;
-
-	if (isDefend) {
-		aniId = ID_ANI_RED_DEFEND;
-		if (isRevival) aniId = ID_ANI_RED_REVIVAL;
+	if (isUpside) {
+		if (isRevival) aniId = ID_ANI_RED_UPSIDE_REVIVAL;
+		else aniId = ID_ANI_RED_UPSIDE;
 	}
-	else
-	{
-		if (vx > 0) aniId = ID_ANI_RED_WALK_RIGHT;
-		else aniId = ID_ANI_RED_WALK_LEFT;
+	else {
+		if (isDefend) {
+			aniId = ID_ANI_RED_DEFEND;
+			if (isRevival) aniId = ID_ANI_RED_REVIVAL;
+		}
+		else
+		{
+			if (vx > 0) aniId = ID_ANI_RED_WALK_RIGHT;
+			else aniId = ID_ANI_RED_WALK_LEFT;
+		}
 	}
 
 	return aniId;
 }
+#pragma endregion
+
 
 void CKoopa::GetBoundingBox(float& left, float& top, float& right, float& bottom)
 {
@@ -178,12 +192,19 @@ void CKoopa::SetState(int state) {
 		break;
 	case KOOPA_STATE_DEFEND:
 		vx = 0;
-		defendTime = GetTickCount64();
+		defendStart = GetTickCount64();
 		isDefend = true;
 		break;
 	case KOOPA_STATE_WAS_KICKED:
 		isOnPlatform = true;
 		vx = -KOOPA_WAS_KICKED_SPEED_X;
+		break;
+	case KOOPA_STATE_UPSIDE:
+		isUpside = true;
+		isDefend = false;
+		isRevival = false;
+		if (isOnPlatform) vx = 0;
+		defendStart = GetTickCount64();
 		break;
 	}
 }

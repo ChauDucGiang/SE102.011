@@ -99,9 +99,10 @@ void CMario::OnCollisionWith(LPCOLLISIONEVENT e)
 void CMario::OnCollisionWithPlatform(LPCOLLISIONEVENT e)
 {
 	CPlatform* platform = dynamic_cast<CPlatform*>(e->obj);
+	isOnPlatform = true;
+	vy = 0;
 	if (e->ny < 0) {
-		isOnPlatform = true;
-		vy = 0;
+
 	}
 }
 

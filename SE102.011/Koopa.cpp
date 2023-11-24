@@ -174,21 +174,22 @@ void CKoopa::OnCollisionWithPlatform(LPCOLLISIONEVENT e) {
 	CPlatform* platform = dynamic_cast<CPlatform*>(e->obj);
 	isOnPlatform = true;
 	vy = 0;
-	if (model == KOOPA_RED && state == KOOPA_STATE_WALKING)
-	{
-		// go to left
-		if (platform->GetX() > GetX() && vx < 0) {
-			vx = -vx;
-		
-			SetX(platform->GetX());
-		}
-		else if ((platform->GetX() + platform->GetWidth()) < (GetX() + KOOPA_BBOX_WIDTH) && vx > 0)
+	if (e->ny < 0) {
+		if (model == KOOPA_RED && state == KOOPA_STATE_WALKING)
 		{
-			vx = -vx;
+			// go to left
+			if (platform->GetX() > GetX() && vx < 0) {
+				vx = -vx;
 
-			SetX(platform->GetX() + platform->GetWidth() - KOOPA_BBOX_WIDTH);
+				SetX(platform->GetX());
+			}
+			else if ((platform->GetX() + platform->GetWidth()) < (GetX() + KOOPA_BBOX_WIDTH) && vx > 0)
+			{
+				vx = -vx;
+
+				SetX(platform->GetX() + platform->GetWidth() - KOOPA_BBOX_WIDTH);
+			}
 		}
-
 
 	}
 }

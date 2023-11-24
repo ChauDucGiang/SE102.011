@@ -23,6 +23,14 @@ void CKoopa::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects) {
 	vy += ay * dt;
 	vx += ax * dt;
 
+	if (isDead) {
+		if (GetTickCount64() - dieStart > KOOPA_DIE_TIME)
+		{
+			isDeleted = true;
+			return;
+		}
+	}
+
 	if (mario->IsHolding() && wasHeld) {
 		this->x = mario->GetX() + mario->GetNx() * (MARIO_BIG_BBOX_WIDTH - 3);
 		this->y = mario->GetY() - 3;
@@ -31,11 +39,11 @@ void CKoopa::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects) {
 		vy = mario->GetVy();
 	}
 
-	if (GetTickCount64() - defendStart > KOOPA_REVIVAL_TIME && isDefend) {
+	if (GetTickCount64() - defendStart > KOOPA_REVIVAL_TIME && (isDefend || isUpside)) {
 		isRevival = true;
 	}
 
-	if ((GetTickCount64() - defendStart > KOOPA_DEFEND_TIME && isDefend)) {
+	if ((GetTickCount64() - defendStart > KOOPA_DEFEND_TIME && (isDefend || isUpside))) {
 		if (isRevival) {
 			SetState(KOOPA_STATE_WALKING);
 			vy = -KOOPA_ADJUST_NOT_FALL;
@@ -135,10 +143,14 @@ void CKoopa::OnNoCollision(DWORD dt) {
 
 void CKoopa::OnCollisionWith(LPCOLLISIONEVENT e) {
 	if (!dynamic_cast<CGoomba*>(e->obj) && !dynamic_cast<CMario*>(e->obj)) {
+		if (e->ny < 0)
+		{
+			vy = 0;
+			isOnPlatform = true;
+		}
 		if (e->nx != 0 && e->obj->IsBlocking())
 		{
 			vx = -vx;
-			DebugOut(L"[INFO] Koopa OnCollisionWith\n");
 		}
 	}
 
@@ -148,11 +160,20 @@ void CKoopa::OnCollisionWith(LPCOLLISIONEVENT e) {
 		this->OnCollisionWithGoomba(e);
 	else if (dynamic_cast<CKoopa*>(e->obj))
 		this->OnCollisionWithKoopa(e);
+	else if (dynamic_cast<CMario*>(e->obj))
+		this->OnCollisionWithMario(e);
+}
+
+void CKoopa::OnCollisionWithMario(LPCOLLISIONEVENT e) {
+	CMario* koopa = dynamic_cast<CMario*>(e->obj);
+	 DebugOut(L"[INFO] Koopa OnCollisionWithMario\n");
+
 }
 void CKoopa::OnCollisionWithPlatform(LPCOLLISIONEVENT e) {
 
 	CPlatform* platform = dynamic_cast<CPlatform*>(e->obj);
-
+	isOnPlatform = true;
+	vy = 0;
 	if (model == KOOPA_RED && state == KOOPA_STATE_WALKING)
 	{
 		// go to left
@@ -220,7 +241,10 @@ void CKoopa::SetState(int state) {
 		isUpside = true;
 		isDefend = false;
 		isRevival = false;
+		//isDead = true;
+		//dieStart = GetTickCount64();
 		if (isOnPlatform) vx = 0;
+		vy = -KOOPA_JUMP_WAS_ATTACKED_SPEED_Y;
 		defendStart = GetTickCount64();
 		break;
 	}

@@ -26,16 +26,19 @@ class CMushRoom : public CGameObject {
 		virtual void Render();
 		virtual void Update(DWORD dt, vector<LPGAMEOBJECT>* coObject);
 		virtual void GetBoundingBox(float &left, float &top, float &right, float &bottom);
-	public:
-		CMushRoom(float x, float y, int model);
 
+		int IsBlocking() { return 0; }
 		virtual int IsCollidable() { return 1; }
 		void OnNoCollision(DWORD dt);
-		int IsBlocking() { return 0; }
+
+	public:
+		CMushRoom(float x, float y, int model);
 
 		virtual void SetState(int state);
 
 		void SetModel(int model) { this->model = model; }
 		int GetModel() { return model; }
+
 		std::pair<int, int> PositionWithMario();
+
 };

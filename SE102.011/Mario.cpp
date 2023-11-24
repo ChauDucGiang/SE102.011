@@ -17,6 +17,7 @@
 #include "Collision.h"
 
 #include "PlayScene.h"
+#include "Platform.h"
 
 void CMario::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 {
@@ -91,6 +92,17 @@ void CMario::OnCollisionWith(LPCOLLISIONEVENT e)
 		OnCollisionWithFireBullet(e);
 	else if (dynamic_cast<CMushRoom*>(e->obj))
 		OnCollisionWithMushRoom(e);
+	else if (dynamic_cast<CPlatform*>(e->obj))
+		OnCollisionWithPlatform(e);
+}
+
+void CMario::OnCollisionWithPlatform(LPCOLLISIONEVENT e)
+{
+	CPlatform* platform = dynamic_cast<CPlatform*>(e->obj);
+	if (e->ny < 0) {
+		isOnPlatform = true;
+		vy = 0;
+	}
 }
 
 void CMario::OnCollisionWithGoomba(LPCOLLISIONEVENT e)
@@ -145,22 +157,14 @@ void CMario::OnCollisionWithKoopa(LPCOLLISIONEVENT e) {
 	else
 	{
 		if (e->ny < 0) {
-			if ((koopa->GetState() == KOOPA_STATE_WALKING))
+			koopa->SetVy(-0.1f);
+			if (koopa->GetState() == KOOPA_STATE_WALKING || koopa->GetState() == KOOPA_STATE_WAS_KICKED)
 			{
 				koopa->SetState(KOOPA_STATE_DEFEND);
 				vy = -MARIO_JUMP_DEFLECT_SPEED;
 			}
-			else if (koopa->GetState() == KOOPA_STATE_DEFEND)
-			{
-				isHolding = true;
-				koopa->SetWasHeld(true);
-				holdingStart = GetTickCount64();
-				DebugOut(L"[INFO] Mario OnCollisionWithKoopa SetWasHeld\n");
-			}
 			else
 			{
-
-			
 				koopa->SetState(KOOPA_STATE_WAS_KICKED);
 				vy = -MARIO_JUMP_DEFLECT_SPEED;
 			}
@@ -169,7 +173,7 @@ void CMario::OnCollisionWithKoopa(LPCOLLISIONEVENT e) {
 		{
 			if (untouchable == 0)
 			{
-				if (koopa->GetState() == KOOPA_STATE_DEFEND)
+				if (koopa->GetState() == KOOPA_STATE_DEFEND || koopa->GetState() == KOOPA_STATE_UPSIDE)
 				{
 					isHolding = true;
 					koopa->SetWasHeld(true);

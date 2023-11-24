@@ -1,19 +1,20 @@
 #pragma once
 #include "GameObject.h"
 
-#define KOOPA_GRAVITY 0.0001f	//trong luc
+#define KOOPA_GRAVITY 0.001f	//trong luc
 #define KOOPA_WALKING_SPEED 0.04f	//toc do di bo
 #define KOOPA_JUMP_DEATH 0.4f		//nhay
-#define KOOPA_ADJUST_NOT_FALL 0.1f	// dieu chinh khong that bai
-#define KOOPA_ADJUST_KICKED_NOT_FAIL 0.1f // dieu chinh da khong that bai
+#define KOOPA_ADJUST_NOT_FALL 0.1f
 #define KOOPA_KICKED_NOT_FAIL 0.04f
 #define KOOPA_WAS_KICKED_SPEED_X 0.18f
+#define KOOPA_JUMP_WAS_ATTACKED_SPEED_Y 0.4f
 
 #define KOOPA_GRAVITY_WING 0.0005f
 #define KOONPA_JUMP_SPEED 0.2f
 
 #define KOOPA_DEFEND_TIME 8000
 #define KOOPA_REVIVAL_TIME 6000
+#define KOOPA_DIE_TIME 10000
 
 
 #define KOOPA_BBOX_WIDTH 16
@@ -59,7 +60,7 @@ class CKoopa : public CGameObject
 
 		ULONGLONG  dieStart, revivalStart, defendStart;
 
-		bool isDead, isJump, isAttack, isUpside = false, isOnPlatform, isWing, isDefend = false, isRevival = false, wasHeld = false;
+		bool isDead = false, isJump, isAttack, isUpside = false, isOnPlatform, isWing, isDefend = false, isRevival = false, wasHeld = false;
 
 		virtual void Render();
 		virtual void Update(DWORD dt, vector<LPGAMEOBJECT>* coObject);
@@ -74,11 +75,11 @@ class CKoopa : public CGameObject
 		virtual void OnCollisionWithGoomba(LPCOLLISIONEVENT e);
 		virtual void OnCollisionWithKoopa(LPCOLLISIONEVENT e);
 		virtual void OnCollisionWithPlant(LPCOLLISIONEVENT e);
+		virtual void OnCollisionWithMario(LPCOLLISIONEVENT e);
 
 		int GetModelGreenAnimation();
 		int GetModelRedAnimation();
 
-		//Animations
 	public:
 		CKoopa(float x, float y , int model);
 
@@ -88,6 +89,5 @@ class CKoopa : public CGameObject
 		int GetModel() { return this->model; }
 
 		virtual void SetState(int state);
-		void SetLevel(int level);
 		void SetWasHeld(bool wasHeld) { this->wasHeld = wasHeld; };
 };

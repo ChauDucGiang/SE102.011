@@ -483,9 +483,7 @@ void CMario::Render()
 
 	animations->Get(aniId)->Render(x, y);
 
-	//RenderBoundingBox();
-	
-	DebugOutTitle(L"Coins: %d", coin);
+	RenderBoundingBox();
 }
 
 void CMario::SetState(int state)

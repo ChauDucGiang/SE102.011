@@ -59,7 +59,7 @@ class CKoopa : public CGameObject
 
 		ULONGLONG  dieStart, revivalStart, defendStart;
 
-		bool isDead, isJump, isAttack, isUpside = false, isOnPlatform, isWing, isDefend = false, isRevival = false;
+		bool isDead, isJump, isAttack, isUpside = false, isOnPlatform, isWing, isDefend = false, isRevival = false, wasHeld = false;
 
 		virtual void Render();
 		virtual void Update(DWORD dt, vector<LPGAMEOBJECT>* coObject);
@@ -89,4 +89,5 @@ class CKoopa : public CGameObject
 
 		virtual void SetState(int state);
 		void SetLevel(int level);
+		void SetWasHeld(bool wasHeld) { this->wasHeld = wasHeld; };
 };

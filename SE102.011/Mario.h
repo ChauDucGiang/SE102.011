@@ -41,6 +41,9 @@
 
 #pragma region ANIMATION_ID
 
+#define ID_ANI_MARIO_DIE 999
+
+// BIG MARIO
 #define ID_ANI_MARIO_BIG_IDLE_RIGHT 401
 #define ID_ANI_MARIO_BIG_IDLE_LEFT 400
 
@@ -66,7 +69,14 @@
 #define ID_ANI_MARIO_BIG_BRACE_RIGHT 1001
 #define ID_ANI_MARIO_BIG_BRACE_LEFT 1000
 
-#define ID_ANI_MARIO_DIE 999
+#define ID_ANI_MARIO_BIG_HOLD_RUNNING_RIGHT 1011
+#define ID_ANI_MARIO_BIG_HOLD_RUNNING_LEFT 1010
+
+#define ID_ANI_MARIO_BIG_HOLD_IDLE_RIGHT 1041
+#define ID_ANI_MARIO_BIG_HOLD_IDLE_LEFT 1040
+
+#define ID_ANI_MARIO_BIG_HOLD_JUMP_RIGHT 1051
+#define ID_ANI_MARIO_BIG_HOLD_JUMP_LEFT 1050
 
 // SMALL MARIO
 #define ID_ANI_MARIO_SMALL_IDLE_RIGHT 1102
@@ -92,6 +102,15 @@
 
 #define ID_ANI_MARIO_SMALL_HOLD_RUNNING_RIGHT 1611
 #define ID_ANI_MARIO_SMALL_HOLD_RUNNING_LEFT 1610
+
+#define ID_ANI_MARIO_SMALL_HOLD_RUNNING_RIGHT 1611
+#define ID_ANI_MARIO_SMALL_HOLD_RUNNING_LEFT 1610
+
+#define ID_ANI_MARIO_SMALL_HOLD_IDLE_RIGHT 1641
+#define ID_ANI_MARIO_SMALL_HOLD_IDLE_LEFT 1640
+
+#define ID_ANI_MARIO_SMALL_HOLD_JUMP_RIGHT 1651
+#define ID_ANI_MARIO_SMALL_HOLD_JUMP_LEFT 1650
 
 //	TAIL
 #define ID_ANI_MARIO_TAIL_IDLE_RIGHT 2401
@@ -126,6 +145,12 @@
 
 #define ID_ANI_MARIO_TAIL_ATTACK 3100
 
+#define ID_ANI_MARIO_TAIL_HOLD_IDLE_RIGHT 3041
+#define ID_ANI_MARIO_TAIL_HOLD_IDLE_LEFT 3040
+
+#define ID_ANI_MARIO_TAIL_HOLD_JUMP_RIGHT 3051
+#define ID_ANI_MARIO_TAIL_HOLD_JUMP_LEFT 3050
+
 #pragma endregion
 
 #define GROUND_Y 160.0f
@@ -150,6 +175,7 @@
 
 
 #define MARIO_UNTOUCHABLE_TIME 2500
+#define MARIO__HOLDING_TIME 6000
 
 class CMario : public CGameObject
 {
@@ -157,10 +183,9 @@ class CMario : public CGameObject
 	float ax;				// acceleration on x 
 	float ay;				// acceleration on y 
 
-	ULONGLONG untouchable_start, tailAttachStart;
-	BOOLEAN isSitting, isOnPlatform, isTailAttack = false;
+	ULONGLONG untouchableStart, tailAttachStart, holdingStart;
+	BOOLEAN isSitting, isOnPlatform, isTailAttack = false, isHolding;
 	int coin, score, level, untouchable;
-
 #pragma region CollisionWithGameObject
 	void OnCollisionWithGoomba(LPCOLLISIONEVENT e);
 	void OnCollisionWithKoopa(LPCOLLISIONEVENT e);
@@ -188,10 +213,11 @@ public:
 
 		level = MARIO_LEVEL_SMALL;
 		untouchable = 0;
-		untouchable_start = -1;
+		untouchableStart = -1;
 		isOnPlatform = false;
 		coin = 0;
 	}
+
 	void Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects);
 	void Render();
 	void SetState(int state);
@@ -208,7 +234,7 @@ public:
 
 	void SetLevel(int l);
 	int GetLevel() { return this->level; };
-	void StartUntouchable() { untouchable = 1; untouchable_start = GetTickCount64(); }
+	void StartUntouchable() { untouchable = 1; untouchableStart = GetTickCount64(); }
 
 	void GetBoundingBox(float& left, float& top, float& right, float& bottom);
 
@@ -217,4 +243,7 @@ public:
 
 	int GetScore() { return coin; }
 	void SetScore(int score = 1) { this->score += score; }
+
+	void SetIsHold(bool isHolding) { this->isHolding = isHolding; };
+	bool IsHolding() { return this->isHolding; };
 };

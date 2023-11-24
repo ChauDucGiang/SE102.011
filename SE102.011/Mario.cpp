@@ -26,20 +26,29 @@ void CMario::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 	if (abs(vx) > abs(maxVx)) vx = maxVx;
 
 	// reset untouchable timer if untouchable time has passed
-	if ( GetTickCount64() - untouchable_start > MARIO_UNTOUCHABLE_TIME) 
+	if ( GetTickCount64() - untouchableStart > MARIO_UNTOUCHABLE_TIME)
 	{
-		untouchable_start = 0;
+		untouchableStart = 0;
 		untouchable = 0;
 	}
 
 	isOnPlatform = false;
 
+	//TailAttack
 	if (isTailAttack) {
 		if (GetTickCount64() - tailAttachStart > TIME_TAIL_ATTACK) {
 			isTailAttack = false;
 			tailAttachStart = 0;
 		}
 	}
+
+	//Holding
+	if (isHolding) {
+		if (GetTickCount64() - holdingStart > MARIO__HOLDING_TIME) {
+			isHolding = false;
+			holdingStart = 0;
+		}
+	};
 
 	CCollision::GetInstance()->Process(this, dt, coObjects);
 }
@@ -88,39 +97,45 @@ void CMario::OnCollisionWithGoomba(LPCOLLISIONEVENT e)
 {
 	DebugOut(L"[INFO] Mario OnCollisionWithGoomba\n");
 	CGoomba* goomba = dynamic_cast<CGoomba*>(e->obj);
-	DebugOut(L"[INFO] Mario OnCollisionWithGoomba %d\n", e->ny);
-	// jump on top >> kill Goomba and deflect a bit 
-	if (e->ny < 0)
-	{
-		if (goomba->GetState() != GOOMBA_STATE_DIE)
-		{
-			goomba->SetState(GOOMBA_STATE_DIE);
-			vy = -MARIO_JUMP_DEFLECT_SPEED;
-		}
+	if (isTailAttack) {
+		score += 100;
+		goomba->SetState(GOOMBA_STATE_DIE);
 	}
-	else // hit by Goomba
+	else
 	{
-		//if (untouchable == 0)
-		//{
-		//	if (goomba->GetState() != GOOMBA_STATE_DIE)
-		//	{
-		//		if (level > MARIO_LEVEL_SMALL)
-		//		{
-		//			level = MARIO_LEVEL_SMALL;
-		//			StartUntouchable();
-		//		}
-		//		else
-		//		{
-		//			DebugOut(L">>> Mario DIE >>> \n");
-		//			SetState(MARIO_STATE_DIE);
-		//		}
-		//	}
-		//}
+		// jump on top >> kill Goomba and deflect a bit 
+		if (e->ny < 0)
+		{
+			if (goomba->GetState() != GOOMBA_STATE_DIE)
+			{
+				goomba->SetState(GOOMBA_STATE_DIE);
+				vy = -MARIO_JUMP_DEFLECT_SPEED;
+			}
+		}
+		else // hit by Goomba
+		{
+			//if (untouchable == 0)
+			//{
+			//	if (goomba->GetState() != GOOMBA_STATE_DIE)
+			//	{
+			//		if (level > MARIO_LEVEL_SMALL)
+			//		{
+			//			level = MARIO_LEVEL_SMALL;
+			//			StartUntouchable();
+			//		}
+			//		else
+			//		{
+			//			DebugOut(L">>> Mario DIE >>> \n");
+			//			SetState(MARIO_STATE_DIE);
+			//		}
+			//	}
+			//}
+		}
 	}
 }
 
 void CMario::OnCollisionWithKoopa(LPCOLLISIONEVENT e) {
-	DebugOut(L"[INFO] Mario OnCollisionWithKoopa\n");
+	DebugOut(L"[INFO] Mario OnCollisionWithKoopa nY: %d\n", e->ny);
 	CKoopa* koopa = dynamic_cast<CKoopa*>(e->obj);
 
 	if (isTailAttack) {
@@ -129,30 +144,50 @@ void CMario::OnCollisionWithKoopa(LPCOLLISIONEVENT e) {
 	}
 	else
 	{
-		if (e->ny == 0) {
+		if (e->ny < 0) {
 			if ((koopa->GetState() == KOOPA_STATE_WALKING))
 			{
 				koopa->SetState(KOOPA_STATE_DEFEND);
 				vy = -MARIO_JUMP_DEFLECT_SPEED;
 			}
-			else {
+			else if (koopa->GetState() == KOOPA_STATE_DEFEND)
+			{
+				isHolding = true;
+				koopa->SetWasHeld(true);
+				holdingStart = GetTickCount64();
+				DebugOut(L"[INFO] Mario OnCollisionWithKoopa SetWasHeld\n");
+			}
+			else
+			{
+
+			
 				koopa->SetState(KOOPA_STATE_WAS_KICKED);
 				vy = -MARIO_JUMP_DEFLECT_SPEED;
 			}
 		}
 		else
 		{
-			if (untouchable == 0 && false)
+			if (untouchable == 0)
 			{
-				if (level > MARIO_LEVEL_SMALL)
+				if (koopa->GetState() == KOOPA_STATE_DEFEND)
 				{
-					level = MARIO_LEVEL_SMALL;
-					StartUntouchable();
+					isHolding = true;
+					koopa->SetWasHeld(true);
+					holdingStart = GetTickCount64();
+					DebugOut(L"[INFO] Mario OnCollisionWithKoopa SetWasHeld\n");
 				}
 				else
 				{
-					DebugOut(L">>> Mario DIE >>> \n");
-					SetState(MARIO_STATE_DIE);
+		/*			if (level > MARIO_LEVEL_SMALL)
+					{
+						level = MARIO_LEVEL_SMALL;
+						StartUntouchable();
+					}
+					else
+					{
+						DebugOut(L">>> Mario DIE >>> \n");
+						SetState(MARIO_STATE_DIE);
+					}*/
 				}
 			}
 		}

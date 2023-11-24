@@ -43,8 +43,18 @@ public:
 
 	float GetX() { return this->x; }
 	void SetX(float x) { this->x =  x; }
+
 	float GetY() { return this->y; }
 	void SetY(float y) { this->y = y; }
+	
+	void SetVx(float vx) {  this->vx = vx; }
+	float GetVx() { return this->vx; }
+
+	void SetVy(float vy) { this->vy = vy; }
+	float GetVy() { return this->vy; }
+
+	int GetNx() { return this->nx; }
+
 
 	void RenderBoundingBox();
 

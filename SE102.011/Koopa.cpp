@@ -18,8 +18,18 @@ CKoopa::CKoopa(float x, float y, int model) :CGameObject(x, y) {
 }
 
 void CKoopa::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects) {
+	CMario* mario = (CMario*)((LPPLAYSCENE)CGame::GetInstance()->GetCurrentScene())->GetPlayer();
+
 	vy += ay * dt;
 	vx += ax * dt;
+
+	if (mario->IsHolding() && wasHeld) {
+		this->x = mario->GetX() + mario->GetNx() * (MARIO_BIG_BBOX_WIDTH - 3);
+		this->y = mario->GetY() - 3;
+
+		vx = mario->GetVx();
+		vy = mario->GetVy();
+	}
 
 	if (GetTickCount64() - defendStart > KOOPA_REVIVAL_TIME && isDefend) {
 		isRevival = true;

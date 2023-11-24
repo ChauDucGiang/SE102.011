@@ -57,15 +57,15 @@ void CPlant::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects) {
 		}
 		else
 		{
-			timeShoot = GetTickCount64();
+			shootStart = GetTickCount64();
 			vy = 0;
 			y = minY;
-			if (GetTickCount64() - timeOutPipe > TIME_OUT_PIPE) {
+			if (GetTickCount64() - outPipeStart > TIME_OUT_PIPE) {
 				SetState(PLANT_STATE_DOWN);
 			}
 			else
 			{
-				if (!isShooting && (GetTickCount64() - timeShoot < TIME_SHOOT)) {
+				if (!isShooting && (GetTickCount64() - shootStart < TIME_SHOOT)) {
 					Shoot();
 				}
 		
@@ -80,7 +80,7 @@ void CPlant::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects) {
 			vy = 0;
 			y = startY;
 			float distance = abs(mario->GetX() - x);
-			if (GetTickCount64() - timeInPipe > TIME_IN_PIPE && distance > HIDE_DISTANCE) {
+			if (GetTickCount64() - inPipeStart > TIME_IN_PIPE && distance > HIDE_DISTANCE) {
 				SetState(PLANT_STATE_UP);
 			}
 		}
@@ -106,16 +106,16 @@ void CPlant::SetState(int state) {
 		isUpping = true;
 		isDowning = false;
 		isShooting = false;
-		timeOutPipe = GetTickCount64();
-		timeInPipe = 0;
+		outPipeStart = GetTickCount64();
+		inPipeStart = 0;
 
 		break;
 	case PLANT_STATE_DOWN:
 		isUpping = false;
 		isDowning = true;
 		isShooting = false;
-		timeOutPipe = 0;
-		timeInPipe = GetTickCount64();
+		outPipeStart = 0;
+		inPipeStart = GetTickCount64();
 
 		break;
 	case PLANT_STATE_DIE:

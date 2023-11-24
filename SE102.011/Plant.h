@@ -48,7 +48,7 @@ class  CPlant : public CGameObject
 	protected:
 		float startX, startY, minY;
 		int model;
-		ULONGLONG timeShoot, timeOutPipe, timeInPipe;
+		ULONGLONG shootStart, outPipeStart, inPipeStart;
 		bool isUpping, isDowning, isShooting = false;
 		virtual void Render();
 		virtual void Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects);

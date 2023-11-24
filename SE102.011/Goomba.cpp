@@ -5,7 +5,7 @@ CGoomba::CGoomba(float x, float y, int model):CGameObject(x, y)
 	this->ax = 0;
 	this->ay = GOOMBA_GRAVITY;
 	this->model = model;
-	die_start = -1;
+	dieStart = -1;
 	SetState(GOOMBA_STATE_WALKING);
 }
 
@@ -54,7 +54,7 @@ void CGoomba::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 	vy += ay * dt;
 	vx += ax * dt;
 
-	if ( (state==GOOMBA_STATE_DIE) && (GetTickCount64() - die_start > GOOMBA_DIE_TIMEOUT) )
+	if ( (state==GOOMBA_STATE_DIE) && (GetTickCount64() - dieStart > GOOMBA_DIE_TIMEOUT) )
 	{
 		isDeleted = true;
 		return;
@@ -70,12 +70,12 @@ void CGoomba::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 		else {
 			vx = GOOMBA_WALKING_SPEED;
 		}
-		if (GetTickCount64() - timeOnPlatform > TIME_ON_PLATFORM && isOnPlatForm) {
+		if (GetTickCount64() - onPlatformStart > GOOMBA_ON_PLATFORM_TIME && isOnPlatForm) {
 			SetState(GOOMBA_STATE_FLY);
 		}
 		else
 		{
-			if (GetTickCount64() - timeFly > TIME_FLY && !isOnPlatForm)
+			if (GetTickCount64() - flyStart > GOOMBA_FLY_TIME && !isOnPlatForm)
 			{
 				SetState(GOOMBA_STATE_WALKING);
 			}
@@ -134,7 +134,7 @@ void CGoomba::SetState(int state)
 	switch (state)
 	{
 		case GOOMBA_STATE_DIE:
-			die_start = GetTickCount64();
+			dieStart = GetTickCount64();
 			y += (GOOMBA_BBOX_HEIGHT - GOOMBA_BBOX_HEIGHT_DIE)/2;
 			vx = 0;
 			vy = 0;
@@ -144,15 +144,15 @@ void CGoomba::SetState(int state)
 			vx = -GOOMBA_WALKING_SPEED;
 			isOnPlatForm = true;
 			isFlying = false;
-			timeOnPlatform = GetTickCount64();
-			timeFly = 0;
+			onPlatformStart = GetTickCount64();
+			flyStart = 0;
 			break;
 		case GOOMBA_STATE_FLY:
 			vy = -GOOMBA_JUMP_SPEED_Y;
 			isOnPlatForm = false;
 			isFlying = true;
-			timeOnPlatform = 0;
-			timeFly = GetTickCount64();
+			onPlatformStart = 0;
+			flyStart = GetTickCount64();
 			break;
 	}
 }

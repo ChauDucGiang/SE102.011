@@ -112,10 +112,18 @@ int CKoopa::GetModelRedAnimation() {
 
 void CKoopa::GetBoundingBox(float& left, float& top, float& right, float& bottom)
 {
-	left = x - KOOPA_BBOX_WIDTH / 2;
-	top = y - KOOPA_BBOX_HEIGHT / 2;
-	right = left + KOOPA_BBOX_WIDTH;
-	bottom = top + KOOPA_BBOX_HEIGHT;
+	if (isDefend || isUpside) {
+		left = x - KOOPA_BBOX_WIDTH / 2;
+		top = y - KOOPA_BBOX_HEIGHT_DEFEND / 2;
+		right = left + KOOPA_BBOX_WIDTH;
+		bottom = top + KOOPA_BBOX_HEIGHT_DEFEND;
+	}
+	else {
+		left = x - KOOPA_BBOX_WIDTH / 2;
+		top = y - KOOPA_BBOX_HEIGHT / 2;
+		right = left + KOOPA_BBOX_WIDTH;
+		bottom = top + KOOPA_BBOX_HEIGHT;
+	}
 }
 
 #pragma region Collision
@@ -130,6 +138,7 @@ void CKoopa::OnCollisionWith(LPCOLLISIONEVENT e) {
 		if (e->nx != 0 && e->obj->IsBlocking())
 		{
 			vx = -vx;
+			DebugOut(L"[INFO] Koopa OnCollisionWith\n");
 		}
 	}
 
@@ -144,7 +153,7 @@ void CKoopa::OnCollisionWithPlatform(LPCOLLISIONEVENT e) {
 
 	CPlatform* platform = dynamic_cast<CPlatform*>(e->obj);
 
-	if ((state == KOOPA_STATE_WALKING))
+	if (model == KOOPA_RED && state == KOOPA_STATE_WALKING)
 	{
 		// go to left
 		if (platform->GetX() > GetX() && vx < 0) {
@@ -152,11 +161,11 @@ void CKoopa::OnCollisionWithPlatform(LPCOLLISIONEVENT e) {
 		
 			SetX(platform->GetX());
 		}
-		else if ((platform->GetX() + platform->GetLength() * platform->GetCellWidth()) < (GetX() + KOOPA_BBOX_WIDTH) && vx > 0)
+		else if ((platform->GetX() + platform->GetWidth()) < (GetX() + KOOPA_BBOX_WIDTH) && vx > 0)
 		{
 			vx = -vx;
 
-			SetX(platform->GetX() + platform->GetLength() * platform->GetCellWidth() - KOOPA_BBOX_WIDTH);
+			SetX(platform->GetX() + platform->GetWidth() - KOOPA_BBOX_WIDTH);
 		}
 
 
@@ -179,8 +188,6 @@ void CKoopa::OnCollisionWithKoopa(LPCOLLISIONEVENT e) {
 	}
 }
 void CKoopa::OnCollisionWithPlant(LPCOLLISIONEVENT e) {
-	CMario* mario = (CMario*)((LPPLAYSCENE)CGame::GetInstance()->GetCurrentScene())->GetPlayer();
-
 	CPlant* plant = dynamic_cast<CPlant*>(e->obj);
 
 	if (state == KOOPA_STATE_WAS_KICKED) {

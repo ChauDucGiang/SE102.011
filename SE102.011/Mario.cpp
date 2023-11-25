@@ -179,9 +179,9 @@ void CMario::OnCollisionWithKoopa(LPCOLLISIONEVENT e) {
 			{
 				if (koopa->GetState() == KOOPA_STATE_DEFEND || koopa->GetState() == KOOPA_STATE_UPSIDE)
 				{
-					//isHolding = true;
-					//koopa->SetWasHeld(true);
-					//holdingStart = GetTickCount64();
+					isHolding = true;
+					koopa->SetWasHeld(true);
+					holdingStart = GetTickCount64();
 					DebugOut(L"[INFO] Mario OnCollisionWithKoopa SetWasHeld\n");
 				}
 				else

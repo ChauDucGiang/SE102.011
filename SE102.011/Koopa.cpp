@@ -49,7 +49,6 @@ void CKoopa::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects) {
 			if (isRevival) {
 				SetState(KOOPA_STATE_WALKING);
 				y -= (KOOPA_BBOX_HEIGHT - KOOPA_BBOX_HEIGHT_DEFEND) / 2;
-				//vy = -KOOPA_ADJUST_NOT_FALL;
 				defendStart = 0;
 			}
 		}

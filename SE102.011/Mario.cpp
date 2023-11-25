@@ -69,8 +69,6 @@ void CMario::OnCollisionWith(LPCOLLISIONEVENT e)
 	}
 	else if (e->nx != 0 && e->obj->IsBlocking())
 		{
-			float pX = e->obj->GetX();
-			DebugOut(L"[INFO] Mario OnCollisionWithPlatfom %f\n", pX);
 			vx = 0;
 		}
 
@@ -224,6 +222,16 @@ void CMario::OnCollisionWithPlant(LPCOLLISIONEVENT e) {
 void CMario::OnCollisionWithLeaf(LPCOLLISIONEVENT e) {
 	DebugOut(L"[INFO] Mario OnCollisionWithLeaf\n");
 	CLeaf* leaf = dynamic_cast<CLeaf*>(e->obj);
+	leaf->Delete();
+
+	if (level  ==  MARIO_LEVEL_SMALL)
+	{
+		SetLevel(MARIO_LEVEL_BIG);
+	}
+	else {
+		SetLevel(MARIO_LEVEL_TAIL);
+	}
+
 }
 
 void CMario::OnCollisionWithCoin(LPCOLLISIONEVENT e)

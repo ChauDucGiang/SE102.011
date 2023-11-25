@@ -2,6 +2,7 @@
 #include "Coin.h"
 #include "PlayScene.h"
 #include "MushRoom.h"
+#include "Leaf.h"
 
 
 CQuestionBlock::CQuestionBlock(float x, float y, int model) :CGameObject(x, y)
@@ -92,7 +93,10 @@ void CQuestionBlock::Unbox() {
 	}
 	else if (model == BLOCK_QUESTION_ITEM)
 	{
-		CMushRoom* mushroom = new CMushRoom(x, y, MUSHROOM_RED);
-		scene->AddObject(mushroom);
+		CLeaf* leaf = new CLeaf(x - 5, y - 5);
+		scene->AddObject(leaf);
+		//CMushRoom* mushroom = new CMushRoom(x, y, MUSHROOM_RED);
+
+		//scene->AddObject(mushroom);
 	}
 }

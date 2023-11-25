@@ -55,6 +55,8 @@ public:
 
 	int GetNx() { return this->nx; }
 
+	bool IsPlatform() { return false; };
+
 
 	void RenderBoundingBox();
 

@@ -1,9 +1,10 @@
 #include "Collision.h"
 #include "GameObject.h"
+#include "Platform.h"
 
 #include "debug.h"
 
-#define BLOCK_PUSH_FACTOR 0.4f
+#define BLOCK_PUSH_FACTOR 0.1f
 
 CCollision* CCollision::__instance = NULL;
 
@@ -200,6 +201,15 @@ void CCollision::Filter( LPGAMEOBJECT objSrc,
 		{
 			continue;
 		}
+		if (dynamic_cast<CPlatform*>(c->obj))
+		{
+			CPlatform* platform = dynamic_cast<CPlatform*>(c->obj);
+			if (platform->IsNoneBlockObject())
+			{
+				if (c->nx != 0 || c->ny > 0) continue;
+			}
+		}
+	
 
 		if (c->t < min_tx && c->nx != 0 && filterX == 1) {
 			min_tx = c->t; min_ix = i;

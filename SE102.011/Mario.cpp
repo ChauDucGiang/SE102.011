@@ -23,7 +23,6 @@ void CMario::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 {
 	vy += ay * dt;
 	vx += ax * dt;
-
 	if (abs(vx) > abs(maxVx)) vx = maxVx;
 
 	// reset untouchable timer if untouchable time has passed
@@ -68,9 +67,10 @@ void CMario::OnCollisionWith(LPCOLLISIONEVENT e)
 		vy = 0;
 		if (e->ny < 0) isOnPlatform = true;
 	}
-	else
-		if (e->nx != 0 && e->obj->IsBlocking())
+	else if (e->nx != 0 && e->obj->IsBlocking())
 		{
+			float pX = e->obj->GetX();
+			DebugOut(L"[INFO] Mario OnCollisionWithPlatfom %f\n", pX);
 			vx = 0;
 		}
 
@@ -92,11 +92,11 @@ void CMario::OnCollisionWith(LPCOLLISIONEVENT e)
 		OnCollisionWithFireBullet(e);
 	else if (dynamic_cast<CMushRoom*>(e->obj))
 		OnCollisionWithMushRoom(e);
-	else if (dynamic_cast<CPlatform*>(e->obj))
-		OnCollisionWithPlatform(e);
+	//else if (dynamic_cast<CPlatform*>(e->obj))
+	//	OnCollisionWithPlatfom(e);
 }
 
-void CMario::OnCollisionWithPlatform(LPCOLLISIONEVENT e)
+void CMario::OnCollisionWithPlatfom(LPCOLLISIONEVENT e)
 {
 	CPlatform* platform = dynamic_cast<CPlatform*>(e->obj);
 	isOnPlatform = true;
@@ -150,16 +150,21 @@ void CMario::OnCollisionWithGoomba(LPCOLLISIONEVENT e)
 
 void CMario::OnCollisionWithKoopa(LPCOLLISIONEVENT e) {
 	DebugOut(L"[INFO] Mario OnCollisionWithKoopa nY: %d\n", e->ny);
-	CKoopa* koopa = dynamic_cast<CKoopa*>(e->obj);
 
+	CKoopa* koopa = dynamic_cast<CKoopa*>(e->obj);
 	if (isTailAttack) {
 		score += 100;
 		koopa->SetState(KOOPA_STATE_UPSIDE);
 	}
 	else
 	{
-		if (e->ny < 0) {
-			koopa->SetVy(-0.1f);
+		if (koopa->GetState() == KOOPA_STATE_DEFEND)
+		{
+			koopa->SetState(KOOPA_STATE_WAS_KICKED);
+			vy = -MARIO_JUMP_DEFLECT_SPEED;
+		}
+		else if (e->ny < 0) {
+			//koopa->SetVy(-0.1f);
 			if (koopa->GetState() == KOOPA_STATE_WALKING || koopa->GetState() == KOOPA_STATE_WAS_KICKED)
 			{
 				koopa->SetState(KOOPA_STATE_DEFEND);
@@ -167,8 +172,7 @@ void CMario::OnCollisionWithKoopa(LPCOLLISIONEVENT e) {
 			}
 			else
 			{
-				koopa->SetState(KOOPA_STATE_WAS_KICKED);
-				vy = -MARIO_JUMP_DEFLECT_SPEED;
+		
 			}
 		}
 		else
@@ -177,9 +181,9 @@ void CMario::OnCollisionWithKoopa(LPCOLLISIONEVENT e) {
 			{
 				if (koopa->GetState() == KOOPA_STATE_DEFEND || koopa->GetState() == KOOPA_STATE_UPSIDE)
 				{
-					isHolding = true;
-					koopa->SetWasHeld(true);
-					holdingStart = GetTickCount64();
+					//isHolding = true;
+					//koopa->SetWasHeld(true);
+					//holdingStart = GetTickCount64();
 					DebugOut(L"[INFO] Mario OnCollisionWithKoopa SetWasHeld\n");
 				}
 				else

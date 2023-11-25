@@ -39,15 +39,19 @@ void CKoopa::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects) {
 		vy = mario->GetVy();
 	}
 
-	if (GetTickCount64() - defendStart > KOOPA_REVIVAL_TIME && (isDefend || isUpside)) {
-		isRevival = true;
-	}
+	if ( state  != KOOPA_STATE_WAS_KICKED)
+	{
+		if (GetTickCount64() - defendStart > KOOPA_REVIVAL_TIME && (isDefend || isUpside)) {
+			isRevival = true;
+		}
 
-	if ((GetTickCount64() - defendStart > KOOPA_DEFEND_TIME && (isDefend || isUpside))) {
-		if (isRevival) {
-			SetState(KOOPA_STATE_WALKING);
-			vy = -KOOPA_ADJUST_NOT_FALL;
-			defendStart = 0;
+		if ((GetTickCount64() - defendStart > KOOPA_DEFEND_TIME && (isDefend || isUpside))) {
+			if (isRevival) {
+				SetState(KOOPA_STATE_WALKING);
+				y -= (KOOPA_BBOX_HEIGHT - KOOPA_BBOX_HEIGHT_DEFEND) / 2;
+				//vy = -KOOPA_ADJUST_NOT_FALL;
+				defendStart = 0;
+			}
 		}
 	}
 

@@ -40,6 +40,7 @@ void CGoomba::OnCollisionWith(LPCOLLISIONEVENT e)
 
 	if (e->ny != 0 )
 	{
+		isOnPlatForm = true;
 		vy = 0;
 	}
 	else if (e->nx != 0)
@@ -62,21 +63,15 @@ void CGoomba::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 
 	if (model == GOOMBA_WING)
 	{
-		// Duoi theo mario
+		// bay va duoi theo mario
 		if (GetTickCount64() - onPlatformStart > GOOMBA_ON_PLATFORM_TIME && isOnPlatForm) {
 			SetState(GOOMBA_STATE_FLY);
-			if ((mario->GetX() <= x))
-			{
-				vx = -GOOMBA_WALKING_SPEED;
-			}
-			else {
-				vx = GOOMBA_WALKING_SPEED;
-			}
+			vx = (mario->GetX() <= x) ? -GOOMBA_WALKING_SPEED : GOOMBA_WALKING_SPEED;
 		}
-		if (GetTickCount64() - flyStart > GOOMBA_FLY_TIME && !isOnPlatForm)
+	/*	if (GetTickCount64() - flyStart > GOOMBA_FLY_TIME && !isOnPlatForm)
 		{
 			SetState(GOOMBA_STATE_WALKING);
-		}
+		}*/
 	}
 
 

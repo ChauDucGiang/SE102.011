@@ -142,6 +142,7 @@ void CKoopa::OnNoCollision(DWORD dt) {
 }
 
 void CKoopa::OnCollisionWith(LPCOLLISIONEVENT e) {
+
 	if (!dynamic_cast<CGoomba*>(e->obj) && !dynamic_cast<CMario*>(e->obj)) {
 		if (e->ny < 0)
 		{

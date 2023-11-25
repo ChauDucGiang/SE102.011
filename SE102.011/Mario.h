@@ -182,6 +182,7 @@ class CMario : public CGameObject
 	float maxVx;
 	float ax;				// acceleration on x 
 	float ay;				// acceleration on y 
+	float adjustX = 0.0f;
 
 	ULONGLONG untouchableStart, tailAttachStart, holdingStart;
 	BOOLEAN isSitting, isOnPlatform, isTailAttack = false, isHolding;

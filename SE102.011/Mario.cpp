@@ -101,6 +101,7 @@ void CMario::OnCollisionWithPlatform(LPCOLLISIONEVENT e)
 	CPlatform* platform = dynamic_cast<CPlatform*>(e->obj);
 	isOnPlatform = true;
 	vy = 0;
+	adjustX = platform->GetX() - platform->GetWidth() / 2 + MARIO_BIG_BBOX_WIDTH;
 	if (e->ny < 0) {
 
 	}

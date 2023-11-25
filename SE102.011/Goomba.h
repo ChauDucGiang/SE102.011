@@ -2,7 +2,7 @@
 #include "GameObject.h"
 #include "PlayScene.h"
 
-#define GOOMBA_GRAVITY 0.002f
+#define GOOMBA_GRAVITY 0.0005f
 #define GOOMBA_WALKING_SPEED 0.05f
 #define GOOMBA_JUMP_SPEED_Y 0.2f
 #define GOOMBA_ON_PLATFORM_TIME 2000

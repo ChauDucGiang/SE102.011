@@ -252,10 +252,14 @@ void CMario::OnCollisionWithQuestionBlock(LPCOLLISIONEVENT e) {
 	DebugOut(L"[INFO] Mario OnCollisionWithQuestionBlock\n");
 	CQuestionBlock* q = dynamic_cast<CQuestionBlock*>(e->obj);
 
-	if (!q->GetIsOpened() && !q->GetIsEmpty())
+	if (e->ny > 0)
 	{
-		q->Unbox();
+		if (!q->GetIsOpened() && !q->GetIsEmpty())
+		{
+			q->Unbox();
+		}
 	}
+
 }
 
 void CMario::OnCollisionWithFireBullet(LPCOLLISIONEVENT e) {

@@ -91,12 +91,13 @@ void CQuestionBlock::Unbox() {
 		CMushRoom* mushroom = new CMushRoom(x, y, MUSHROOM_GREEN);
 		scene->AddObject(mushroom);
 	}
-	else if (model == BLOCK_QUESTION_ITEM)
+	else if (model == BLOCK_QUESTION_MUSHROOM_RED)
 	{
+		CMushRoom* mushroom = new CMushRoom(x, y, MUSHROOM_RED);
+		scene->AddObject(mushroom);
+	}
+	else if (model == BLOCK_QUESTION_LEAF) {
 		CLeaf* leaf = new CLeaf(x - 5, y - 5);
 		scene->AddObject(leaf);
-		//CMushRoom* mushroom = new CMushRoom(x, y, MUSHROOM_RED);
-
-		//scene->AddObject(mushroom);
 	}
 }

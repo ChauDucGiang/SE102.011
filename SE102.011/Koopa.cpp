@@ -47,8 +47,9 @@ void CKoopa::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects) {
 
 		if ((GetTickCount64() - defendStart > KOOPA_DEFEND_TIME && (isDefend || isUpside))) {
 			if (isRevival) {
+				DebugOut(L"[INFO] Koopa Revival\n");
+				this->y -= (KOOPA_BBOX_HEIGHT - KOOPA_BBOX_HEIGHT_DEFEND) / 2;
 				SetState(KOOPA_STATE_WALKING);
-				y -= (KOOPA_BBOX_HEIGHT - KOOPA_BBOX_HEIGHT_DEFEND) / 2;
 				defendStart = 0;
 			}
 		}
@@ -232,6 +233,7 @@ void CKoopa::SetState(int state) {
 		ay = KOOPA_GRAVITY;
 		isRevival = false;
 		isDefend = false;
+		isUpside = false;
 		break;
 	case KOOPA_STATE_DEFEND:
 		vx = 0;

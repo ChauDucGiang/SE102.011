@@ -188,6 +188,7 @@
     <ClCompile Include="Brick.cpp" />
     <ClCompile Include="FireBullet.cpp" />
     <ClCompile Include="Font.cpp" />
+    <ClCompile Include="KoopaDetector.cpp" />
     <ClCompile Include="MushRoom.cpp" />
     <ClCompile Include="QuestionBlock.cpp" />
     <ClCompile Include="Coin.cpp" />
@@ -226,6 +227,7 @@
     <ClInclude Include="Brick.h" />
     <ClInclude Include="FireBullet.h" />
     <ClInclude Include="Font.h" />
+    <ClInclude Include="KoopaDetector.h" />
     <ClInclude Include="QuestionBlock.h" />
     <ClInclude Include="CIntroScene.h" />
     <ClInclude Include="Coin.h" />

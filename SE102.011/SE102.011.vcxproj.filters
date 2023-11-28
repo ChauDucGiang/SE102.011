@@ -168,6 +168,9 @@
     <ClCompile Include="MushRoom.cpp">
       <Filter>Source Files\Objects\Items</Filter>
     </ClCompile>
+    <ClCompile Include="KoopaDetector.cpp">
+      <Filter>Source Files\Objects\Items</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
@@ -282,6 +285,9 @@
       <Filter>Header Files\Objects</Filter>
     </ClInclude>
     <ClInclude Include="FireBullet.h">
+      <Filter>Header Files\Objects\Items</Filter>
+    </ClInclude>
+    <ClInclude Include="KoopaDetector.h">
       <Filter>Header Files\Objects\Items</Filter>
     </ClInclude>
   </ItemGroup>

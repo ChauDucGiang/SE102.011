@@ -2,8 +2,10 @@
 #include "PlayScene.h"
 #include "Platform.h"
 #include "Plant.h"
+#include "KoopaDetector.h"
 
 CKoopa::CKoopa(float x, float y, int model) :CGameObject(x, y) {
+	CPlayScene* scene =  (CPlayScene*)CGame::GetInstance()->GetCurrentScene();
 	this->ax = 0;
 	this->ay = KOOPA_GRAVITY;
 	this->model = model;
@@ -14,6 +16,9 @@ CKoopa::CKoopa(float x, float y, int model) :CGameObject(x, y) {
 	else {
 		isWing = false;
 		SetState(KOOPA_STATE_WALKING);
+		/* Add Detector*/
+		CKoopaDetector* plant = new CKoopaDetector(x - KOOPA_BBOX_WIDTH/ 2, y, vx, vy);
+		scene->AddObject(plant);
 	}
 }
 

@@ -1,5 +1,6 @@
 #pragma once
 #include "GameObject.h"
+#include "KoopaDetector.h"
 
 #define KOOPA_GRAVITY 0.001f	//trong luc
 #define KOOPA_WALKING_SPEED 0.04f	//toc do di bo
@@ -57,6 +58,8 @@ class CKoopa : public CGameObject
 	protected:
 		float ax, ay;
 		int model;
+
+		CKoopaDetector* detector;
 
 		ULONGLONG  dieStart, revivalStart, defendStart;
 

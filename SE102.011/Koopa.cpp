@@ -12,13 +12,14 @@ CKoopa::CKoopa(float x, float y, int model) :CGameObject(x, y) {
 	if (model == KOOPA_GREEN_WING) {
 		isWing = true;
 		SetState(KOOPA_STATE_JUMP);
+		this->detector = NULL;
 	}
 	else {
 		isWing = false;
 		SetState(KOOPA_STATE_WALKING);
 		/* Add Detector*/
-		CKoopaDetector* plant = new CKoopaDetector(x - KOOPA_BBOX_WIDTH/ 2, y, vx, vy);
-		scene->AddObject(plant);
+		this->detector = new CKoopaDetector(x - KOOPA_BBOX_WIDTH/ 2 - KOOPA_DETECTOR_BBOX_WIDTH/2, y, vx, vy);
+		scene->AddObject(this->detector);
 	}
 }
 
@@ -34,6 +35,19 @@ void CKoopa::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects) {
 			isDeleted = true;
 			return;
 		}
+	}
+	if (!detector->onPlatform())
+	{
+		DebugOut(L"[INFO] Koopa detector Vy : %f\n", vy);
+		DebugOut(L"[INFO] Koopa detector Vx : %f\n", vx);
+		this->vx = -vx;
+		DebugOut(L"[INFO] Koopa detector Vx : %f\n", vx);
+		nx = -nx;
+		detector->SetVx(vx);
+
+		detector->SetX(x + KOOPA_BBOX_WIDTH / 2);
+		detector->SetY(y);
+
 	}
 
 	if (mario->IsHolding() && wasHeld) {
@@ -181,27 +195,27 @@ void CKoopa::OnCollisionWithMario(LPCOLLISIONEVENT e) {
 }
 void CKoopa::OnCollisionWithPlatform(LPCOLLISIONEVENT e) {
 
-	CPlatform* platform = dynamic_cast<CPlatform*>(e->obj);
-	isOnPlatform = true;
-	vy = 0;
-	if (e->ny < 0) {
-		if (model == KOOPA_RED && state == KOOPA_STATE_WALKING)
-		{
-			// go to left
-			if (platform->GetX() > GetX() && vx < 0) {
-				vx = -vx;
+	//CPlatform* platform = dynamic_cast<CPlatform*>(e->obj);
+	//isOnPlatform = true;
+	//vy = 0;
+	//if (e->ny < 0) {
+	//	if (model == KOOPA_RED && state == KOOPA_STATE_WALKING)
+	//	{
+	//		// go to left
+	//		if (platform->GetX() > GetX() && vx < 0) {
+	//			vx = -vx;
 
-				SetX(platform->GetX());
-			}
-			else if ((platform->GetX() + platform->GetWidth()) < (GetX() + KOOPA_BBOX_WIDTH) && vx > 0)
-			{
-				vx = -vx;
+	//			SetX(platform->GetX());
+	//		}
+	//		else if ((platform->GetX() + platform->GetWidth()) < (GetX() + KOOPA_BBOX_WIDTH) && vx > 0)
+	//		{
+	//			vx = -vx;
 
-				SetX(platform->GetX() + platform->GetWidth() - KOOPA_BBOX_WIDTH);
-			}
-		}
+	//			SetX(platform->GetX() + platform->GetWidth() - KOOPA_BBOX_WIDTH);
+	//		}
+	//	}
 
-	}
+	//}
 }
 
 void CKoopa::OnCollisionWithGoomba(LPCOLLISIONEVENT e) {

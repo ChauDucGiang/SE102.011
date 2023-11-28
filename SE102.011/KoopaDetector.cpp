@@ -4,7 +4,7 @@
 CKoopaDetector::CKoopaDetector(float x, float y, float vx, float vy) : CGameObject(x, y) {
 	this->ay = KOOPA_DETECTOR_GRAVITY;
 	this->vx = vx;
-	this->vy = vy;
+	this->vy = 0;
 }
 
 void CKoopaDetector::Render() {
@@ -34,9 +34,9 @@ void CKoopaDetector::OnCollisionWith(LPCOLLISIONEVENT e) {
 		vy = 0;
 		isOnPlatform = true;
 	}
-	else if (e->nx != 0)
+	else
 	{
-		vx = -vx;
+		isOnPlatform = false;
 	}
 }
 

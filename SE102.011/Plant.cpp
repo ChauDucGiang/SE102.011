@@ -12,23 +12,45 @@ CPlant::CPlant(float x, float y, int model) :CGameObject(x, y) {
 }
 
 void CPlant::Render() {
+	int aniId;
+	switch (model)
+	{
+	case PLANT_FIRE_PIRAHA_RED:
+		aniId = GetModelFirePirahaRedAnimation();
+		break;
+	case PLANT_FIRE_PIRAHA_GREEN:
+		aniId = GetModelFirePirahaGreenAnimation();
+		break;
+	case PLANT_PIRAHA_GREEN:
+		aniId = GetModelPirahaGreenAnimation();
+		break;
+	}
+
+	CAnimations::GetInstance()->Get(aniId)->Render(x, y);
+}
+
+#pragma region Animations
+
+int CPlant::GetModelFirePirahaGreenAnimation() {
 	std::pair<int, int> position = PositionWithMario();
 
 	int nx = position.first;
 	int ny = position.second;
 
-	int aniId = -1;
+	int aniId;
+
+
 	//mario on the left
 	if (nx == -1)
 	{
 		//mario on the top
 		if (ny == -1)
-			if (!isShooting) aniId = ID_ANI_PLANT_LEFT_UNDER_NOT_SHOOT;
-			else aniId = ID_ANI_PLANT_LEFT_UNDER_SHOOT;
+			if (!isShooting) aniId = ID_ANI_PLANT_FIRE_PIRAHA_RED_LEFT_UNDER_NOT_SHOOT;
+			else aniId = ID_ANI_PLANT_FIRE_PIRAHA_RED_LEFT_UNDER_SHOOT;
 		//mario on the top
 		else if (ny == 1)
-			if (!isShooting) aniId = ID_ANI_PLANT_LEFT_TOP_NOT_SHOOT;
-			else aniId = ID_ANI_PLANT_LEFT_TOP_SHOOT;
+			if (!isShooting) aniId = ID_ANI_PLANT_FIRE_PIRAHA_RED_LEFT_TOP_NOT_SHOOT;
+			else aniId = ID_ANI_PLANT_FIRE_PIRAHA_RED_LEFT_TOP_SHOOT;
 
 	}
 	//mario on the right
@@ -36,17 +58,67 @@ void CPlant::Render() {
 	{
 		if (ny == 1)
 		{
-			if (!isShooting) aniId = ID_ANI_PLANT_RIGHT_TOP_NOT_SHOOT;
-			else aniId = ID_ANI_PLANT_RIGHT_TOP_SHOOT;
+			if (!isShooting) aniId = ID_ANI_PLANT_FIRE_PIRAHA_RED_RIGHT_TOP_NOT_SHOOT;
+			else aniId = ID_ANI_PLANT_FIRE_PIRAHA_RED_RIGHT_TOP_SHOOT;
 		}
 		else
 		{
-			if (!isShooting) aniId = ID_ANI_PLANT_RIGHT_UNDER_NOT_SHOOT;
-			else aniId = ID_ANI_PLANT_RIGHT_UNDER_SHOOT;
+			if (!isShooting) aniId = ID_ANI_PLANT_FIRE_PIRAHA_RED_RIGHT_UNDER_NOT_SHOOT;
+			else aniId = ID_ANI_PLANT_FIRE_PIRAHA_RED_RIGHT_UNDER_SHOOT;
 		}
 	}
-	CAnimations::GetInstance()->Get(aniId)->Render(x, y);
+
+	return aniId;
 }
+
+int CPlant::GetModelFirePirahaRedAnimation() {
+	std::pair<int, int> position = PositionWithMario();
+
+	int nx = position.first;
+	int ny = position.second;
+
+	int aniId;
+
+
+	//mario on the left
+	if (nx == -1)
+	{
+		//mario on the top
+		if (ny == -1)
+			if (!isShooting) aniId = ID_ANI_PLANT_FIRE_PIRAHA_GREEN_LEFT_UNDER_NOT_SHOOT;
+			else aniId = ID_ANI_PLANT_FIRE_PIRAHA_GREEN_LEFT_UNDER_SHOOT;
+		//mario on the top
+		else if (ny == 1)
+			if (!isShooting) aniId = ID_ANI_PLANT_FIRE_PIRAHA_GREEN_LEFT_TOP_NOT_SHOOT;
+			else aniId = ID_ANI_PLANT_FIRE_PIRAHA_GREEN_LEFT_TOP_SHOOT;
+
+	}
+	//mario on the right
+	else
+	{
+		if (ny == 1)
+		{
+			if (!isShooting) aniId = ID_ANI_PLANT_FIRE_PIRAHA_GREEN_RIGHT_TOP_NOT_SHOOT;
+			else aniId = ID_ANI_PLANT_FIRE_PIRAHA_GREEN_RIGHT_TOP_SHOOT;
+		}
+		else
+		{
+			if (!isShooting) aniId = ID_ANI_PLANT_FIRE_PIRAHA_GREEN_RIGHT_UNDER_NOT_SHOOT;
+			else aniId = ID_ANI_PLANT_FIRE_PIRAHA_GREEN_RIGHT_UNDER_SHOOT;
+		}
+	}
+
+	return aniId;
+}
+
+int CPlant::GetModelPirahaGreenAnimation() {
+	return ID_ANI_PLANT_PIRAHA_GREEN;
+}
+
+
+
+#pragma endregion
+
 
 void CPlant::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects) {
 

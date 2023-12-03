@@ -24,6 +24,7 @@ void CPipe::Render() {
 }
 
 
+
 void CPipe::GetBoundingBox(float& left, float& top, float& right, float& bottom)
 {
 	if (model == PIPE_SHORT_MODEL) {

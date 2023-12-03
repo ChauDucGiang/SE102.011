@@ -141,9 +141,10 @@ void CPlayScene::_ParseSection_OBJECTS(string line)
 	/*Items*/
 	case OBJECT_TYPE_COIN: obj = new CCoin(x, y); break;
 	//Pipe
-	case OBJECT_TYPE_PIPE_SHORT: obj = new CPipe(x, y, PIPE_SHORT_MODEL, PLANT_NOT_SHOOT); break;
-	case OBJECT_TYPE_PIPE_LONG: obj = new CPipe(x, y, PIPE_LONG_MODEL, PLANT_SHOOT_RED); break;
-	case OBJECT_TYPE_PIPE_LONG_GREEN: obj = new CPipe(x, y, PIPE_LONG_MODEL, PLANT_SHOOT_GREEN); break;
+
+	case OBJECT_TYPE_PIPE_LONG_RED: obj = new CPipe(x, y, PIPE_LONG_MODEL, PLANT_FIRE_PIRAHA_RED); break;
+	case OBJECT_TYPE_PIPE_LONG_GREEN: obj = new CPipe(x, y, PIPE_LONG_MODEL, PLANT_FIRE_PIRAHA_GREEN); break;
+	case OBJECT_TYPE_PIPE_SHORT: obj = new CPipe(x, y, PIPE_SHORT_MODEL, PLANT_PIRAHA_GREEN); break;
 	
 	//Bricks
 	case OBJECT_TYPE_BLOCK_QUESTION_COIN: obj = new CQuestionBlock(x, y, BLOCK_QUESTION_COIN); break;

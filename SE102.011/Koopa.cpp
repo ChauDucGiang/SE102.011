@@ -18,7 +18,7 @@ CKoopa::CKoopa(float x, float y, int model) :CGameObject(x, y) {
 		isWing = false;
 		SetState(KOOPA_STATE_WALKING);
 		/* Add Detector*/
-		detector = new CKoopaDetector(x - KOOPA_BBOX_WIDTH/ 2 - KOOPA_DETECTOR_BBOX_WIDTH/2, y, vx, vy);
+		detector = new CKoopaDetector(CalculateDetectorX(), y, vx, vy);
 		scene->AddObject(detector);
 	}
 }
@@ -195,42 +195,11 @@ void CKoopa::OnCollisionWithPlatform(LPCOLLISIONEVENT e) {
 	if (detector && detector->isFalling())
 	{
 		float detectorX;
-		// go to right
-		if (vx > 0)
-		{
-			detectorX = x - (KOOPA_BBOX_WIDTH / 2 + KOOPA_DETECTOR_BBOX_WIDTH / 2);
-		}
-		else
-		{
-			detectorX = x + (KOOPA_BBOX_WIDTH / 2 + KOOPA_DETECTOR_BBOX_WIDTH / 2);
-		}
 		vx = -vx;
 		detector->SetVx(vx);
-		detector->SetX(detectorX);
+		detector->SetX(CalculateDetectorX());
 		detector->SetY(y);
-
 	}
-	//CPlatform* platform = dynamic_cast<CPlatform*>(e->obj);
-	//isOnPlatform = true;
-	//vy = 0;
-	//if (e->ny < 0) {
-	//	if (model == KOOPA_RED && state == KOOPA_STATE_WALKING)
-	//	{
-	//		// go to left
-	//		if (platform->GetX() > GetX() && vx < 0) {
-	//			vx = -vx;
-
-	//			SetX(platform->GetX());
-	//		}
-	//		else if ((platform->GetX() + platform->GetWidth()) < (GetX() + KOOPA_BBOX_WIDTH) && vx > 0)
-	//		{
-	//			vx = -vx;
-
-	//			SetX(platform->GetX() + platform->GetWidth() - KOOPA_BBOX_WIDTH);
-	//		}
-	//	}
-
-	//}
 }
 
 void CKoopa::OnCollisionWithGoomba(LPCOLLISIONEVENT e) {

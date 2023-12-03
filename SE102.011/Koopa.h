@@ -9,6 +9,7 @@
 #define KOOPA_KICKED_NOT_FAIL 0.04f
 #define KOOPA_WAS_KICKED_SPEED_X 0.18f
 #define KOOPA_JUMP_WAS_ATTACKED_SPEED_Y 0.4f
+#define KOOPA_ADJUST_DETECTOR_X 2.0f
 
 #define KOOPA_GRAVITY_WING 0.0005f
 #define KOONPA_JUMP_SPEED 0.2f
@@ -95,4 +96,18 @@ class CKoopa : public CGameObject
 
 		virtual void SetState(int state);
 		void SetWasHeld(bool wasHeld) { this->wasHeld = wasHeld; };
+
+		float CalculateDetectorX() {
+			float detectorX;
+			// go to right
+			if (vx > 0)
+			{
+				detectorX = x +  (KOOPA_BBOX_WIDTH / 2 + KOOPA_DETECTOR_BBOX_WIDTH / 2) + KOOPA_ADJUST_DETECTOR_X;
+			}
+			else
+			{
+				detectorX = x - (KOOPA_BBOX_WIDTH / 2 + KOOPA_DETECTOR_BBOX_WIDTH / 2) - KOOPA_ADJUST_DETECTOR_X;
+			}
+			return detectorX;
+		}
 };

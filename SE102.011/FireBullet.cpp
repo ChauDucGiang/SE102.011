@@ -1,11 +1,17 @@
 ﻿#include "FireBullet.h"
 #include "Pipe.h"
 #include "Plant.h"
+#include "PlayScene.h"
 
 CFireBullet::CFireBullet(float x, float y, int nx, int ny):CGameObject(x, y)
 {
+	CMario* mario = (CMario*)((LPPLAYSCENE)CGame::GetInstance()->GetCurrentScene())->GetPlayer();
+
+	float deltaX = abs(x - mario->GetX());
+	float deltaY = abs(x - mario->GetY());
+	//time = deltaX / vx = deltaY / vy;
 	vx = nx  * BULLET_SPEED_X_PLANT;
-	vy = -ny * BULLET_SPEED_Y_PLANT;
+	vy = -ny * deltaY * BULLET_SPEED_X_PLANT / deltaX;
 
 }
 void CFireBullet::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)

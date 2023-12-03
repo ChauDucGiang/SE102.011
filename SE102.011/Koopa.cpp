@@ -12,14 +12,14 @@ CKoopa::CKoopa(float x, float y, int model) :CGameObject(x, y) {
 	if (model == KOOPA_GREEN_WING) {
 		isWing = true;
 		SetState(KOOPA_STATE_JUMP);
-		this->detector = NULL;
+		detector = NULL;
 	}
 	else {
 		isWing = false;
 		SetState(KOOPA_STATE_WALKING);
 		/* Add Detector*/
-		this->detector = new CKoopaDetector(x - KOOPA_BBOX_WIDTH/ 2 - KOOPA_DETECTOR_BBOX_WIDTH/2, y, vx, vy);
-		scene->AddObject(this->detector);
+		detector = new CKoopaDetector(x - KOOPA_BBOX_WIDTH/ 2 - KOOPA_DETECTOR_BBOX_WIDTH/2, y, vx, vy);
+		scene->AddObject(detector);
 	}
 }
 
@@ -36,19 +36,7 @@ void CKoopa::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects) {
 			return;
 		}
 	}
-	if (!detector->onPlatform())
-	{
-		DebugOut(L"[INFO] Koopa detector Vy : %f\n", vy);
-		DebugOut(L"[INFO] Koopa detector Vx : %f\n", vx);
-		this->vx = -vx;
-		DebugOut(L"[INFO] Koopa detector Vx : %f\n", vx);
-		nx = -nx;
-		detector->SetVx(vx);
 
-		detector->SetX(x + KOOPA_BBOX_WIDTH / 2);
-		detector->SetY(y);
-
-	}
 
 	if (mario->IsHolding() && wasHeld) {
 		this->x = mario->GetX() + mario->GetNx() * (MARIO_BIG_BBOX_WIDTH - 3);
@@ -87,6 +75,7 @@ void CKoopa::Render() {
 		aniId = GetModelRedAnimation();
 		break;
 	case KOOPA_GREEN:
+	case KOOPA_GREEN_WING:
 		aniId = GetModelGreenAnimation();
 		break;
 	}
@@ -98,22 +87,30 @@ void CKoopa::Render() {
 #pragma region Animations
 int CKoopa::GetModelGreenAnimation() {
 	int aniId;
-	if (isUpside) {
-		if (isRevival) aniId = ID_ANI_GREEN_UPSIDE_REVIVAL;
-		else aniId = ID_ANI_GREEN_UPSIDE;
+	if (model == KOOPA_GREEN_WING) {
+		if (vx > 0) aniId = ID_ANI_GREEN_JUMP_RIGHT;
+		else aniId = ID_ANI_GREEN_JUMP_LEFT;
 	}
 	else
 	{
-		if (isDefend) {
-			aniId = ID_ANI_GREEN_DEFEND;
-			if (isRevival) aniId = ID_ANI_GREEN_REVIVAL;
+		if (isUpside) {
+			if (isRevival) aniId = ID_ANI_GREEN_UPSIDE_REVIVAL;
+			else aniId = ID_ANI_GREEN_UPSIDE;
 		}
 		else
 		{
-			if (vx > 0) aniId = ID_ANI_GREEN_WALK_RIGHT;
-			else aniId = ID_ANI_GREEN_WALK_LEFT;
+			if (isDefend) {
+				aniId = ID_ANI_GREEN_DEFEND;
+				if (isRevival) aniId = ID_ANI_GREEN_REVIVAL;
+			}
+			else
+			{
+				if (vx > 0) aniId = ID_ANI_GREEN_WALK_RIGHT;
+				else aniId = ID_ANI_GREEN_WALK_LEFT;
+			}
 		}
 	}
+
 
 	return aniId;
 }
@@ -194,7 +191,25 @@ void CKoopa::OnCollisionWithMario(LPCOLLISIONEVENT e) {
 
 }
 void CKoopa::OnCollisionWithPlatform(LPCOLLISIONEVENT e) {
+	CPlatform* platform = dynamic_cast<CPlatform*>(e->obj);
+	if (detector && detector->isFalling())
+	{
+		float detectorX;
+		// go to right
+		if (vx > 0)
+		{
+			detectorX = x - (KOOPA_BBOX_WIDTH / 2 + KOOPA_DETECTOR_BBOX_WIDTH / 2);
+		}
+		else
+		{
+			detectorX = x + (KOOPA_BBOX_WIDTH / 2 + KOOPA_DETECTOR_BBOX_WIDTH / 2);
+		}
+		vx = -vx;
+		detector->SetVx(vx);
+		detector->SetX(detectorX);
+		detector->SetY(y);
 
+	}
 	//CPlatform* platform = dynamic_cast<CPlatform*>(e->obj);
 	//isOnPlatform = true;
 	//vy = 0;
@@ -272,6 +287,15 @@ void CKoopa::SetState(int state) {
 		if (isOnPlatform) vx = 0;
 		vy = -KOOPA_JUMP_WAS_ATTACKED_SPEED_Y;
 		defendStart = GetTickCount64();
+		break;
+	case KOOPA_STATE_JUMP:
+		isUpside = false;
+		isDefend = false;
+		isRevival = false;
+		vx = -KOOPA_WALKING_SPEED;
+		if (isWing) {
+			ay = KOOPA_GRAVITY_WING;
+		}
 		break;
 	}
 }

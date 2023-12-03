@@ -2,16 +2,18 @@
 
 #include "GameObject.h"
 
-#define KOOPA_DETECTOR_GRAVITY 0.1f
+#define KOOPA_DETECTOR_GRAVITY 0.001f
 
 #define KOOPA_DETECTOR_BBOX_WIDTH 6
-#define KOOPA_DETECTOR_BBOX_HEIGHT 16
+#define KOOPA_DETECTOR_BBOX_HEIGHT 26
+
+#define KOOPA_DETECTOR_MAX_GRAVITY 0.1f
 
 class CKoopaDetector : public CGameObject
 {
 protected:
-	float ax, ay, range, centerX;
-	bool isOnPlatform = false, isFalling = false;
+	float ax, ay;
+	bool isOnPlatform = false;
 
 public:
 	CKoopaDetector(float x, float y, float vx, float vy);
@@ -24,5 +26,7 @@ public:
 	void OnNoCollision(DWORD dt);
 	virtual void OnCollisionWith(LPCOLLISIONEVENT e);
 
-	bool onPlatform() {return this->isOnPlatform; }
+	boolean isFalling() {
+		return abs(vy) > KOOPA_DETECTOR_MAX_GRAVITY;
+	}
 };

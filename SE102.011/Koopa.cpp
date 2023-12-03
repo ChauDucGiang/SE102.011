@@ -171,6 +171,9 @@ void CKoopa::OnCollisionWith(LPCOLLISIONEVENT e) {
 		if (e->nx != 0 && e->obj->IsBlocking())
 		{
 			vx = -vx;
+			detector->SetVx(vx);
+			detector->SetX(CalculateDetectorX());
+			detector->SetY(y);
 		}
 	}
 

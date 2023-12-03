@@ -45,46 +45,6 @@ int CPlant::GetModelFirePirahaGreenAnimation() {
 	{
 		//mario on the top
 		if (ny == -1)
-			if (!isShooting) aniId = ID_ANI_PLANT_FIRE_PIRAHA_RED_LEFT_UNDER_NOT_SHOOT;
-			else aniId = ID_ANI_PLANT_FIRE_PIRAHA_RED_LEFT_UNDER_SHOOT;
-		//mario on the top
-		else if (ny == 1)
-			if (!isShooting) aniId = ID_ANI_PLANT_FIRE_PIRAHA_RED_LEFT_TOP_NOT_SHOOT;
-			else aniId = ID_ANI_PLANT_FIRE_PIRAHA_RED_LEFT_TOP_SHOOT;
-
-	}
-	//mario on the right
-	else
-	{
-		if (ny == 1)
-		{
-			if (!isShooting) aniId = ID_ANI_PLANT_FIRE_PIRAHA_RED_RIGHT_TOP_NOT_SHOOT;
-			else aniId = ID_ANI_PLANT_FIRE_PIRAHA_RED_RIGHT_TOP_SHOOT;
-		}
-		else
-		{
-			if (!isShooting) aniId = ID_ANI_PLANT_FIRE_PIRAHA_RED_RIGHT_UNDER_NOT_SHOOT;
-			else aniId = ID_ANI_PLANT_FIRE_PIRAHA_RED_RIGHT_UNDER_SHOOT;
-		}
-	}
-
-	return aniId;
-}
-
-int CPlant::GetModelFirePirahaRedAnimation() {
-	std::pair<int, int> position = PositionWithMario();
-
-	int nx = position.first;
-	int ny = position.second;
-
-	int aniId;
-
-
-	//mario on the left
-	if (nx == -1)
-	{
-		//mario on the top
-		if (ny == -1)
 			if (!isShooting) aniId = ID_ANI_PLANT_FIRE_PIRAHA_GREEN_LEFT_UNDER_NOT_SHOOT;
 			else aniId = ID_ANI_PLANT_FIRE_PIRAHA_GREEN_LEFT_UNDER_SHOOT;
 		//mario on the top
@@ -105,6 +65,45 @@ int CPlant::GetModelFirePirahaRedAnimation() {
 		{
 			if (!isShooting) aniId = ID_ANI_PLANT_FIRE_PIRAHA_GREEN_RIGHT_UNDER_NOT_SHOOT;
 			else aniId = ID_ANI_PLANT_FIRE_PIRAHA_GREEN_RIGHT_UNDER_SHOOT;
+		}
+	}
+
+	return aniId;
+}
+
+int CPlant::GetModelFirePirahaRedAnimation() {
+	std::pair<int, int> position = PositionWithMario();
+
+	int nx = position.first;
+	int ny = position.second;
+
+	int aniId;
+
+	//mario on the left
+	if (nx == -1)
+	{
+		//mario on the top
+		if (ny == -1)
+			if (!isShooting) aniId = ID_ANI_PLANT_FIRE_PIRAHA_RED_LEFT_UNDER_NOT_SHOOT;
+			else aniId = ID_ANI_PLANT_FIRE_PIRAHA_RED_LEFT_UNDER_SHOOT;
+		//mario on the top
+		else if (ny == 1)
+			if (!isShooting) aniId = ID_ANI_PLANT_FIRE_PIRAHA_RED_LEFT_TOP_NOT_SHOOT;
+			else aniId = ID_ANI_PLANT_FIRE_PIRAHA_RED_LEFT_TOP_SHOOT;
+
+	}
+	//mario on the right
+	else
+	{
+		if (ny == 1)
+		{
+			if (!isShooting) aniId = ID_ANI_PLANT_FIRE_PIRAHA_RED_RIGHT_TOP_NOT_SHOOT;
+			else aniId = ID_ANI_PLANT_FIRE_PIRAHA_RED_RIGHT_TOP_SHOOT;
+		}
+		else
+		{
+			if (!isShooting) aniId = ID_ANI_PLANT_FIRE_PIRAHA_RED_RIGHT_UNDER_NOT_SHOOT;
+			else aniId = ID_ANI_PLANT_FIRE_PIRAHA_RED_RIGHT_UNDER_SHOOT;
 		}
 	}
 

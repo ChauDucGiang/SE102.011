@@ -7,15 +7,14 @@
 CKoopa::CKoopa(float x, float y, int model) :CGameObject(x, y) {
 	CPlayScene* scene =  (CPlayScene*)CGame::GetInstance()->GetCurrentScene();
 	this->ax = 0;
-	this->ay = KOOPA_GRAVITY;
 	this->model = model;
 	if (model == KOOPA_GREEN_WING) {
-		isWing = true;
+		ay = KOOPA_GRAVITY_WING;
 		SetState(KOOPA_STATE_JUMP);
 		detector = NULL;
 	}
 	else {
-		isWing = false;
+		ay = KOOPA_GRAVITY;
 		SetState(KOOPA_STATE_WALKING);
 		/* Add Detector*/
 		detector = new CKoopaDetector(CalculateDetectorX(), y, vx, vy);
@@ -192,9 +191,15 @@ void CKoopa::OnCollisionWithMario(LPCOLLISIONEVENT e) {
 }
 void CKoopa::OnCollisionWithPlatform(LPCOLLISIONEVENT e) {
 	CPlatform* platform = dynamic_cast<CPlatform*>(e->obj);
+
+	if (e->ny < 0) {
+		if ((model == KOOPA_GREEN_WING) && (state == KOOPA_STATE_JUMP)) {
+			vy = -KOOPA_JUMP_SPEED_Y;
+		}
+	}
+
 	if (detector && detector->isFalling())
 	{
-		float detectorX;
 		vx = -vx;
 		detector->SetVx(vx);
 		detector->SetX(CalculateDetectorX());
@@ -262,9 +267,6 @@ void CKoopa::SetState(int state) {
 		isDefend = false;
 		isRevival = false;
 		vx = -KOOPA_WALKING_SPEED;
-		if (isWing) {
-			ay = KOOPA_GRAVITY_WING;
-		}
 		break;
 	}
 }

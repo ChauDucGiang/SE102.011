@@ -15,6 +15,7 @@
 #include "Pipe.h"
 #include "QuestionBlock.h"
 #include "Leaf.h"
+#include "BrickCorlor.h"
 
 #include "SampleKeyEventHandler.h"
 
@@ -148,7 +149,9 @@ void CPlayScene::_ParseSection_OBJECTS(string line)
 	case OBJECT_TYPE_BLOCK_QUESTION_MUSHROOM_RED: obj = new CQuestionBlock(x, y, BLOCK_QUESTION_MUSHROOM_RED); break;
 	case OBJECT_TYPE_BLOCK_QUESTION_LEAF: obj = new CQuestionBlock(x, y, BLOCK_QUESTION_LEAF); break;
 	case OBJECT_TYPE_BLOCK_QUESTION_MUSHROOM_GREEN: obj = new CQuestionBlock(x, y, BLOCK_QUESTION_MUSHROOM_GREEN); break;
+
 	case OBJECT_TYPE_BRICK: obj = new CBrick(x, y); break;
+	case OBJECT_TYPE_BRICK_COLOR: obj = new CBrickColor(50, y, 1); break;
 
 	//Leaf
 	//case OBJECT_TYPE_LEAF: obj = new CLeaf(x, y); break;

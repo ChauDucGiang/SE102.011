@@ -196,8 +196,8 @@ Resource\Tilemap\world1-1-1.txt
 
 
 #BRICKITEM
-38	240	    304
-39	656	    384
+380	240	    304
+390	656	    384
 35	1472	368
 #BRICKGREEN
 37	1440	128

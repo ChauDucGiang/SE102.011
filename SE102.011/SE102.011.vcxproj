@@ -186,6 +186,7 @@
     <ClCompile Include="Animation.cpp" />
     <ClCompile Include="Animations.cpp" />
     <ClCompile Include="Brick.cpp" />
+    <ClCompile Include="BrickColor.cpp" />
     <ClCompile Include="FireBullet.cpp" />
     <ClCompile Include="Font.cpp" />
     <ClCompile Include="KoopaDetector.cpp" />
@@ -225,6 +226,7 @@
     <ClInclude Include="Animations.h" />
     <ClInclude Include="AssetIDs.h" />
     <ClInclude Include="Brick.h" />
+    <ClInclude Include="BrickCorlor.h" />
     <ClInclude Include="FireBullet.h" />
     <ClInclude Include="Font.h" />
     <ClInclude Include="KoopaDetector.h" />

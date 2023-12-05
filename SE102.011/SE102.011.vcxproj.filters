@@ -171,6 +171,9 @@
     <ClCompile Include="KoopaDetector.cpp">
       <Filter>Source Files\Objects\Items</Filter>
     </ClCompile>
+    <ClCompile Include="BrickColor.cpp">
+      <Filter>Source Files\Objects\Items</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
@@ -289,6 +292,9 @@
     </ClInclude>
     <ClInclude Include="KoopaDetector.h">
       <Filter>Header Files\Objects\Items</Filter>
+    </ClInclude>
+    <ClInclude Include="BrickCorlor.h">
+      <Filter>Header Files\Objects\Items\Bricks</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

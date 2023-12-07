@@ -13,6 +13,7 @@
 #include "Plant.h"
 #include "FireBullet.h"
 #include "MushRoom.h"
+#include "BrickCorlor.h"
 
 #include "Collision.h"
 
@@ -92,6 +93,10 @@ void CMario::OnCollisionWith(LPCOLLISIONEVENT e)
 		OnCollisionWithMushRoom(e);
 	//else if (dynamic_cast<CPlatform*>(e->obj))
 	//	OnCollisionWithPlatfom(e);
+	else if (dynamic_cast<CBrickColor*>(e->obj))
+	{
+		OnCollisionWithBrickColor(e);
+	}
 }
 
 void CMario::OnCollisionWithPlatfom(LPCOLLISIONEVENT e)
@@ -293,6 +298,11 @@ void CMario::OnCollisionWithMushRoom(LPCOLLISIONEVENT e)
 		mushroom->Delete();
 	}
 
+}
+
+void CMario::OnCollisionWithBrickColor(LPCOLLISIONEVENT e)
+{
+	DebugOut(L"[INFO] Mario OnCollisionWithBrickColor\n");
 }
 #pragma  endregion
 

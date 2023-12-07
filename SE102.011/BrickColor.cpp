@@ -20,5 +20,13 @@ void CBrickColor::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects) {
 	CCollision::GetInstance()->Process(this, dt, coObjects);
 }
 void CBrickColor::SetState(int state) {
+	switch (state) {
+	case BRICK_STATE_WAS_BROKEN:
+
+		break;
+	case BRICK_STATE_TURNS_INTO_GOLD:
+
+		break;
+	}
 	CGameObject::SetState(state);
 }

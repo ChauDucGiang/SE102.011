@@ -6,6 +6,9 @@
 
 #define ID_ANI_BRICK_COLOR 10001
 
+#define BRICK_STATE_WAS_BROKEN 100
+#define BRICK_STATE_TURNS_INTO_GOLD 200
+
 class CBrickColor : public CGameObject
 {
 protected:

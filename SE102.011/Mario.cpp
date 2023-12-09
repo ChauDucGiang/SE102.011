@@ -161,26 +161,11 @@ void CMario::OnCollisionWithKoopa(LPCOLLISIONEVENT e) {
 	}
 	else
 	{
+
 		if (koopa->GetState() == KOOPA_STATE_DEFEND)
 		{
-			koopa->SetState(KOOPA_STATE_WAS_KICKED);
-			vy = -MARIO_JUMP_DEFLECT_SPEED;
-		}
-		else if (e->ny < 0) {
-			//koopa->SetVy(-0.1f);
-			if (koopa->GetState() == KOOPA_STATE_WALKING || koopa->GetState() == KOOPA_STATE_WAS_KICKED)
-			{
-				koopa->SetState(KOOPA_STATE_DEFEND);
-				vy = -MARIO_JUMP_DEFLECT_SPEED;
-			}
-			else
-			{
-		
-			}
-		}
-		else
-		{
-			if (untouchable == 0)
+			LPGAME game = CGame::GetInstance();
+			if (game->IsKeyDown(DIK_A))
 			{
 				if (koopa->GetState() == KOOPA_STATE_DEFEND || koopa->GetState() == KOOPA_STATE_UPSIDE)
 				{
@@ -189,9 +174,26 @@ void CMario::OnCollisionWithKoopa(LPCOLLISIONEVENT e) {
 					holdingStart = GetTickCount64();
 					DebugOut(L"[INFO] Mario OnCollisionWithKoopa SetWasHeld\n");
 				}
-				else
-				{
-		/*			if (level > MARIO_LEVEL_SMALL)
+			}
+			else
+			{
+				koopa->SetState(KOOPA_STATE_WAS_KICKED);
+				vy = -MARIO_JUMP_DEFLECT_SPEED;
+			}
+		}
+		else if (e->ny < 0) {
+			//koopa->SetVy(-0.1f);
+			if (koopa->GetState() == KOOPA_STATE_WALKING || koopa->GetState() == KOOPA_STATE_WAS_KICKED)
+			{
+				koopa->SetState(KOOPA_STATE_DEFEND);
+				vy = -MARIO_JUMP_DEFLECT_SPEED;
+			}
+		}
+		else
+		{
+			if (untouchable == 0)
+			{
+				/*if (level > MARIO_LEVEL_SMALL)
 					{
 						level = MARIO_LEVEL_SMALL;
 						StartUntouchable();
@@ -201,7 +203,6 @@ void CMario::OnCollisionWithKoopa(LPCOLLISIONEVENT e) {
 						DebugOut(L">>> Mario DIE >>> \n");
 						SetState(MARIO_STATE_DIE);
 					}*/
-				}
 			}
 		}
 	}

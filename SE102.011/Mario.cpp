@@ -303,6 +303,14 @@ void CMario::OnCollisionWithMushRoom(LPCOLLISIONEVENT e)
 void CMario::OnCollisionWithBrickColor(LPCOLLISIONEVENT e)
 {
 	DebugOut(L"[INFO] Mario OnCollisionWithBrickColor\n");
+
+	CBrickColor* brick = dynamic_cast<CBrickColor*>(e->obj);
+	if (e->nx != 0 && isTailAttack) {
+		brick->SetState(BRICK_STATE_WAS_BROKEN);
+	}
+	if (e->ny > 0) {
+		brick->SetState(BRICK_STATE_WAS_BROKEN);
+	}
 }
 #pragma  endregion
 

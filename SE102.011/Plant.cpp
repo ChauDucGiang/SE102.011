@@ -7,7 +7,13 @@ CPlant::CPlant(float x, float y, int model) :CGameObject(x, y) {
 	this->startX = x;
 	this->startY = y;
 	this->model = model;
-	this->minY = y - PLANT_BBOX_HEIGHT;
+	if (model == PLANT_PIRAHA_GREEN)
+	{
+		this->minY = y - PLANT_BBOX_HEIGHT_SMALL;
+	}
+	else {
+		this->minY = y - PLANT_BBOX_HEIGHT;
+	}
 	SetState(PLANT_STATE_UP);
 }
 
@@ -162,7 +168,18 @@ void CPlant::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects) {
 }
 
 void CPlant::GetBoundingBox(float& left, float& top, float& right, float& bottom) {
-
+	if (model == PLANT_FIRE_PIRAHA_RED) {
+		left = x - PLANT_BBOX_WIDTH / 2;
+		top = y - PLANT_BBOX_HEIGHT / 2 + 4;
+		right = left + PLANT_BBOX_WIDTH;
+		bottom = top + PLANT_BBOX_HEIGHT;
+	}
+	else {
+		left = x - PLANT_BBOX_WIDTH / 2;
+		top = y - PLANT_BBOX_HEIGHT_SMALL / 2 + 4;
+		right = left + PLANT_BBOX_WIDTH;
+		bottom = top + PLANT_BBOX_HEIGHT_SMALL;
+	}
 }
 
 void CPlant::OnNoCollision(DWORD dt) {

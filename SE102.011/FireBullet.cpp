@@ -7,11 +7,11 @@ CFireBullet::CFireBullet(float x, float y, int nx, int ny):CGameObject(x, y)
 {
 	CMario* mario = (CMario*)((LPPLAYSCENE)CGame::GetInstance()->GetCurrentScene())->GetPlayer();
 
-	float deltaX = abs(x - mario->GetX());
-	float deltaY = abs(x - mario->GetY());
+	//float deltaX = abs(x - mario->GetX());
+	//float deltaY = abs(x - mario->GetY());
 	//time = deltaX / vx = deltaY / vy;
-	vx = nx  * BULLET_SPEED_X_PLANT;
-	vy = -ny * deltaY * BULLET_SPEED_X_PLANT / deltaX;
+	vx = nx  * BULLET_SPEED_X;
+	vy = -ny * BULLET_SPEED_Y;
 
 }
 void CFireBullet::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)

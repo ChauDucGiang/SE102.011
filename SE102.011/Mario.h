@@ -19,6 +19,8 @@
 
 #define MARIO_JUMP_DEFLECT_SPEED  0.2f
 
+#pragma region State
+
 #define MARIO_STATE_DIE				-10
 #define MARIO_STATE_IDLE			0
 #define MARIO_STATE_WALKING_RIGHT	100
@@ -34,6 +36,10 @@
 #define MARIO_STATE_SIT_RELEASE		601
 
 #define MARIO_STATE_TAIL_ATTACK		800
+
+#define MARIO_STATE_FLY				1000
+#pragma endregion
+
 
 //Time
 #define TIME_TAIL_ATTACK 400
@@ -151,6 +157,12 @@
 #define ID_ANI_MARIO_TAIL_HOLD_JUMP_RIGHT 3051
 #define ID_ANI_MARIO_TAIL_HOLD_JUMP_LEFT 3050
 
+// FLY
+#define ID_ANI_MARIO_TAIL_FLY_UP_RIGHT 3300
+#define ID_ANI_MARIO_TAIL_FLY_UP_LEFT 3200
+#define ID_ANI_MARIO_TAIL_FLY_DOWN_RIGHT 3061
+#define ID_ANI_MARIO_TAIL_FLY_DOWN_LEFT 3060
+
 #pragma endregion
 
 #define GROUND_Y 160.0f
@@ -185,7 +197,7 @@ class CMario : public CGameObject
 	float adjustX = 0.0f;
 
 	ULONGLONG untouchableStart, tailAttachStart, holdingStart;
-	BOOLEAN isSitting, isOnPlatform, isTailAttack = false, isHolding;
+	BOOLEAN isSitting, isOnPlatform, isTailAttack = false, isHolding, isFlying = true;
 	int coin, score, level, untouchable;
 #pragma region CollisionWithGameObject
 	void OnCollisionWithGoomba(LPCOLLISIONEVENT e);
@@ -251,4 +263,6 @@ public:
 
 	void SetIsHold(bool isHolding) { this->isHolding = isHolding; };
 	bool IsHolding() { return this->isHolding; };
+
+	bool IsOnPlatform() { return this->isOnPlatform; };
 };

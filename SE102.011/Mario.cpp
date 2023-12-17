@@ -220,7 +220,7 @@ void CMario::OnCollisionWithPlant(LPCOLLISIONEVENT e) {
 		else
 		{
 			DebugOut(L">>> Mario DIE >>> \n");
-			SetState(MARIO_STATE_DIE);
+			//SetState(MARIO_STATE_DIE);
 		}
 	}
 }
@@ -281,7 +281,7 @@ void CMario::OnCollisionWithFireBullet(LPCOLLISIONEVENT e) {
 		else
 		{
 			DebugOut(L">>> Mario DIE >>> \n");
-			SetState(MARIO_STATE_DIE);
+			//SetState(MARIO_STATE_DIE);
 		}
 	}
 }
@@ -303,11 +303,13 @@ void CMario::OnCollisionWithMushRoom(LPCOLLISIONEVENT e)
 
 void CMario::OnCollisionWithBrickColor(LPCOLLISIONEVENT e)
 {
-	DebugOut(L"[INFO] Mario OnCollisionWithBrickColor\n");
+	//DebugOut(L"[INFO] Mario OnCollisionWithBrickColor\n");
 
 	CBrickColor* brick = dynamic_cast<CBrickColor*>(e->obj);
-	if (e->nx != 0 && isTailAttack) {
-		brick->SetState(BRICK_STATE_WAS_BROKEN);
+	if (isTailAttack) {
+		DebugOut(L"[INFO] Mario OnCollisionWithBrickColor BRICK_STATE_WAS_BROKEN\n");
+		//brick->SetState(BRICK_STATE_WAS_BROKEN);
+		brick->Destroy();
 	}
 	if (e->ny > 0) {
 		brick->SetState(BRICK_STATE_WAS_BROKEN);
@@ -511,6 +513,8 @@ int CMario::GetAniIdTail() {
 void CMario::Render()
 {
 	CAnimations* animations = CAnimations::GetInstance();
+
+	DebugOutTitle(L">>> Mario X %f>>> \n", x);
 	int aniId = -1;
 
 	if (state == MARIO_STATE_DIE)

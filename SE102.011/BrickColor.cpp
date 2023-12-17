@@ -1,4 +1,6 @@
 #include "BrickCorlor.h"
+#include "Brick.h"
+#include "PlayScene.h"
 
 void CBrickColor::Render()
 {
@@ -15,7 +17,6 @@ void CBrickColor::GetBoundingBox(float& l, float& t, float& r, float& b)
 	b = t + float(BRICK_BBOX_HEIGHT / 1.5);
 }
 void CBrickColor::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects) {
-
 	CGameObject::Update(dt, coObjects);
 	CCollision::GetInstance()->Process(this, dt, coObjects);
 }
@@ -29,4 +30,12 @@ void CBrickColor::SetState(int state) {
 		break;
 	}
 	CGameObject::SetState(state);
+}
+
+void CBrickColor::Destroy() {
+	SetState(BRICK_STATE_WAS_BROKEN);
+	CPlayScene* scene = (CPlayScene*)CGame::GetInstance()->GetCurrentScene();
+	CBrick* brick = new CBrick(x, y);
+	scene->AddObject(brick);
+	Delete();
 }

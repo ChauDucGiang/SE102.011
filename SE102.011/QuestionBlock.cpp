@@ -101,7 +101,7 @@ void CQuestionBlock::Unbox() {
 		scene->AddObject(leaf);
 	}
 	else if (model == QUESTION_SWITCH_BLOCK) {
-		CSwitchBlock* leaf = new CSwitchBlock(x, y);
-		scene->AddObject(leaf);
+		CSwitchBlock* block = new CSwitchBlock(x, y);
+		scene->AddObject(block);
 	}
 }

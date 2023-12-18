@@ -1,6 +1,7 @@
 #include "BrickCorlor.h"
 #include "Brick.h"
 #include "PlayScene.h"
+#include "Coin.h"
 
 void CBrickColor::Render()
 {
@@ -17,16 +18,25 @@ void CBrickColor::GetBoundingBox(float& l, float& t, float& r, float& b)
 	b = t + float(BRICK_BBOX_HEIGHT / 1.5);
 }
 void CBrickColor::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects) {
+	CPlayScene* scene = (CPlayScene*)CGame::GetInstance()->GetCurrentScene();
+
+	if (isCoin) {
+		CCoin* coin = new CCoin(x, y);
+		scene->AddObject(coin);
+		Delete();
+		isCoin = false;
+	}
+
 	CGameObject::Update(dt, coObjects);
 	CCollision::GetInstance()->Process(this, dt, coObjects);
 }
 void CBrickColor::SetState(int state) {
 	switch (state) {
 	case BRICK_STATE_WAS_BROKEN:
-
+		isBreak = true;
 		break;
-	case BRICK_STATE_TURNS_INTO_GOLD:
-
+	case BRICK_STATE_TURNS_INTO_COIN:
+		isCoin = true;
 		break;
 	}
 	CGameObject::SetState(state);

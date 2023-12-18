@@ -7,12 +7,13 @@
 #define ID_ANI_BRICK_COLOR 10001
 
 #define BRICK_STATE_WAS_BROKEN 100
-#define BRICK_STATE_TURNS_INTO_GOLD 200
+#define BRICK_STATE_TURNS_INTO_COIN 200
 
 class CBrickColor : public CGameObject
 {
 protected:
-	int model;
+	int model;	
+	bool isBreak = false, isCoin = false;
 public:
 	CBrickColor(float x, float y, int model) : CGameObject(x, y) {
 		this->model = model;

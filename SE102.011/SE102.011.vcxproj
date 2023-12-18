@@ -187,6 +187,7 @@
     <ClCompile Include="Animations.cpp" />
     <ClCompile Include="Brick.cpp" />
     <ClCompile Include="BrickColor.cpp" />
+    <ClCompile Include="CPSwitch.cpp" />
     <ClCompile Include="FireBullet.cpp" />
     <ClCompile Include="Font.cpp" />
     <ClCompile Include="KoopaDetector.cpp" />
@@ -257,6 +258,7 @@
     <ClInclude Include="Scene.h" />
     <ClInclude Include="Sprite.h" />
     <ClInclude Include="Sprites.h" />
+    <ClInclude Include="PSwitch.h" />
     <ClInclude Include="Texture.h" />
     <ClInclude Include="Textures.h" />
     <ClInclude Include="Utils.h" />

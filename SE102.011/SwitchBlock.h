@@ -1,19 +1,19 @@
 #pragma once
 #include "GameObject.h"
 
-#define ID_ANI_PSWITCH_NORMAL 13131
-#define ID_ANI_PSWITCH_WAS_COLLECTED 13132
-#define PSWITCH_BBOX_WIDTH 10
-#define PSWITCH_BBOX_HEIGHT 16
-#define PSWITCH_GRAVITY 0.0003f;
+#define ID_ANI_SWITCH_BLOCK_NORMAL 13131
+#define ID_ANI_SWITCH_BLOCK_WAS_COLLECTED 13132
+#define SWITCH_BLOCK_BBOX_WIDTH 10
+#define SWITCH_BLOCK_BBOX_HEIGHT 16
+#define SWITCH_BLOCK_GRAVITY 0.0003f;
 
-class CPSwitch : public CGameObject
+class CSwitchBlock : public CGameObject
 {
 	float ay, startY;
 	bool wasCollected = false;
 
 public:
-	CPSwitch(float x, float y);
+	CSwitchBlock(float x, float y);
 
 	void Render();
 	void Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects);

@@ -310,13 +310,10 @@ void CMario::OnCollisionWithBrickColor(LPCOLLISIONEVENT e)
 	//DebugOut(L"[INFO] Mario OnCollisionWithBrickColor\n");
 
 	CBrickColor* brick = dynamic_cast<CBrickColor*>(e->obj);
-	if (isTailAttack) {
+	if (isTailAttack || e->ny > 0) {
 		DebugOut(L"[INFO] Mario OnCollisionWithBrickColor BRICK_STATE_WAS_BROKEN\n");
 		//brick->SetState(BRICK_STATE_WAS_BROKEN);
 		brick->Destroy();
-	}
-	if (e->ny > 0) {
-		brick->SetState(BRICK_STATE_WAS_BROKEN);
 	}
 }
 

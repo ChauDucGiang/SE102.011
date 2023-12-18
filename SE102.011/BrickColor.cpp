@@ -44,8 +44,8 @@ void CBrickColor::SetState(int state) {
 
 void CBrickColor::Destroy() {
 	SetState(BRICK_STATE_WAS_BROKEN);
-	CPlayScene* scene = (CPlayScene*)CGame::GetInstance()->GetCurrentScene();
-	CBrick* brick = new CBrick(x, y);
-	scene->AddObject(brick);
+	//CPlayScene* scene = (CPlayScene*)CGame::GetInstance()->GetCurrentScene();
+	//CBrick* brick = new CBrick(x, y);
+	//scene->AddObject(brick);
 	Delete();
 }

@@ -211,9 +211,7 @@ class CMario : public CGameObject
 	void OnCollisionWithMushRoom(LPCOLLISIONEVENT e);
 	void OnCollisionWithPlatfom(LPCOLLISIONEVENT e);
 	void OnCollisionWithBrickColor(LPCOLLISIONEVENT e);
-	
-	
-
+	void OnCollisionWithSwitchBlock(LPCOLLISIONEVENT e);
 #pragma  endregion
 
 	int GetAniIdBig();

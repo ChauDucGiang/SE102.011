@@ -174,7 +174,7 @@
     <ClCompile Include="BrickColor.cpp">
       <Filter>Source Files\Objects\Items</Filter>
     </ClCompile>
-    <ClCompile Include="CPSwitch.cpp">
+    <ClCompile Include="SwitchBlock.cpp">
       <Filter>Source Files\Objects\Items</Filter>
     </ClCompile>
   </ItemGroup>
@@ -299,7 +299,7 @@
     <ClInclude Include="BrickCorlor.h">
       <Filter>Header Files\Objects\Items\Bricks</Filter>
     </ClInclude>
-    <ClInclude Include="PSwitch.h">
+    <ClInclude Include="SwitchBlock.h">
       <Filter>Header Files\Objects\Items</Filter>
     </ClInclude>
   </ItemGroup>

@@ -14,6 +14,7 @@
 #include "FireBullet.h"
 #include "MushRoom.h"
 #include "BrickCorlor.h"
+#include "SwitchBlock.h"
 
 #include "Collision.h"
 
@@ -317,6 +318,12 @@ void CMario::OnCollisionWithBrickColor(LPCOLLISIONEVENT e)
 	if (e->ny > 0) {
 		brick->SetState(BRICK_STATE_WAS_BROKEN);
 	}
+}
+
+void CMario::OnCollisionWithSwitchBlock(LPCOLLISIONEVENT e) {
+	DebugOut(L"[INFO] Mario OnCollisionWithSwitchBlock\n");
+	CSwitchBlock* block = dynamic_cast<CSwitchBlock*>(e->obj);
+	block->SetWasCollected(true);
 }
 #pragma  endregion
 

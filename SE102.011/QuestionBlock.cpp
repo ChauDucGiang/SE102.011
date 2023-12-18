@@ -3,7 +3,7 @@
 #include "PlayScene.h"
 #include "MushRoom.h"
 #include "Leaf.h"
-
+#include "SwitchBlock.h"
 
 CQuestionBlock::CQuestionBlock(float x, float y, int model) :CGameObject(x, y)
 {
@@ -98,6 +98,10 @@ void CQuestionBlock::Unbox() {
 	}
 	else if (model == BLOCK_QUESTION_LEAF) {
 		CLeaf* leaf = new CLeaf(x - 5, y - 5);
+		scene->AddObject(leaf);
+	}
+	else if (model == QUESTION_SWITCH_BLOCK) {
+		CSwitchBlock* leaf = new CSwitchBlock(x, y);
 		scene->AddObject(leaf);
 	}
 }

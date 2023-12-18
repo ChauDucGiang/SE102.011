@@ -6,6 +6,18 @@ CSwitchBlock::CSwitchBlock(float x, float y) : CGameObject(x, y) {
 }
 
 void CSwitchBlock::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects) {
+	//out brick
+	if ((startY - y < SWITCH_BLOCK_BBOX_HEIGHT) && !wasCollected) {
+		vy = ay * dt;
+	}
+	else {
+		vy = 0;
+		if (wasCollected)
+		{
+			y = startY - SWITCH_BLOCK_BBOX_HEIGHT / 2 - 5;
+		}
+	} 
+
 	CGameObject::Update(dt, coObjects);
 	CCollision::GetInstance()->Process(this, dt, coObjects);
 }

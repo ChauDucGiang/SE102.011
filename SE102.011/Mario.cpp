@@ -101,6 +101,10 @@ void CMario::OnCollisionWith(LPCOLLISIONEVENT e)
 	{
 		OnCollisionWithBrickColor(e);
 	}
+	else if (dynamic_cast<CSwitchBlock*>(e->obj))
+	{
+		OnCollisionWithSwitchBlock(e);
+	}
 }
 
 void CMario::OnCollisionWithPlatfom(LPCOLLISIONEVENT e)

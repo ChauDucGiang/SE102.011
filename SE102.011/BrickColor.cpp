@@ -2,6 +2,7 @@
 #include "Brick.h"
 #include "PlayScene.h"
 #include "Coin.h"
+#include "SwitchBlock.h"
 
 void CBrickColor::Render()
 {
@@ -20,11 +21,18 @@ void CBrickColor::GetBoundingBox(float& l, float& t, float& r, float& b)
 void CBrickColor::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects) {
 	CPlayScene* scene = (CPlayScene*)CGame::GetInstance()->GetCurrentScene();
 
-	if (isCoin) {
-		CCoin* coin = new CCoin(x, y);
-		scene->AddObject(coin);
-		Delete();
-		isCoin = false;
+	if (!isUsedSwitchPBlock)
+	{
+		IsUsedSwitchPBlock();
+	}
+	else {
+		SetState(BRICK_STATE_TURNS_INTO_COIN);
+		if (isCoin) {
+			CCoin* coin = new CCoin(x, y);
+			scene->AddObject(coin);
+			Delete();
+			isCoin = false;
+		}
 	}
 
 	CGameObject::Update(dt, coObjects);
@@ -49,3 +57,19 @@ void CBrickColor::Destroy() {
 	//scene->AddObject(brick);
 	Delete();
 }
+
+void CBrickColor::IsUsedSwitchPBlock() {
+	CPlayScene* scene = (CPlayScene*)CGame::GetInstance()->GetCurrentScene();
+	CSwitchBlock* block = NULL;
+	for (size_t i = 0; i < scene->GetObjects().size(); i++) {
+		if (dynamic_cast<CSwitchBlock*>(scene->GetObjects()[i])) {
+			block = dynamic_cast<CSwitchBlock*>(scene->GetObjects()[i]);
+			if (block->WasCollected()) {
+				isUsedSwitchPBlock = true;
+			}
+			block = NULL;
+			break;
+		}
+	}
+}
+

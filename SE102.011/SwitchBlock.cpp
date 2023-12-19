@@ -14,7 +14,7 @@ void CSwitchBlock::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects) {
 		vy = 0;
 		if (wasCollected)
 		{
-			y = startY - SWITCH_BLOCK_BBOX_HEIGHT / 2 - 5;
+			y = startY - SWITCH_BLOCK_BBOX_HEIGHT / 2;
 		}
 	} 
 

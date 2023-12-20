@@ -26,15 +26,14 @@ void CBrickColor::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects) {
 		IsUsedSwitchPBlock();
 	}
 	else {
-		SetState(BRICK_STATE_TURNS_INTO_COIN);
-		if (isCoin) {
+		if (!isCoin)
+		{
+			SetState(BRICK_STATE_TURNS_INTO_COIN);
 			CCoin* coin = new CCoin(x, y);
 			scene->AddObject(coin);
 			Delete();
-			isCoin = false;
 		}
 	}
-
 	CGameObject::Update(dt, coObjects);
 	CCollision::GetInstance()->Process(this, dt, coObjects);
 }

@@ -19,6 +19,9 @@
 
 #define MARIO_JUMP_DEFLECT_SPEED  0.2f
 
+#define MARIO_FLY_UP_DOWN_SPEED_Y 0.0f
+#define MARIO_FLY_UP_SPEED_Y 0.27f
+
 #pragma region State
 
 #define MARIO_STATE_DIE				-10
@@ -263,4 +266,8 @@ public:
 	bool IsHolding() { return this->isHolding; };
 
 	bool IsOnPlatform() { return this->isOnPlatform; };
+
+	float GetMaxVx() { return MARIO_RUNNING_SPEED; };
+
+	void FlyUp();
 };

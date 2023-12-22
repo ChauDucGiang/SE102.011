@@ -547,7 +547,7 @@ void CMario::Render()
 {
 	CAnimations* animations = CAnimations::GetInstance();
 
-	DebugOutTitle(L">>> Mario X %f>>> \n", x);
+	DebugOutTitle(L">>> Mario Vx %f>>> \n", vx);
 	int aniId = -1;
 
 	if (state == MARIO_STATE_DIE)
@@ -646,6 +646,7 @@ void CMario::SetState(int state)
 	case MARIO_STATE_FLY:
 		isFlying = true;
 		isOnPlatform = false;
+		FlyUp();
 		break;
 	}
 
@@ -688,5 +689,14 @@ void CMario::SetLevel(int l)
 		y -= (MARIO_BIG_BBOX_HEIGHT - MARIO_SMALL_BBOX_HEIGHT) / 2;
 	}
 	level = l;
+}
+
+
+void CMario::FlyUp()
+{
+	DebugOut(L"[INFO] Mario FlyUp\n");
+
+	vy = -MARIO_FLY_UP_SPEED_Y;
+	isFlying = true;
 }
 

@@ -34,8 +34,6 @@ void CMario::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 		untouchable = 0;
 	}
 
-	isOnPlatform = false;
-
 	//TailAttack
 	if (isTailAttack) {
 		if (GetTickCount64() - tailAttachStart > TIME_TAIL_ATTACK) {
@@ -52,6 +50,22 @@ void CMario::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 		}
 	};
 
+	//Flying
+	if (isFlying) {
+
+		if (GetTickCount64() - flyStart > MARIO_FLY_TIME)
+		{
+			isFlying = false;
+			ay = MARIO_GRAVITY;
+		}
+
+		if (isOnPlatform) {
+			isFlying = false;
+			ay = MARIO_GRAVITY;
+		}
+	}
+
+	isOnPlatform = false;
 	CCollision::GetInstance()->Process(this, dt, coObjects);
 }
 
@@ -646,6 +660,7 @@ void CMario::SetState(int state)
 	case MARIO_STATE_FLY:
 		isFlying = true;
 		isOnPlatform = false;
+		flyStart = GetTickCount64();
 		FlyUp();
 		break;
 	}
@@ -695,8 +710,13 @@ void CMario::SetLevel(int l)
 void CMario::FlyUp()
 {
 	DebugOut(L"[INFO] Mario FlyUp\n");
+	//if (levelRun == LEVEL_RUN_MAX) {
+//	vy = -MARIO_FLY_UP_SPEED_Y;
+//}
+//else vy = -MARIO_FLY_UP_DOWN_SPEED_Y;
 
 	vy = -MARIO_FLY_UP_SPEED_Y;
 	isFlying = true;
+	ay = 0;
 }
 

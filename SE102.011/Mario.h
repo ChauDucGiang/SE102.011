@@ -20,7 +20,7 @@
 #define MARIO_JUMP_DEFLECT_SPEED  0.2f
 
 #define MARIO_FLY_UP_DOWN_SPEED_Y 0.0f
-#define MARIO_FLY_UP_SPEED_Y 0.27f
+#define MARIO_FLY_UP_SPEED_Y 0.075f
 
 #pragma region State
 
@@ -191,6 +191,7 @@
 
 #define MARIO_UNTOUCHABLE_TIME 2500
 #define MARIO__HOLDING_TIME 6000
+#define MARIO_FLY_TIME 10000
 
 class CMario : public CGameObject
 {
@@ -199,7 +200,7 @@ class CMario : public CGameObject
 	float ay;				// acceleration on y 
 	float adjustX = 0.0f;
 
-	ULONGLONG untouchableStart, tailAttachStart, holdingStart;
+	ULONGLONG untouchableStart, tailAttachStart, holdingStart, flyStart;
 	BOOLEAN isSitting, isOnPlatform, isTailAttack = false, isHolding, isFlying = true;
 	int coin, score, level, untouchable;
 #pragma region CollisionWithGameObject

@@ -208,10 +208,10 @@ class CMario : public CGameObject
 	float maxVx;
 	float ax;				// acceleration on x 
 	float ay;				// acceleration on y 
-	float adjustX = 0.0f;
+	float adjustX = 0.0f, startUsePiPeY = 0.0f;
 
 	ULONGLONG untouchableStart, tailAttachStart, holdingStart, flyStart;
-	BOOLEAN isSitting, isOnPlatform, isTailAttack = false, isHolding, isFlying = true, isUsingPipe = false, isUsingPipeDown = false, isUsingPipeUp = false;
+	BOOLEAN isSitting, isOnPlatform, isTailAttack = false, isHolding, isFlying = true, isUsingPipe = false, isUsingPipeDown = false, isUsingPipeUp = false, isOutPipe = false;
 	int coin, score, level, untouchable;
 #pragma region CollisionWithGameObject
 	void OnCollisionWithGoomba(LPCOLLISIONEVENT e);
@@ -226,6 +226,7 @@ class CMario : public CGameObject
 	void OnCollisionWithPlatfom(LPCOLLISIONEVENT e);
 	void OnCollisionWithBrickColor(LPCOLLISIONEVENT e);
 	void OnCollisionWithSwitchBlock(LPCOLLISIONEVENT e);
+	void OnCollisionWithPipe(LPCOLLISIONEVENT e);
 #pragma  endregion
 
 	int GetAniIdBig();

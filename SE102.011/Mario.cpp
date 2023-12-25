@@ -15,6 +15,7 @@
 #include "MushRoom.h"
 #include "BrickCorlor.h"
 #include "SwitchBlock.h"
+#include "Pipe.h"
 
 #include "Collision.h"
 
@@ -65,6 +66,36 @@ void CMario::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 		}
 	}
 
+	// UsingPipe
+	if (isUsingPipe) {
+		if (vy > 0) {
+			if (!isOutPipe) {
+				if (abs(y - startUsePiPeY) > MARIO_BIG_BBOX_HEIGHT / 2) {
+					GoToHiddenMap();
+					isOutPipe = true;
+				}
+			}
+			else if (isOutPipe) {
+				isUsingPipe = false;
+			}
+		}
+		else {
+			if (!isOutPipe) {
+				if (abs(y - startUsePiPeY) > MARIO_BIG_BBOX_HEIGHT / 2) {
+					ReturnToWorldMap();
+					isOutPipe = true;
+				}
+			}
+			else if (isOutPipe) {
+				isUsingPipe = false;
+			}
+		}
+	}
+	else {
+		isOutPipe = false;
+		ay = MARIO_GRAVITY;
+	}
+
 
 	isOnPlatform = false;
 	CCollision::GetInstance()->Process(this, dt, coObjects);
@@ -109,8 +140,8 @@ void CMario::OnCollisionWith(LPCOLLISIONEVENT e)
 		OnCollisionWithFireBullet(e);
 	else if (dynamic_cast<CMushRoom*>(e->obj))
 		OnCollisionWithMushRoom(e);
-	//else if (dynamic_cast<CPlatform*>(e->obj))
-	//	OnCollisionWithPlatfom(e);
+	else if (dynamic_cast<CPlatform*>(e->obj))
+		OnCollisionWithPlatfom(e);
 	else if (dynamic_cast<CBrickColor*>(e->obj))
 	{
 		OnCollisionWithBrickColor(e);
@@ -119,15 +150,35 @@ void CMario::OnCollisionWith(LPCOLLISIONEVENT e)
 	{
 		OnCollisionWithSwitchBlock(e);
 	}
+	else if (dynamic_cast<CPipe*>(e->obj))
+	{
+		OnCollisionWithPipe(e);
+	}
 }
 
 void CMario::OnCollisionWithPlatfom(LPCOLLISIONEVENT e)
 {
 	CPlatform* platform = dynamic_cast<CPlatform*>(e->obj);
-	isOnPlatform = true;
-	vy = 0;
-	adjustX = platform->GetX() - platform->GetWidth() / 2 + MARIO_BIG_BBOX_WIDTH;
-	if (e->ny < 0) {
+	if (platform->IsBlocking()) {
+		isUsingPipe = false;
+		isOnPlatform = true;
+	}
+	else {
+		if (e->ny < 0) {
+			if ((platform->IsCanDown() && isSitting) || isUsingPipe) {
+				DebugOut(L"[INFO] Mario MARIO_STATE_GOING_DOWN_PIPE\n");
+				SetState(MARIO_STATE_GOING_DOWN_PIPE);
+			}
+		}
+		if (e->ny > 0)
+		{
+			if (platform->IsCanDown()) {
+				if (isUsingPipe) {
+					DebugOut(L"[INFO] Mario MARIO_STATE_GOING_UP_PIPE\n");
+					SetState(MARIO_STATE_GOING_UP_PIPE);
+				}
+			}
+		}
 
 	}
 }
@@ -339,6 +390,10 @@ void CMario::OnCollisionWithSwitchBlock(LPCOLLISIONEVENT e) {
 	DebugOut(L"[INFO] Mario OnCollisionWithSwitchBlock\n");
 	CSwitchBlock* block = dynamic_cast<CSwitchBlock*>(e->obj);
 	block->SetWasCollected(true);
+}
+void CMario::OnCollisionWithPipe(LPCOLLISIONEVENT e) {
+	DebugOut(L"[INFO] Mario OnCollisionWithPipe\n");
+	CPipe* pipe = dynamic_cast<CPipe*>(e->obj);
 }
 #pragma  endregion
 
@@ -561,7 +616,7 @@ void CMario::Render()
 {
 	CAnimations* animations = CAnimations::GetInstance();
 
-	DebugOutTitle(L">>> Mario Vx %f>>> \n", vx);
+	DebugOutTitle(L">>> Mario X %f>>> \n", x);
 	int aniId = -1;
 
 	if (state == MARIO_STATE_DIE)
@@ -667,12 +722,14 @@ void CMario::SetState(int state)
 		isUsingPipe = true;
 		vx = 0;
 		ay = 0;
+		startUsePiPeY = y;
 		vy = MARIO_USE_PIPE_SPEED_Y;
 		break;
 	case MARIO_STATE_GOING_UP_PIPE:
 		isUsingPipe = true;
 		vx = 0;
 		ay = 0;
+		startUsePiPeY = y;
 		vy = -MARIO_USE_PIPE_SPEED_Y;
 		break;
 	}

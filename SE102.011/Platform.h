@@ -2,6 +2,8 @@
 
 #include "GameObject.h"
 
+#define HEIGHT_CAN_DOWN 15.9f
+
 // 
 // The most popular type of object in Mario! 
 // 
@@ -37,6 +39,7 @@ public:
 	virtual int IsBlocking() { return 1; }
 	bool IsPlatform() { return true; }
 	bool IsNoneBlockObject() { return (cellHeight != 16); };
+	bool IsCanDown() { return (cellHeight == HEIGHT_CAN_DOWN); }
 };
 
 typedef CPlatform* LPPLATFORM;

@@ -34,10 +34,10 @@ void CSampleKeyHandler::OnKeyDown(int KeyCode)
 		mario->SetLevel(MARIO_LEVEL_TAIL);
 		break;
 	case DIK_5:
-		mario->SetPosition(3340, 100); // Go To Hidden Map
+		mario->GoToHiddenMap(); // Go To Hidden Map
 		break;
 	case DIK_6:
-		mario->SetPosition(2325, 366); // Out Hidden Map
+		mario->ReturnToWorldMap(); // Out Hidden Map
 		break;
 	case DIK_0:
 		mario->SetState(MARIO_STATE_DIE);

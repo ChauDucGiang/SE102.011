@@ -21,6 +21,7 @@
 
 #define MARIO_FLY_UP_DOWN_SPEED_Y 0.0f
 #define MARIO_FLY_UP_SPEED_Y 0.075f
+#define MARIO_USE_PIPE_SPEED_Y -0.075f
 
 #pragma region State
 
@@ -41,6 +42,9 @@
 #define MARIO_STATE_TAIL_ATTACK		800
 
 #define MARIO_STATE_FLY				1000
+
+#define MARIO_STATE_GOING_DOWN_PIPE 1100
+#define MARIO_STATE_GOING_UP_PIPE 1200
 #pragma endregion
 
 
@@ -193,6 +197,12 @@
 #define MARIO__HOLDING_TIME 6000
 #define MARIO_FLY_TIME 10000
 
+//Map position
+#define POSITION_X_HIDDEN_MAP 3340
+#define POSITION_Y_HIDDEN_MAP 0
+#define POSITION_X_RETURN_WORLD_MAP 2325
+#define POSITION_Y_RETURN_WORLD_MAP 366
+
 class CMario : public CGameObject
 {
 	float maxVx;
@@ -201,7 +211,7 @@ class CMario : public CGameObject
 	float adjustX = 0.0f;
 
 	ULONGLONG untouchableStart, tailAttachStart, holdingStart, flyStart;
-	BOOLEAN isSitting, isOnPlatform, isTailAttack = false, isHolding, isFlying = true, isUsingPipe = false;
+	BOOLEAN isSitting, isOnPlatform, isTailAttack = false, isHolding, isFlying = true, isUsingPipe = false, isUsingPipeDown = false, isUsingPipeUp = false;
 	int coin, score, level, untouchable;
 #pragma region CollisionWithGameObject
 	void OnCollisionWithGoomba(LPCOLLISIONEVENT e);
@@ -271,4 +281,11 @@ public:
 	float GetMaxVx() { return MARIO_RUNNING_SPEED; };
 
 	void FlyUp();
+
+	void GoToHiddenMap() {
+		SetPosition(POSITION_X_HIDDEN_MAP, POSITION_Y_HIDDEN_MAP);
+	}
+	void ReturnToWorldMap() {
+		SetPosition(POSITION_X_RETURN_WORLD_MAP, POSITION_Y_RETURN_WORLD_MAP);
+	}
 };

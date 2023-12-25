@@ -201,7 +201,7 @@ class CMario : public CGameObject
 	float adjustX = 0.0f;
 
 	ULONGLONG untouchableStart, tailAttachStart, holdingStart, flyStart;
-	BOOLEAN isSitting, isOnPlatform, isTailAttack = false, isHolding, isFlying = true;
+	BOOLEAN isSitting, isOnPlatform, isTailAttack = false, isHolding, isFlying = true, isUsingPipe = false;
 	int coin, score, level, untouchable;
 #pragma region CollisionWithGameObject
 	void OnCollisionWithGoomba(LPCOLLISIONEVENT e);

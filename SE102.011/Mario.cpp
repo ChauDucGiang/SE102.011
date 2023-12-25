@@ -662,6 +662,18 @@ void CMario::SetState(int state)
 		flyStart = GetTickCount64();
 		FlyUp();
 		break;
+	case MARIO_STATE_GOING_DOWN_PIPE:
+		isUsingPipe = true;
+		vx = 0;
+		ay = 0;
+		vy = MARIO_USE_PIPE_SPEED_Y;
+		break;
+	case MARIO_STATE_GOING_UP_PIPE:
+		isUsingPipe = true;
+		vx = 0;
+		ay = 0;
+		vy = -MARIO_USE_PIPE_SPEED_Y;
+		break;
 	}
 
 	CGameObject::SetState(state);

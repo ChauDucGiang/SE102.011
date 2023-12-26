@@ -3,7 +3,7 @@
 #include "KoopaDetector.h"
 
 #define KOOPA_GRAVITY 0.001f	//trong luc
-#define KOOPA_WALKING_SPEED 0.04f	//toc do di bo
+#define KOOPA_WALKING_SPEED 0.015f	//toc do di bo
 #define KOOPA_JUMP_DEATH 0.4f		//nhay
 #define KOOPA_ADJUST_NOT_FALL 0.1f
 #define KOOPA_KICKED_NOT_FAIL 0.04f

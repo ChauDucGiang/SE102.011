@@ -167,13 +167,14 @@ void CKoopa::OnCollisionWith(LPCOLLISIONEVENT e) {
 		{
 			vy = 0;
 			isOnPlatform = true;
-		}
-		if (e->nx != 0 && e->obj->IsBlocking())
-		{
-			vx = -vx;
-			detector->SetVx(vx);
-			detector->SetX(CalculateDetectorX());
-			detector->SetY(y);
+			if (detector && !detector->IsOnPlatform())
+			{
+				DebugOut(L"[INFO] Koopa Quay dau\n");
+				vx = -vx;
+				detector->SetVx(vx);
+				detector->SetX(CalculateDetectorX());
+				detector->SetY(y);
+			}
 		}
 	}
 
@@ -199,14 +200,6 @@ void CKoopa::OnCollisionWithPlatform(LPCOLLISIONEVENT e) {
 		if ((model == KOOPA_GREEN_WING) && (state == KOOPA_STATE_JUMP)) {
 			vy = -KOOPA_JUMP_SPEED_Y;
 		}
-	}
-
-	if (detector && detector->isFalling())
-	{
-		vx = -vx;
-		detector->SetVx(vx);
-		detector->SetX(CalculateDetectorX());
-		detector->SetY(y);
 	}
 }
 

@@ -29,4 +29,8 @@ public:
 	boolean isFalling() {
 		return abs(vy) > KOOPA_DETECTOR_MAX_GRAVITY;
 	}
+
+	boolean IsOnPlatform() {
+		return isOnPlatform;
+	}
 };

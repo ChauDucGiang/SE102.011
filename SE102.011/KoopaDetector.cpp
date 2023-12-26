@@ -16,6 +16,7 @@ void CKoopaDetector::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects) {
 
 	vy += ay * dt;
 	//vx += ax * dt;
+	isOnPlatform = false;
 	CGameObject::Update(dt, coObjects);
 	CCollision::GetInstance()->Process(this, dt, coObjects);
 
@@ -27,18 +28,12 @@ void CKoopaDetector::OnNoCollision(DWORD dt)
 };
 
 void CKoopaDetector::OnCollisionWith(LPCOLLISIONEVENT e) {
-	if (!e->obj->IsBlocking()) return;
+	//if (!e->obj->IsBlocking()) return;
 
 	if (e->ny != 0)
 	{
-
 		vy = 0;
-
-		isOnPlatform = true;
-	}
-	else
-	{
-		isOnPlatform = false;
+		if (e->ny < 0) isOnPlatform = true;
 	}
 }
 

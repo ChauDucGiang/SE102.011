@@ -172,11 +172,9 @@ void CMario::OnCollisionWithPlatfom(LPCOLLISIONEVENT e)
 		}
 		if (e->ny > 0)
 		{
-			if (platform->IsCanDown()) {
-				if (isUsingPipe) {
-					DebugOut(L"[INFO] Mario MARIO_STATE_GOING_UP_PIPE\n");
-					SetState(MARIO_STATE_GOING_UP_PIPE);
-				}
+			if (platform->IsCanDown() || isUsingPipe) {
+				DebugOut(L"[INFO] Mario MARIO_STATE_GOING_UP_PIPE\n");
+				SetState(MARIO_STATE_GOING_UP_PIPE);
 			}
 		}
 

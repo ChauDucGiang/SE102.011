@@ -176,6 +176,16 @@ void CKoopa::OnCollisionWith(LPCOLLISIONEVENT e) {
 				detector->SetY(y);
 			}
 		}
+		if (e->nx != 0 && e->obj->IsBlocking())
+		{
+			vx = -vx;
+			if (detector)
+			{
+				detector->SetVx(vx);
+				detector->SetX(CalculateDetectorX());
+				detector->SetY(y);
+			}
+		}
 	}
 
 	if (dynamic_cast<CPlatform*>(e->obj))

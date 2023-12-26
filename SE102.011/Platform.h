@@ -36,10 +36,11 @@ public:
 	float GetCellWidth() { return cellWidth; }
 	float GetCellHeight() { return this->cellHeight; }
 	float GetWidth() { return this->length * this->cellWidth; };
-	virtual int IsBlocking() { return 1; }
+	//virtual int IsBlocking() { return 1; }
 	bool IsPlatform() { return true; }
 	bool IsNoneBlockObject() { return (cellHeight != 16); };
 	bool IsCanDown() { return (cellHeight == HEIGHT_CAN_DOWN); }
+	virtual int IsBlocking() { return (cellHeight == 16); }
 };
 
 typedef CPlatform* LPPLATFORM;

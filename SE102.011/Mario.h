@@ -21,7 +21,7 @@
 
 #define MARIO_FLY_UP_DOWN_SPEED_Y 0.0f
 #define MARIO_FLY_UP_SPEED_Y 0.075f
-#define MARIO_USE_PIPE_SPEED_Y -0.075f
+#define MARIO_USE_PIPE_SPEED_Y 0.075f
 
 #pragma region State
 
@@ -284,9 +284,11 @@ public:
 	void FlyUp();
 
 	void GoToHiddenMap() {
+		DebugOut(L"[INFO] Mario GoToHiddenMap\n");
 		SetPosition(POSITION_X_HIDDEN_MAP, POSITION_Y_HIDDEN_MAP);
 	}
 	void ReturnToWorldMap() {
+		DebugOut(L"[INFO] Mario ReturnToWorldMap\n");
 		SetPosition(POSITION_X_RETURN_WORLD_MAP, POSITION_Y_RETURN_WORLD_MAP);
 	}
 };

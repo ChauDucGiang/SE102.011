@@ -241,7 +241,8 @@ Resource\Tilemap\world1-1-1.txt
 #BUTTON
 41	2032	368
 #MARIO
-0	2126	400
+0	2270	50
+#0	2270	50 //onpipe
 #OnPine
 #0	2265	50
 

@@ -210,11 +210,12 @@ class CMario : public CGameObject
 	float ay;				// acceleration on y 
 	float adjustX = 0.0f, startUsePiPeY = 0.0f;
 
-	ULONGLONG untouchableStart, tailAttachStart, holdingStart, flyStart;
+	ULONGLONG untouchableStart, tailAttachStart, holdingStart,
+		prepareFlyStart = -1, flyStart = -1, levelRunningUpStart = -1, levelRunningDownStart = -1, flyUpStart = -1;
 	BOOLEAN isSitting, isOnPlatform, isTailAttack = false, isHolding = false,
 		isFlying = false, isRunning = false,
 		isUsingPipe = false, isUsingPipeDown = false, isUsingPipeUp = false, isOutPipe = false;
-	int coin, score, level, untouchable;
+	int coin, score, level, untouchable, levelRunning = 0;
 #pragma region CollisionWithGameObject
 	void OnCollisionWithGoomba(LPCOLLISIONEVENT e);
 	void OnCollisionWithKoopa(LPCOLLISIONEVENT e);
@@ -281,9 +282,13 @@ public:
 
 	bool IsOnPlatform() { return this->isOnPlatform; };
 
+	bool CanFly() { return levelRunning >= 7; };
+	bool IsFlying() { return isFlying; };
+
 	float GetMaxVx() { return MARIO_RUNNING_SPEED; };
 
-	void FlyUp();
+	void FlyUp(float vy = -0.15f);
+	void FlyDown();
 
 	void GoToHiddenMap() {
 		DebugOut(L"[INFO] Mario GoToHiddenMap\n");

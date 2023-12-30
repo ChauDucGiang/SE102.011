@@ -78,7 +78,7 @@ void CMario::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 				}
 				levelRunningDownStart = GetTickCount64();
 			}
-			levelRunningDownStart = GetTickCount64();
+			prepareFlyStart = GetTickCount64();
 		}
 	}
 
@@ -630,7 +630,7 @@ void CMario::Render()
 {
 	CAnimations* animations = CAnimations::GetInstance();
 
-	DebugOutTitle(L">>> Mario X %f>>> \n", x);
+	DebugOutTitle(L">>> Mario X %d>>> \n", levelRunning);
 	int aniId = -1;
 
 	if (state == MARIO_STATE_DIE)
@@ -732,9 +732,8 @@ void CMario::SetState(int state)
 		break;
 	case MARIO_STATE_FLY:
 		isFlying = true;
-		isOnPlatform = false;
 		flyStart = GetTickCount64();
-		FlyUp();
+		FlyUp(-0.35f);
 		break;
 	case MARIO_STATE_GOING_DOWN_PIPE:
 		isUsingPipe = true;
@@ -794,16 +793,16 @@ void CMario::SetLevel(int l)
 }
 
 
-void CMario::FlyUp()
+void CMario::FlyUp(float vy)
 {
-	DebugOut(L"[INFO] Mario FlyUp\n");
-	//if (levelRun == LEVEL_RUN_MAX) {
-//	vy = -MARIO_FLY_UP_SPEED_Y;
-//}
-//else vy = -MARIO_FLY_UP_DOWN_SPEED_Y;
-
-	vy = -MARIO_FLY_UP_SPEED_Y;
-	isFlying = true;
 	ay = 0;
+	this->vy = vy;
+	flyUpStart = GetTickCount64();
+}
+
+
+void CMario::FlyDown()
+{
+	ay = MARIO_GRAVITY / 5;
 }
 

@@ -17,7 +17,7 @@ void CSampleKeyHandler::OnKeyDown(int KeyCode)
 		mario->SetState(MARIO_STATE_SIT);
 		break;
 	case DIK_S:
-		if (mario->GetLevel() == MARIO_LEVEL_TAIL && mario->GetVx() >= mario->GetMaxVx()) {
+		if (mario->CanFly()) {
 			mario->SetState(MARIO_STATE_FLY);
 		}
 		else {

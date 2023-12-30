@@ -51,7 +51,7 @@ void CMario::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 		}
 	};
 
-	//Prpare Fly
+	//Prepare Fly
 	if (isRunning)
 	{
 		if (GetTickCount64() - prepareFlyStart > 500)
@@ -85,11 +85,11 @@ void CMario::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 	//Flying
 	if (isFlying)
 	{
-		if (GetTickCount64() - flyStart > 5000)
+		if (GetTickCount64() - flyStart > 10000)
 		{
 			EndFly();
 		}
-		if (GetTickCount64() - flyUpStart > 50)
+		if (GetTickCount64() - flyUpStart > 250)
 		{
 			FlyDown();
 		}
@@ -120,7 +120,7 @@ void CMario::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 			}
 		}
 	}
-	else {
+	else if(!isFlying)	 {
 		isOutPipe = false;
 		ay = MARIO_GRAVITY;
 	}

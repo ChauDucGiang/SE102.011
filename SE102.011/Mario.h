@@ -289,6 +289,7 @@ public:
 
 	void FlyUp(float vy = -0.15f);
 	void FlyDown();
+	void EndFly();
 
 	void GoToHiddenMap() {
 		DebugOut(L"[INFO] Mario GoToHiddenMap\n");

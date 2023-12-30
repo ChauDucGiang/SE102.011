@@ -51,18 +51,19 @@ void CMario::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 		}
 	};
 
-	//Flying
-	if (isFlying) {
-
-		if (GetTickCount64() - flyStart > MARIO_FLY_TIME)
+	//Prpare Fly
+	if (isRunning)
+	{
+		if (GetTickCount64() - prepareFlyStart > 500)
 		{
-			isFlying = false;
-			ay = MARIO_GRAVITY;
-		}
-
-		if (isOnPlatform) {
-			isFlying = false;
-			ay = MARIO_GRAVITY;
+			if (GetTickCount64() - levelRunningUpStart > 250)
+			{
+				if (levelRunning < 7)
+				{
+					levelRunning++;
+				}
+				levelRunningUpStart = GetTickCount64();
+			}
 		}
 	}
 
@@ -643,24 +644,28 @@ void CMario::SetState(int state)
 		maxVx = MARIO_RUNNING_SPEED;
 		ax = MARIO_ACCEL_RUN_X;
 		nx = 1;
+		isRunning = true;
 		break;
 	case MARIO_STATE_RUNNING_LEFT:
 		if (isSitting) break;
 		maxVx = -MARIO_RUNNING_SPEED;
 		ax = -MARIO_ACCEL_RUN_X;
 		nx = -1;
+		isRunning = true;
 		break;
 	case MARIO_STATE_WALKING_RIGHT:
 		if (isSitting) break;
 		maxVx = MARIO_WALKING_SPEED;
 		ax = MARIO_ACCEL_WALK_X;
 		nx = 1;
+		isRunning = false;
 		break;
 	case MARIO_STATE_WALKING_LEFT:
 		if (isSitting) break;
 		maxVx = -MARIO_WALKING_SPEED;
 		ax = -MARIO_ACCEL_WALK_X;
 		nx = -1;
+		isRunning = false;
 		break;
 	case MARIO_STATE_JUMP:
 		if (isSitting) break;

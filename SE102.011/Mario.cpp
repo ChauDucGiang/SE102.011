@@ -805,7 +805,6 @@ void CMario::SetLevel(int l)
 	level = l;
 }
 
-
 void CMario::FlyUp(float vy)
 {
 	ay = 0;

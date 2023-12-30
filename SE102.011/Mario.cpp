@@ -66,6 +66,21 @@ void CMario::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 			}
 		}
 	}
+	else
+	{
+		if (!isFlying)
+		{
+			if (GetTickCount64() - levelRunningDownStart > 400)
+			{
+				if (levelRunning > 0)
+				{
+					levelRunning--;
+				}
+				levelRunningDownStart = GetTickCount64();
+			}
+			levelRunningDownStart = GetTickCount64();
+		}
+	}
 
 	// UsingPipe
 	if (isUsingPipe) {

@@ -18,11 +18,17 @@ void CSampleKeyHandler::OnKeyDown(int KeyCode)
 		break;
 	case DIK_S:
 		if (mario->CanFly() && !mario->IsFlying()) {
-			mario->SetState(MARIO_STATE_FLY);
+			if (mario->GetLevel() == MARIO_LEVEL_TAIL)
+			{
+				mario->SetState(MARIO_STATE_FLY);
+			}
 		}
 		else if (mario->IsFlying())
 		{
-			mario->FlyUp();
+			if (mario->GetLevel() == MARIO_LEVEL_TAIL)
+			{
+				mario->FlyUp();
+			}
 		}else{
 			mario->SetState(MARIO_STATE_JUMP);
 		}

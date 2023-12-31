@@ -45,7 +45,7 @@ void CMario::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 
 	//Holding
 	if (isHolding) {
-		if (GetTickCount64() - holdingStart > MARIO__HOLDING_TIME) {
+		if (GetTickCount64() - holdingStart > MARIO_HOLDING_TIME) {
 			isHolding = false;
 			holdingStart = 0;
 		}
@@ -54,11 +54,11 @@ void CMario::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 	//Prepare Fly
 	if (isRunning)
 	{
-		if (GetTickCount64() - prepareFlyStart > 500)
+		if (GetTickCount64() - prepareFlyStart > MARIO_PREPARE_FLY_TIME)
 		{
-			if (GetTickCount64() - levelRunningUpStart > 250)
+			if (GetTickCount64() - levelRunningUpStart > MARIO_LEVEL_RUN_UP_TIME)
 			{
-				if (levelRunning < 7)
+				if (levelRunning < MARIO_LEVEL_RUN_MAX)
 				{
 					levelRunning++;
 				}
@@ -70,7 +70,7 @@ void CMario::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 	{
 		if (!isFlying)
 		{
-			if (GetTickCount64() - levelRunningDownStart > 400)
+			if (GetTickCount64() - levelRunningDownStart > MARIO_LEVEL_RUN_DOWN_TIME)
 			{
 				if (levelRunning > 0)
 				{
@@ -85,11 +85,11 @@ void CMario::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 	//Flying
 	if (isFlying)
 	{
-		if (GetTickCount64() - flyStart > 10000)
+		if (GetTickCount64() - flyStart > MARIO_FLY_TIME)
 		{
 			EndFly();
 		}
-		if (GetTickCount64() - flyUpStart > 250)
+		if (GetTickCount64() - flyUpStart > MARIO_FLY_UP_TIME)
 		{
 			FlyDown();
 		}
@@ -746,7 +746,7 @@ void CMario::SetState(int state)
 	case MARIO_STATE_FLY:
 		isFlying = true;
 		flyStart = GetTickCount64();
-		FlyUp(-0.35f);
+		FlyUp(-MARIO_FLY_START_SPEED_Y);
 		break;
 	case MARIO_STATE_GOING_DOWN_PIPE:
 		isUsingPipe = true;

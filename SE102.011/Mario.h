@@ -19,8 +19,9 @@
 
 #define MARIO_JUMP_DEFLECT_SPEED  0.2f
 
-#define MARIO_FLY_UP_DOWN_SPEED_Y 0.0f
-#define MARIO_FLY_UP_SPEED_Y 0.075f
+#define MARIO_FLY_DOWN_SPEED_Y 0.15f
+#define MARIO_FLY_UP_SPEED_Y 0.15f
+#define MARIO_FLY_START_SPEED_Y 0.25f
 #define MARIO_USE_PIPE_SPEED_Y 0.075f
 
 #pragma region State
@@ -194,14 +195,17 @@
 
 
 #define MARIO_UNTOUCHABLE_TIME 2500
-#define MARIO__HOLDING_TIME 6000
+#define MARIO_HOLDING_TIME 6000
 #define MARIO_FLY_TIME 10000
+#define MARIO_FLY_UP_TIME 250
 
 //Map position
 #define POSITION_X_HIDDEN_MAP 3340
 #define POSITION_Y_HIDDEN_MAP 0
 #define POSITION_X_RETURN_WORLD_MAP 2325
 #define POSITION_Y_RETURN_WORLD_MAP 300
+
+#define MARIO_LEVEL_RUN_MAX 7
 
 class CMario : public CGameObject
 {
@@ -282,12 +286,12 @@ public:
 
 	bool IsOnPlatform() { return this->isOnPlatform; };
 
-	bool CanFly() { return levelRunning >= 7; };
+	bool CanFly() { return levelRunning >= MARIO_LEVEL_RUN_MAX; };
 	bool IsFlying() { return isFlying; };
 
 	float GetMaxVx() { return MARIO_RUNNING_SPEED; };
 
-	void FlyUp(float vy = -0.15f);
+	void FlyUp(float vy = -MARIO_FLY_DOWN_SPEED_Y);
 	void FlyDown();
 	void EndFly();
 

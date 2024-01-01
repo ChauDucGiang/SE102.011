@@ -164,14 +164,17 @@ void CKoopa::OnCollisionWith(LPCOLLISIONEVENT e) {
 		if (e->ny < 0)
 		{
 			vy = 0;
-			if (!detector)
-			{
-				CPlayScene* scene = (CPlayScene*)CGame::GetInstance()->GetCurrentScene();
-				/* Add Detector*/
-				detector = new CKoopaDetector(CalculateDetectorX(), y, vx, vy);
-				scene->AddObject(detector);
-			}
 			isOnPlatform = true;
+			if (model != KOOPA_GREEN_WING) {
+				if (!detector)
+				{
+					CPlayScene* scene = (CPlayScene*)CGame::GetInstance()->GetCurrentScene();
+					/* Add Detector*/
+					detector = new CKoopaDetector(CalculateDetectorX(), y, vx, vy);
+					scene->AddObject(detector);
+				}
+			}
+
 			if (detector && !detector->IsOnPlatform())
 			{
 				DebugOut(L"[INFO] Koopa Quay dau\n");

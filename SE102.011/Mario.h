@@ -221,7 +221,7 @@ class CMario : public CGameObject
 		prepareFlyStart = -1, flyStart = -1, levelRunningUpStart = -1, levelRunningDownStart = -1, flyUpStart = -1;
 	BOOLEAN isSitting, isOnPlatform, isTailAttack = false, isHolding = false,
 		isFlying = false, isRunning = false,
-		isUsingPipe = false, isUsingPipeDown = false, isUsingPipeUp = false, isOutPipe = false;
+		isUsingPipe = false, isUsingPipeDown = false, isUsingPipeUp = false, isOutPipe = false, canDown = false;
 	int coin, score, level, untouchable, levelRunning = 0;
 #pragma region CollisionWithGameObject
 	void OnCollisionWithGoomba(LPCOLLISIONEVENT e);
@@ -288,6 +288,8 @@ public:
 	bool IsHolding() { return this->isHolding; };
 
 	bool IsOnPlatform() { return this->isOnPlatform; };
+
+	bool CanDown() { return canDown; };
 
 	bool CanFly() { return levelRunning >= MARIO_LEVEL_RUN_MAX; };
 	bool IsFlying() { return isFlying; };

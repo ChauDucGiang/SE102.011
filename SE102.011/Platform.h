@@ -40,7 +40,7 @@ public:
 	bool IsPlatform() { return true; }
 	bool IsNoneBlockObject() { return (cellHeight != 16); };
 	bool IsCanDown() { return (cellHeight == HEIGHT_CAN_DOWN); }
-	virtual int IsBlocking() { return (cellHeight == 16); }
+	virtual int IsBlocking() { return 1; }
 };
 
 typedef CPlatform* LPPLATFORM;

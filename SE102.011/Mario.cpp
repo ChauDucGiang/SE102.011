@@ -189,24 +189,26 @@ void CMario::OnCollisionWithPlatfom(LPCOLLISIONEVENT e)
 {
 	CPlatform* platform = dynamic_cast<CPlatform*>(e->obj);
 	if (platform->IsBlocking()) {
-		isUsingPipe = false;
 		isOnPlatform = true;
-	}
-	else {
-		if (e->ny < 0) {
-			if ((platform->IsCanDown() ) || isUsingPipe) {
-				DebugOut(L"[INFO] Mario MARIO_STATE_GOING_DOWN_PIPE\n");
-				SetState(MARIO_STATE_GOING_DOWN_PIPE);
-			}
-		}
-		if (e->ny > 0)
+		if (platform->IsCanDown())
 		{
-			if (platform->IsCanDown() || isUsingPipe) {
-				DebugOut(L"[INFO] Mario MARIO_STATE_GOING_UP_PIPE\n");
+			DebugOut(L"[INFO] Mario MARIO_STATE_GOING_UP_PIPE 1\n");
+			//isUsingPipe = true;
+			canDown = true;
+			if (e->ny < 0) {
+				DebugOut(L"[INFO] Mario MARIO_STATE_GOING_DOWN_PIPE\n");
+			}
+			if (e->ny > 0)
+			{
+				DebugOut(L"[INFO] Mario MARIO_STATE_GOING_UP_PIPE 2\n");
 				SetState(MARIO_STATE_GOING_UP_PIPE);
 			}
 		}
-
+		else
+		{
+			//isUsingPipe = false;
+			canDown = false;
+		}
 	}
 }
 
@@ -753,6 +755,7 @@ void CMario::SetState(int state)
 		vx = 0;
 		ay = 0;
 		startUsePiPeY = y;
+		y += 24;
 		vy = MARIO_USE_PIPE_SPEED_Y;
 		break;
 	case MARIO_STATE_GOING_UP_PIPE:

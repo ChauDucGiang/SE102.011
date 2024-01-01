@@ -218,11 +218,11 @@ class CMario : public CGameObject
 	float adjustX = 0.0f, startUsePiPeY = 0.0f;
 
 	ULONGLONG untouchableStart, tailAttachStart, holdingStart,
-		prepareFlyStart = -1, flyStart = -1, levelRunningUpStart = -1, levelRunningDownStart = -1, flyUpStart = -1;
+		prepareFlyStart = -1, flyStart = -1, levelRunningUpStart = -1, levelRunningDownStart = -1, flyUpStart = -1, gameStart;
 	BOOLEAN isSitting, isOnPlatform, isTailAttack = false, isHolding = false,
 		isFlying = false, isRunning = false,
 		isUsingPipe = false, isUsingPipeDown = false, isUsingPipeUp = false, isOutPipe = false, canDown = false;
-	int coin, score, level, untouchable, levelRunning = 0;
+	int coin, score, level, untouchable, levelRunning = 0, limitTimeMap1 = 300;
 #pragma region CollisionWithGameObject
 	void OnCollisionWithGoomba(LPCOLLISIONEVENT e);
 	void OnCollisionWithKoopa(LPCOLLISIONEVENT e);
@@ -301,6 +301,8 @@ public:
 	void FlyUp(float vy = -MARIO_FLY_DOWN_SPEED_Y);
 	void FlyDown();
 	void EndFly();
+
+	int GetTimer() { return this->limitTimeMap1; }
 
 	void GoToHiddenMap() {
 		DebugOut(L"[INFO] Mario GoToHiddenMap\n");

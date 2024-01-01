@@ -82,6 +82,7 @@ public:
 	virtual void DrawCoin();
 	virtual void DrawScore();
 	virtual void DrawLevelMap();
+	virtual void DrawTimerMap();
 	virtual void DrawDigit(int n, float startX, float startY, float distanceX = 0.0f);
 	
 

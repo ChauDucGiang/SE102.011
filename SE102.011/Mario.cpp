@@ -28,6 +28,20 @@ void CMario::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 	vx += ax * dt;
 	if (abs(vx) > abs(maxVx)) vx = maxVx;
 
+	// count down time
+	if (state != MARIO_STATE_DIE) {
+		if (limitTimeMap1 > 0) {
+			if (GetTickCount64() - gameStart > 1000) {
+				limitTimeMap1--;
+				gameStart = GetTickCount64();
+			}
+		}
+		else {
+			limitTimeMap1 = 0;
+			SetState(MARIO_STATE_DIE);
+		}
+	};
+
 	// reset untouchable timer if untouchable time has passed
 	if ( GetTickCount64() - untouchableStart > MARIO_UNTOUCHABLE_TIME)
 	{

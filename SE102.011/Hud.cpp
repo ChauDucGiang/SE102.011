@@ -91,6 +91,7 @@ void CHud::Render() {
 
 	//}
 	DrawLevelMap();
+	DrawTimerMap();
 	DrawCoin();
 	DrawScore();
 
@@ -98,6 +99,13 @@ void CHud::Render() {
 
 void  CHud::DrawLevelMap() {
 	DrawDigit(1, x + POSITION_WORLD_X, y - ADJUST_Y_POWER_POSITION, DISTANCE_NUMBER);
+};
+
+void  CHud::DrawTimerMap() {
+	CMario* mario = (CMario*)((LPPLAYSCENE)CGame::GetInstance()->GetCurrentScene())->GetPlayer();
+	int timer;
+	timer = mario->GetTimer();
+	DrawDigit(timer, x + POSITION_CLOCK_X, y - ADJUST_Y_POWER_POSITION_UNDER, DISTANCE_NUMBER);
 };
 
 void  CHud::DrawLevelRun() {

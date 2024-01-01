@@ -5,7 +5,7 @@
 #include "KoopaDetector.h"
 
 CKoopa::CKoopa(float x, float y, int model) :CGameObject(x, y) {
-	CPlayScene* scene =  (CPlayScene*)CGame::GetInstance()->GetCurrentScene();
+
 	this->ax = 0;
 	this->model = model;
 	if (model == KOOPA_GREEN_WING) {
@@ -16,9 +16,7 @@ CKoopa::CKoopa(float x, float y, int model) :CGameObject(x, y) {
 	else {
 		ay = KOOPA_GRAVITY;
 		SetState(KOOPA_STATE_WALKING);
-		/* Add Detector*/
-		detector = new CKoopaDetector(CalculateDetectorX(), y, vx, vy);
-		scene->AddObject(detector);
+
 	}
 }
 
@@ -166,6 +164,13 @@ void CKoopa::OnCollisionWith(LPCOLLISIONEVENT e) {
 		if (e->ny < 0)
 		{
 			vy = 0;
+			if (!detector)
+			{
+				CPlayScene* scene = (CPlayScene*)CGame::GetInstance()->GetCurrentScene();
+				/* Add Detector*/
+				detector = new CKoopaDetector(CalculateDetectorX(), y, vx, vy);
+				scene->AddObject(detector);
+			}
 			isOnPlatform = true;
 			if (detector && !detector->IsOnPlatform())
 			{

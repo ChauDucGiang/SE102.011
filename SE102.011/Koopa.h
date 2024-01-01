@@ -9,7 +9,7 @@
 #define KOOPA_KICKED_NOT_FAIL 0.04f
 #define KOOPA_WAS_KICKED_SPEED_X 0.18f
 #define KOOPA_JUMP_WAS_ATTACKED_SPEED_Y 0.4f
-#define KOOPA_ADJUST_DETECTOR_X 2.0f
+#define KOOPA_ADJUST_DETECTOR_X 3.0f
 #define KOOPA_JUMP_SPEED_Y 0.2f
 
 #define KOOPA_GRAVITY_WING 0.0005f
@@ -103,11 +103,11 @@ class CKoopa : public CGameObject
 			// go to right
 			if (vx > 0)
 			{
-				detectorX = x +  (KOOPA_BBOX_WIDTH / 2 + KOOPA_DETECTOR_BBOX_WIDTH / 2) + KOOPA_ADJUST_DETECTOR_X;
+				detectorX = x +  (KOOPA_BBOX_WIDTH / 2 + KOOPA_DETECTOR_BBOX_WIDTH / 2) - KOOPA_ADJUST_DETECTOR_X;
 			}
 			else
 			{
-				detectorX = x - (KOOPA_BBOX_WIDTH / 2 + KOOPA_DETECTOR_BBOX_WIDTH / 2) - KOOPA_ADJUST_DETECTOR_X;
+				detectorX = x - (KOOPA_BBOX_WIDTH / 2 + KOOPA_DETECTOR_BBOX_WIDTH / 2) + KOOPA_ADJUST_DETECTOR_X;
 			}
 			return detectorX;
 		}

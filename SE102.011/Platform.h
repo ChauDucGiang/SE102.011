@@ -2,7 +2,14 @@
 
 #include "GameObject.h"
 
+#define HEIGHT_BLOCK 16.0f
 #define HEIGHT_CAN_DOWN 15.9f
+#define HEIGHT_CAN_UP 15.0f
+
+//model
+#define PLATFORM_BLOCK 1
+#define PLATFORM_CAN_UP 2
+#define PLATFORM_CAN_DOWN 2
 
 // 
 // The most popular type of object in Mario! 
@@ -36,11 +43,14 @@ public:
 	float GetCellWidth() { return cellWidth; }
 	float GetCellHeight() { return this->cellHeight; }
 	float GetWidth() { return this->length * this->cellWidth; };
-	//virtual int IsBlocking() { return 1; }
+
 	bool IsPlatform() { return true; }
-	bool IsNoneBlockObject() { return (cellHeight != 16); };
+
+	bool IsNoneBlockObject() { return (cellHeight == 15.0f); };
+	bool IsCanUp() { return (cellHeight == HEIGHT_CAN_UP); };
 	bool IsCanDown() { return (cellHeight == HEIGHT_CAN_DOWN); }
-	virtual int IsBlocking() { return 1; }
+
+	virtual int IsBlocking() { return true; }
 };
 
 typedef CPlatform* LPPLATFORM;

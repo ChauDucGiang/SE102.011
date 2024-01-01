@@ -177,7 +177,6 @@ void CKoopa::OnCollisionWith(LPCOLLISIONEVENT e) {
 
 			if (detector && !detector->IsOnPlatform())
 			{
-				DebugOut(L"[INFO] Koopa Quay dau\n");
 				vx = -vx;
 				detector->SetVx(vx);
 				detector->SetX(CalculateDetectorX());

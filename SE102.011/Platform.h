@@ -5,11 +5,13 @@
 #define HEIGHT_BLOCK 16.0f
 #define HEIGHT_CAN_DOWN 15.9f
 #define HEIGHT_CAN_UP 15.0f
+#define HEIGHT_NONE_BLOCK 15.7f
 
 //model
 #define PLATFORM_BLOCK 1
 #define PLATFORM_CAN_UP 2
-#define PLATFORM_CAN_DOWN 2
+#define PLATFORM_CAN_DOWN 3
+#define PLATFORM_NONE_BLOCK 4
 
 // 
 // The most popular type of object in Mario! 
@@ -46,11 +48,11 @@ public:
 
 	bool IsPlatform() { return true; }
 
-	bool IsNoneBlockObject() { return (cellHeight == 15.0f); };
+	bool IsNoneBlockObject() { return (cellHeight == HEIGHT_CAN_UP || cellHeight == HEIGHT_CAN_DOWN); };
 	bool IsCanUp() { return (cellHeight == HEIGHT_CAN_UP); };
-	bool IsCanDown() { return (cellHeight == HEIGHT_CAN_DOWN); }
+	bool IsCanDown() { return (cellHeight == HEIGHT_CAN_DOWN || cellHeight == HEIGHT_NONE_BLOCK); }
 
-	virtual int IsBlocking() { return true; }
+	virtual int IsBlocking() { return (cellHeight != HEIGHT_NONE_BLOCK); }
 };
 
 typedef CPlatform* LPPLATFORM;

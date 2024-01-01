@@ -82,7 +82,7 @@ public:
 	virtual void DrawCoin();
 	virtual void DrawScore();
 	virtual void DrawLevelMap();
-	virtual void DrawDigit(int n, float xTemp, float yTemp, float distanceX = 0.0f);
+	virtual void DrawDigit(int n, float startX, float startY, float distanceX = 0.0f);
 	
 
 	std::vector<int> ParseDigits(int num);

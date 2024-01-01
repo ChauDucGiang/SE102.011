@@ -90,12 +90,14 @@ void CHud::Render() {
 
 
 	//}
-
+	DrawLevelMap();
 	DrawCoin();
+	DrawScore();
 
 }
 
 void  CHud::DrawLevelMap() {
+	DrawDigit(1, x + POSITION_WORLD_X, y - ADJUST_Y_POWER_POSITION, DISTANCE_NUMBER);
 };
 
 void  CHud::DrawLevelRun() {
@@ -107,10 +109,15 @@ void  CHud::DrawCoin() {
 	int coin;
 	coin = mario->GetCoin();
 
-	DrawDigit(coin, x, y - ADJUST_Y_POWER_POSITION, DISTANCE_NUMBER);
+	DrawDigit(coin, x + POSITION_COIN_X, y - ADJUST_Y_POWER_POSITION, DISTANCE_NUMBER);
 };
 
 void  CHud::DrawScore() {
+	CMario* mario = (CMario*)((LPPLAYSCENE)CGame::GetInstance()->GetCurrentScene())->GetPlayer();
+	int coin;
+	coin = mario->GetCoin();
+
+	DrawDigit(coin, x + POSITION_SCORE_X, y - ADJUST_Y_POWER_POSITION_UNDER, DISTANCE_NUMBER);
 };
 
 std::vector<int> CHud::ParseDigits(int num) {
@@ -124,11 +131,11 @@ std::vector<int> CHud::ParseDigits(int num) {
 }
 
 
-void CHud::DrawDigit(int num, float xTemp, float yTemp, float distanceX) {
+void CHud::DrawDigit(int num, float startX, float startY, float distanceX) {
 	std::vector<int> digits = ParseDigits(num);
 
 	for (size_t index = 0; index < digits.size(); ++index) {
-		DrawNumber(digits[index], xTemp + index * distanceX, yTemp);
+		DrawNumber(digits[index], startX + index * distanceX, startY);
 	}
 }
 

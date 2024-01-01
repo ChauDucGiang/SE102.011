@@ -94,6 +94,7 @@ void CHud::Render() {
 	DrawTimerMap();
 	DrawCoin();
 	DrawScore();
+	DrawLevelRun();
 
 }
 
@@ -110,7 +111,17 @@ void  CHud::DrawTimerMap() {
 
 void  CHud::DrawLevelRun() {
 
+	CMario* mario = (CMario*)((LPPLAYSCENE)CGame::GetInstance()->GetCurrentScene())->GetPlayer();
+	int levelRun;
+	levelRun = mario->GetLevelRun();
 
+	if (levelRun < mario->GetLevelRunMax())
+	{
+		CAnimations::GetInstance()->Get(ID_ANI_POWER_HUD)->Render(x - ADJUST_X_POWER_POSITION + DISTANCE_EVERY_LEVEL_RUN * (levelRun - 1), y - ADJUST_Y_POWER_POSITION);
+	}
+	else {
+		CAnimations::GetInstance()->Get(ID_ANI_POWER_HUD_MAX)->Render(x - ADJUST_X_POWER_POSITION_MAX, y - ADJUST_Y_POWER_POSITION);
+	}
 }
 void  CHud::DrawCoin() {
 	CMario* mario = (CMario*)((LPPLAYSCENE)CGame::GetInstance()->GetCurrentScene())->GetPlayer();

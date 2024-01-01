@@ -285,6 +285,7 @@ public:
 	void SetScore(int score = 1) { this->score += score; }
 
 	int GetLevelRun() { return this->levelRunning; }
+	int GetLevelRunMax() { return MARIO_LEVEL_RUN_MAX; }
 
 	void SetIsHold(bool isHolding) { this->isHolding = isHolding; };
 	bool IsHolding() { return this->isHolding; };

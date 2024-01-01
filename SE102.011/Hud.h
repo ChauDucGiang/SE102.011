@@ -77,4 +77,13 @@ public:
 	virtual void GetBoundingBox(float& left, float& top, float& right, float& bottom) {}
 	void SetCamPos(float x, float y) { x = x; y = y; }
 	static CHud* GetInstance();
+
+	virtual void DrawLevelRun();
+	virtual void DrawCoin();
+	virtual void DrawScore();
+	virtual void DrawLevelMap();
+	virtual void DrawDigit(int n, float xTemp, float yTemp, float distanceX = 0.0f);
+	
+
+	std::vector<int> ParseDigits(int num);
 };

@@ -284,6 +284,8 @@ public:
 	int GetScore() { return coin; }
 	void SetScore(int score = 1) { this->score += score; }
 
+	int GetLevelRun() { return this->levelRunning; }
+
 	void SetIsHold(bool isHolding) { this->isHolding = isHolding; };
 	bool IsHolding() { return this->isHolding; };
 

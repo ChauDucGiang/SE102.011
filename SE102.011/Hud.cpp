@@ -91,7 +91,48 @@ void CHud::Render() {
 
 	//}
 
+	DrawCoin();
+
 }
+
+void  CHud::DrawLevelMap() {
+};
+
+void  CHud::DrawLevelRun() {
+
+
+}
+void  CHud::DrawCoin() {
+	CMario* mario = (CMario*)((LPPLAYSCENE)CGame::GetInstance()->GetCurrentScene())->GetPlayer();
+	int coin;
+	coin = mario->GetCoin();
+
+	DrawDigit(coin, x, y - ADJUST_Y_POWER_POSITION, DISTANCE_NUMBER);
+};
+
+void  CHud::DrawScore() {
+};
+
+std::vector<int> CHud::ParseDigits(int num) {
+	std::vector<int> digits;
+	while (num > 0) {
+		digits.push_back(num % 10);
+		num /= 10;
+	}
+	std::reverse(digits.begin(), digits.end());
+	return digits;
+}
+
+
+void CHud::DrawDigit(int num, float xTemp, float yTemp, float distanceX) {
+	std::vector<int> digits = ParseDigits(num);
+
+	for (size_t index = 0; index < digits.size(); ++index) {
+		DrawNumber(digits[index], xTemp + index * distanceX, yTemp);
+	}
+}
+
+
 void CHud::DrawNumber(int n, float xTemp, float yTemp) {
 	if (n == 0) CAnimations::GetInstance()->Get(ID_ANI_0)->Render(xTemp, yTemp);
 	else if (n == 1) CAnimations::GetInstance()->Get(ID_ANI_1)->Render(xTemp, yTemp);

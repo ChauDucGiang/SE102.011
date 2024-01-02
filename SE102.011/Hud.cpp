@@ -133,10 +133,10 @@ void  CHud::DrawCoin() {
 
 void  CHud::DrawScore() {
 	CMario* mario = (CMario*)((LPPLAYSCENE)CGame::GetInstance()->GetCurrentScene())->GetPlayer();
-	int coin;
-	coin = mario->GetCoin();
+	int score;
+	score = mario->GetScore();
 
-	DrawDigit(coin, x + POSITION_SCORE_X, y - ADJUST_Y_POWER_POSITION_UNDER, DISTANCE_NUMBER);
+	DrawDigit(score, x + POSITION_SCORE_X, y - ADJUST_Y_POWER_POSITION_UNDER, DISTANCE_NUMBER);
 };
 
 std::vector<int> CHud::ParseDigits(int num) {

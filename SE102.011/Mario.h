@@ -256,6 +256,7 @@ public:
 		untouchableStart = -1;
 		isOnPlatform = false;
 		coin = 0;
+		score = 0;
 	}
 
 	void Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects);

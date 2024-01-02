@@ -369,7 +369,7 @@ void CMario::OnCollisionWithCoin(LPCOLLISIONEVENT e)
 {
 	DebugOut(L"[INFO] Mario OnCollisionWithCoin\n");
 	e->obj->Delete();
-	coin++;
+	SetCoin();
 }
 
 void CMario::OnCollisionWithPortal(LPCOLLISIONEVENT e)

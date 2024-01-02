@@ -232,7 +232,7 @@ void CMario::OnCollisionWithGoomba(LPCOLLISIONEVENT e)
 	DebugOut(L"[INFO] Mario OnCollisionWithGoomba\n");
 	CGoomba* goomba = dynamic_cast<CGoomba*>(e->obj);
 	if (isTailAttack) {
-		score += 100;
+		SetScore(100);
 		goomba->SetState(GOOMBA_STATE_DIE);
 	}
 	else
@@ -273,7 +273,7 @@ void CMario::OnCollisionWithKoopa(LPCOLLISIONEVENT e) {
 
 	CKoopa* koopa = dynamic_cast<CKoopa*>(e->obj);
 	if (isTailAttack) {
-		score += 100;
+		SetScore(100);
 		koopa->SetState(KOOPA_STATE_UPSIDE);
 	}
 	else
@@ -328,16 +328,24 @@ void CMario::OnCollisionWithKoopa(LPCOLLISIONEVENT e) {
 void CMario::OnCollisionWithPlant(LPCOLLISIONEVENT e) {
 	DebugOut(L"[INFO] Mario OnCollisionWithPlant\n");
 	CPlant* plant = dynamic_cast<CPlant*>(e->obj);
-	if (untouchable == 0) {
-		if (level > MARIO_LEVEL_SMALL)
-		{
-			level = MARIO_LEVEL_SMALL;
-			StartUntouchable();
-		}
-		else
-		{
-			DebugOut(L">>> Mario DIE >>> \n");
-			//SetState(MARIO_STATE_DIE);
+
+	if (isTailAttack) {
+		SetScore(100);
+		plant->Delete();
+	}
+	else
+	{
+		if (untouchable == 0) {
+			if (level > MARIO_LEVEL_SMALL)
+			{
+				level = MARIO_LEVEL_SMALL;
+				StartUntouchable();
+			}
+			else
+			{
+				DebugOut(L">>> Mario DIE >>> \n");
+				//SetState(MARIO_STATE_DIE);
+			}
 		}
 	}
 }

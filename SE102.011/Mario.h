@@ -281,7 +281,7 @@ public:
 	int GetCoin() { return coin; }
 	void SetCoin(int coin = 1) { this->coin += coin; }
 
-	int GetScore() { return coin; }
+	int GetScore() { return score; }
 	void SetScore(int score = 1) { this->score += score; }
 
 	int GetLevelRun() { return this->levelRunning; }

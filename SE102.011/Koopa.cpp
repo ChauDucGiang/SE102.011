@@ -165,31 +165,43 @@ void CKoopa::OnCollisionWith(LPCOLLISIONEVENT e) {
 		{
 			vy = 0;
 			isOnPlatform = true;
-			if (model != KOOPA_GREEN_WING && state == KOOPA_STATE_WALKING ) {
-				if (!detector)
+			if (needCheckDetector)
+			{
+				if (model != KOOPA_GREEN_WING && state == KOOPA_STATE_WALKING) {
+					if (!detector)
+					{
+						CPlayScene* scene = (CPlayScene*)CGame::GetInstance()->GetCurrentScene();
+						/* Add Detector*/
+						detector = new CKoopaDetector(CalculateDetectorX(), y, vx, vy);
+						scene->AddObject(detector);
+					}
+					else if (detector)
+					{
+						if (!detector->IsOnPlatform())
+						{
+							vx = -vx;
+						}
+						detector->SetVx(vx);
+						detector->SetX(CalculateDetectorX());
+						detector->SetY(y);
+					}
+				}
+			}
+
+		}
+		if (e->nx != 0 && e->obj->IsBlocking())
+		{
+			vx = -vx;
+			if (needCheckDetector)
+			{
+				if (detector)
 				{
-					CPlayScene* scene = (CPlayScene*)CGame::GetInstance()->GetCurrentScene();
-					/* Add Detector*/
-					detector = new CKoopaDetector(CalculateDetectorX(), y, vx, vy);
-					scene->AddObject(detector);
-				}else if (detector && !detector->IsOnPlatform())
-				{
-					vx = -vx;
 					detector->SetVx(vx);
 					detector->SetX(CalculateDetectorX());
 					detector->SetY(y);
 				}
 			}
-		}
-		if (e->nx != 0 && e->obj->IsBlocking())
-		{
-			vx = -vx;
-			if (detector)
-			{
-				detector->SetVx(vx);
-				detector->SetX(CalculateDetectorX());
-				detector->SetY(y);
-			}
+
 		}
 	}
 
@@ -253,12 +265,14 @@ void CKoopa::SetState(int state) {
 		isRevival = false;
 		isDefend = false;
 		isUpside = false;
+		needCheckDetector = true;
 		break;
 	case KOOPA_STATE_DEFEND:
 		vx = 0;
 		defendStart = GetTickCount64();
 		isDefend = true;
-		DeleteDetector();
+		//DeleteDetector();
+		needCheckDetector = false;
 		break;
 	case KOOPA_STATE_WAS_KICKED:
 		isOnPlatform = true;
@@ -275,12 +289,14 @@ void CKoopa::SetState(int state) {
 		vy = -KOOPA_JUMP_WAS_ATTACKED_SPEED_Y;
 		defendStart = GetTickCount64();
 		//DeleteDetector();
+		needCheckDetector = false;
 		break;
 	case KOOPA_STATE_JUMP:
 		isUpside = false;
 		isDefend = false;
 		isRevival = false;
 		vx = -KOOPA_WALKING_SPEED;
+		needCheckDetector = false;
 		break;
 	}
 }

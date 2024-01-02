@@ -165,22 +165,20 @@ void CKoopa::OnCollisionWith(LPCOLLISIONEVENT e) {
 		{
 			vy = 0;
 			isOnPlatform = true;
-			if (model != KOOPA_GREEN_WING) {
+			if (model != KOOPA_GREEN_WING && state == KOOPA_STATE_WALKING ) {
 				if (!detector)
 				{
 					CPlayScene* scene = (CPlayScene*)CGame::GetInstance()->GetCurrentScene();
 					/* Add Detector*/
 					detector = new CKoopaDetector(CalculateDetectorX(), y, vx, vy);
 					scene->AddObject(detector);
+				}else if (detector && !detector->IsOnPlatform())
+				{
+					vx = -vx;
+					detector->SetVx(vx);
+					detector->SetX(CalculateDetectorX());
+					detector->SetY(y);
 				}
-			}
-
-			if (detector && !detector->IsOnPlatform())
-			{
-				vx = -vx;
-				detector->SetVx(vx);
-				detector->SetX(CalculateDetectorX());
-				detector->SetY(y);
 			}
 		}
 		if (e->nx != 0 && e->obj->IsBlocking())
@@ -260,10 +258,12 @@ void CKoopa::SetState(int state) {
 		vx = 0;
 		defendStart = GetTickCount64();
 		isDefend = true;
+		DeleteDetector();
 		break;
 	case KOOPA_STATE_WAS_KICKED:
 		isOnPlatform = true;
 		vx = -KOOPA_WAS_KICKED_SPEED_X;
+		//DeleteDetector();
 		break;
 	case KOOPA_STATE_UPSIDE:
 		isUpside = true;
@@ -274,6 +274,7 @@ void CKoopa::SetState(int state) {
 		if (isOnPlatform) vx = 0;
 		vy = -KOOPA_JUMP_WAS_ATTACKED_SPEED_Y;
 		defendStart = GetTickCount64();
+		//DeleteDetector();
 		break;
 	case KOOPA_STATE_JUMP:
 		isUpside = false;
@@ -286,4 +287,13 @@ void CKoopa::SetState(int state) {
 
 void SetLevel(int level) {
 
+}
+
+void CKoopa::DeleteDetector() {
+
+	if (detector)
+	{
+		detector->Delete();
+		detector = NULL;
+	}
 }

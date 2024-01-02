@@ -86,6 +86,7 @@ class CKoopa : public CGameObject
 
 		int GetModelGreenAnimation();
 		int GetModelRedAnimation();
+		void DeleteDetector();
 
 	public:
 		CKoopa(float x, float y , int model);

@@ -67,7 +67,7 @@ class CKoopa : public CGameObject
 
 		ULONGLONG  dieStart, revivalStart, defendStart;
 
-		bool isDead = false, isJump, isAttack, isUpside = false, isOnPlatform, isWing, isDefend = false, isRevival = false, wasHeld = false, needCheckDetector = false;
+		bool isDead = false, isJump, isAttack, isUpside = false, isOnPlatform, isWing, isDefend = false, isRevival = false, wasHeld = false, needCheckDetector = false, wasKicked = false;
 
 		virtual void Render();
 		virtual void Update(DWORD dt, vector<LPGAMEOBJECT>* coObject);
@@ -83,6 +83,7 @@ class CKoopa : public CGameObject
 		virtual void OnCollisionWithKoopa(LPCOLLISIONEVENT e);
 		virtual void OnCollisionWithPlant(LPCOLLISIONEVENT e);
 		virtual void OnCollisionWithMario(LPCOLLISIONEVENT e);
+		virtual void OnCollisionWithBrickColor(LPCOLLISIONEVENT e);
 
 		int GetModelGreenAnimation();
 		int GetModelRedAnimation();

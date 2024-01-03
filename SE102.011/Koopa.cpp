@@ -3,6 +3,7 @@
 #include "Platform.h"
 #include "Plant.h"
 #include "KoopaDetector.h"
+#include "BrickCorlor.h"
 
 CKoopa::CKoopa(float x, float y, int model) :CGameObject(x, y) {
 
@@ -191,7 +192,13 @@ void CKoopa::OnCollisionWith(LPCOLLISIONEVENT e) {
 		}
 		if (e->nx != 0 && e->obj->IsBlocking())
 		{
-			vx = -vx;
+			if (state == KOOPA_STATE_WAS_KICKED && (dynamic_cast<CBrickColor*>(e->obj) || dynamic_cast<CPlant*>(e->obj) ) )
+			{
+			
+			}
+			else {
+				vx = -vx;
+			}
 			if (needCheckDetector)
 			{
 				if (detector)
@@ -213,6 +220,10 @@ void CKoopa::OnCollisionWith(LPCOLLISIONEVENT e) {
 		this->OnCollisionWithKoopa(e);
 	else if (dynamic_cast<CMario*>(e->obj))
 		this->OnCollisionWithMario(e);
+	else if (dynamic_cast<CPlant*>(e->obj))
+		this->OnCollisionWithPlant(e);
+	else if (dynamic_cast<CBrickColor*>(e->obj))
+		this->OnCollisionWithBrickColor(e);
 }
 
 void CKoopa::OnCollisionWithMario(LPCOLLISIONEVENT e) {
@@ -252,6 +263,14 @@ void CKoopa::OnCollisionWithPlant(LPCOLLISIONEVENT e) {
 		plant->SetState(PLANT_STATE_DIE);
 	}
 }
+void CKoopa::OnCollisionWithBrickColor(LPCOLLISIONEVENT e) {
+	CBrickColor* brick = dynamic_cast<CBrickColor*>(e->obj);
+
+	if (state == KOOPA_STATE_WAS_KICKED) {
+		brick->Destroy();
+	}
+}
+
 #pragma endregion
 
 void CKoopa::SetState(int state) {
@@ -265,24 +284,27 @@ void CKoopa::SetState(int state) {
 		isRevival = false;
 		isDefend = false;
 		isUpside = false;
+		wasKicked = false;
 		needCheckDetector = true;
 		break;
 	case KOOPA_STATE_DEFEND:
 		vx = 0;
 		defendStart = GetTickCount64();
 		isDefend = true;
+		wasKicked = false;
 		//DeleteDetector();
 		needCheckDetector = false;
 		break;
 	case KOOPA_STATE_WAS_KICKED:
 		isOnPlatform = true;
 		vx = -KOOPA_WAS_KICKED_SPEED_X;
-		//DeleteDetector();
+		wasKicked = true;
 		break;
 	case KOOPA_STATE_UPSIDE:
 		isUpside = true;
 		isDefend = false;
 		isRevival = false;
+		wasKicked = false;
 		//isDead = true;
 		//dieStart = GetTickCount64();
 		if (isOnPlatform) vx = 0;
@@ -295,6 +317,7 @@ void CKoopa::SetState(int state) {
 		isUpside = false;
 		isDefend = false;
 		isRevival = false;
+		wasKicked = false;
 		vx = -KOOPA_WALKING_SPEED;
 		needCheckDetector = false;
 		break;

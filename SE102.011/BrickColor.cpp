@@ -21,17 +21,20 @@ void CBrickColor::GetBoundingBox(float& l, float& t, float& r, float& b)
 void CBrickColor::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects) {
 	CPlayScene* scene = (CPlayScene*)CGame::GetInstance()->GetCurrentScene();
 
-	if (!isUsedSwitchPBlock)
+	if (model == 1)
 	{
-		IsUsedSwitchPBlock();
-	}
-	else {
-		if (!isCoin)
+		if (!isUsedSwitchPBlock)
 		{
-			SetState(BRICK_STATE_TURNS_INTO_COIN);
-			CCoin* coin = new CCoin(x, y);
-			scene->AddObject(coin);
-			Delete();
+			IsUsedSwitchPBlock();
+		}
+		else {
+			if (!isCoin)
+			{
+				SetState(BRICK_STATE_TURNS_INTO_COIN);
+				CCoin* coin = new CCoin(x, y, COIN_TURNED_INTO_BRICK);
+				scene->AddObject(coin);
+				Delete();
+			}
 		}
 	}
 	CGameObject::Update(dt, coObjects);
@@ -40,6 +43,9 @@ void CBrickColor::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects) {
 void CBrickColor::SetState(int state) {
 	switch (state) {
 	case BRICK_STATE_WAS_BROKEN:
+		isBreak = true;
+		break;
+	case BRICK_STATE_NORMAL:
 		isBreak = true;
 		break;
 	case BRICK_STATE_TURNS_INTO_COIN:

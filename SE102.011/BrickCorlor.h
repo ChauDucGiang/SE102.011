@@ -8,6 +8,7 @@
 
 #define BRICK_STATE_WAS_BROKEN 100
 #define BRICK_STATE_TURNS_INTO_COIN 200
+#define BRICK_STATE_NORMAL 300
 
 class CBrickColor : public CGameObject
 {
@@ -17,6 +18,7 @@ protected:
 public:
 	CBrickColor(float x, float y, int model) : CGameObject(x, y) {
 		this->model = model;
+		SetState(BRICK_STATE_NORMAL);
 	}
 	void Render();
 	void Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects);

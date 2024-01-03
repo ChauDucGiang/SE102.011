@@ -1,4 +1,6 @@
 #include "Coin.h"
+#include "BrickCorlor.h"
+#include "PlayScene.h"
 
 void CCoin::Render()
 {
@@ -25,6 +27,14 @@ void CCoin::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects) {
 	if (vy > COIN_MAX_SPEED_FALL) {
 		isDeleted = true;
 		return;
+	}
+
+	if (!isDeleted && model == COIN_TURNED_INTO_BRICK  && GetTickCount64() - turnedIntoBrickStart > COIN_TURN_INTO_BRICK_TIME)
+	{
+		CPlayScene* scene = (CPlayScene*)CGame::GetInstance()->GetCurrentScene();
+		CBrickColor* brick = new CBrickColor(x, y, 2);
+		scene->AddObject(brick);
+		Delete();
 	}
 	CGameObject::Update(dt, coObjects);
 	CCollision::GetInstance()->Process(this, dt, coObjects);

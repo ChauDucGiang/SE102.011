@@ -13,13 +13,24 @@
 #define COIN_SUMMON_STATE	100
 #define COIN_NOT_SUMMON_STATE	200
 
+#define COIN_NORMAL	1
+#define COIN_TURNED_INTO_BRICK	2
+#define COIN_TURN_INTO_BRICK_TIME 10000
+
+
 class CCoin : public CGameObject {
 protected:
-	int state;
+	int state, model;
 	float ay;
+	ULONGLONG turnedIntoBrickStart;
 public:
-	CCoin(float x, float y) : CGameObject(x, y) {
+	CCoin(float x, float y, int model = 1) : CGameObject(x, y) {
 		ay = COIN_GRAVITY;
+		this->model = model;
+		if (model == COIN_TURNED_INTO_BRICK)
+		{
+			turnedIntoBrickStart = GetTickCount64();
+		}
 	}
 	void Render();
 	virtual int IsCollidable() { return 1; }

@@ -279,7 +279,7 @@ void CMario::OnCollisionWithKoopa(LPCOLLISIONEVENT e) {
 	else
 	{
 
-		if (koopa->GetState() == KOOPA_STATE_DEFEND)
+		if (koopa->GetState() == KOOPA_STATE_DEFEND || koopa->GetState() == KOOPA_STATE_UPSIDE)
 		{
 			LPGAME game = CGame::GetInstance();
 			if (game->IsKeyDown(DIK_A))

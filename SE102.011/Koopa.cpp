@@ -285,6 +285,7 @@ void CKoopa::SetState(int state) {
 		isDefend = false;
 		isUpside = false;
 		wasKicked = false;
+		wasHeld = false;
 		needCheckDetector = true;
 		break;
 	case KOOPA_STATE_DEFEND:
@@ -292,6 +293,7 @@ void CKoopa::SetState(int state) {
 		defendStart = GetTickCount64();
 		isDefend = true;
 		wasKicked = false;
+		wasHeld = false;
 		//DeleteDetector();
 		needCheckDetector = false;
 		break;
@@ -299,12 +301,15 @@ void CKoopa::SetState(int state) {
 		isOnPlatform = true;
 		vx = -KOOPA_WAS_KICKED_SPEED_X;
 		wasKicked = true;
+		isDefend = true;
+		wasHeld = false;
 		break;
 	case KOOPA_STATE_UPSIDE:
 		isUpside = true;
 		isDefend = false;
 		isRevival = false;
 		wasKicked = false;
+		wasHeld = false;
 		//isDead = true;
 		//dieStart = GetTickCount64();
 		if (isOnPlatform) vx = 0;
@@ -318,6 +323,7 @@ void CKoopa::SetState(int state) {
 		isDefend = false;
 		isRevival = false;
 		wasKicked = false;
+		wasHeld = false;
 		vx = -KOOPA_WALKING_SPEED;
 		needCheckDetector = false;
 		break;

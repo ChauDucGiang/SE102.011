@@ -295,6 +295,8 @@ void CMario::OnCollisionWithKoopa(LPCOLLISIONEVENT e) {
 			}
 			else
 			{
+				isHolding = false;
+				koopa->SetWasHeld(false);
 				koopa->SetState(KOOPA_STATE_WAS_KICKED);
 				vy = -MARIO_JUMP_DEFLECT_SPEED;
 			}
@@ -673,7 +675,7 @@ void CMario::Render()
 {
 	CAnimations* animations = CAnimations::GetInstance();
 
-	DebugOutTitle(L">>> Mario LevelRunning %d>>> \n", levelRunning);
+	DebugOutTitle(L">>> Mario Nx %d>>> \n", nx);
 	int aniId = -1;
 
 	if (state == MARIO_STATE_DIE)

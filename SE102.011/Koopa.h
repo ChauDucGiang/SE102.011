@@ -7,7 +7,7 @@
 #define KOOPA_JUMP_DEATH 0.4f		//nhay
 #define KOOPA_ADJUST_NOT_FALL 0.1f
 #define KOOPA_KICKED_NOT_FAIL 0.04f
-#define KOOPA_WAS_KICKED_SPEED_X 0.18f
+#define KOOPA_WAS_KICKED_SPEED_X 0.12f
 #define KOOPA_JUMP_WAS_ATTACKED_SPEED_Y 0.4f
 #define KOOPA_ADJUST_DETECTOR_X 3.0f
 #define KOOPA_JUMP_SPEED_Y 0.2f
@@ -84,6 +84,7 @@ class CKoopa : public CGameObject
 		virtual void OnCollisionWithPlant(LPCOLLISIONEVENT e);
 		virtual void OnCollisionWithMario(LPCOLLISIONEVENT e);
 		virtual void OnCollisionWithBrickColor(LPCOLLISIONEVENT e);
+		virtual void OnCollisionWithQuestionBlock(LPCOLLISIONEVENT e);
 
 		int GetModelGreenAnimation();
 		int GetModelRedAnimation();

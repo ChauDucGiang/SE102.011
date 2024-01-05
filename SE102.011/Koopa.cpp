@@ -4,6 +4,7 @@
 #include "Plant.h"
 #include "KoopaDetector.h"
 #include "BrickCorlor.h"
+#include "QuestionBlock.h"
 
 CKoopa::CKoopa(float x, float y, int model) :CGameObject(x, y) {
 
@@ -37,11 +38,21 @@ void CKoopa::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects) {
 
 
 	if (mario->IsHolding() && wasHeld) {
-		this->x = mario->GetX() + mario->GetNx() * (MARIO_BIG_BBOX_WIDTH - 3);
-		this->y = mario->GetY() - 3;
+		LPGAME game = CGame::GetInstance();
+		if (game->IsKeyDown(DIK_A))
+		{
+			this->x = mario->GetX() + mario->GetNx() * (MARIO_BIG_BBOX_WIDTH - 3);
+			this->y = mario->GetY() - 3;
 
-		vx = mario->GetVx();
-		vy = mario->GetVy();
+			vx = mario->GetVx();
+			vy = mario->GetVy();
+		}
+		else {
+			SetWasHeld(false);
+			SetState(KOOPA_STATE_WAS_KICKED);
+			vy = -MARIO_JUMP_DEFLECT_SPEED;
+			DebugOut(L"[INFO] Mario OnCollisionWithKoopa KOOPA_STATE_WAS_KICKED\n");
+		}
 	}
 
 	if ( state  != KOOPA_STATE_WAS_KICKED)
@@ -192,7 +203,7 @@ void CKoopa::OnCollisionWith(LPCOLLISIONEVENT e) {
 		}
 		if (e->nx != 0 && e->obj->IsBlocking())
 		{
-			if (state == KOOPA_STATE_WAS_KICKED && (dynamic_cast<CBrickColor*>(e->obj) || dynamic_cast<CPlant*>(e->obj) ) )
+			if (state == KOOPA_STATE_WAS_KICKED && (dynamic_cast<CBrickColor*>(e->obj) || dynamic_cast<CPlant*>(e->obj) || dynamic_cast<CQuestionBlock*>(e->obj)) )
 			{
 			
 			}
@@ -223,7 +234,9 @@ void CKoopa::OnCollisionWith(LPCOLLISIONEVENT e) {
 	else if (dynamic_cast<CPlant*>(e->obj))
 		this->OnCollisionWithPlant(e);
 	else if (dynamic_cast<CBrickColor*>(e->obj))
-		this->OnCollisionWithBrickColor(e);
+		this->OnCollisionWithBrickColor(e); 
+	else if (dynamic_cast<CQuestionBlock*>(e->obj))
+		this->OnCollisionWithQuestionBlock(e);
 }
 
 void CKoopa::OnCollisionWithMario(LPCOLLISIONEVENT e) {
@@ -271,6 +284,15 @@ void CKoopa::OnCollisionWithBrickColor(LPCOLLISIONEVENT e) {
 	}
 }
 
+void CKoopa::OnCollisionWithQuestionBlock(LPCOLLISIONEVENT e) {
+	CQuestionBlock* q = dynamic_cast<CQuestionBlock*>(e->obj);
+	vx = -vx;
+	if (!q->GetIsOpened() && !q->GetIsEmpty())
+	{
+		q->Unbox();
+	}
+}
+
 #pragma endregion
 
 void CKoopa::SetState(int state) {
@@ -299,7 +321,7 @@ void CKoopa::SetState(int state) {
 		break;
 	case KOOPA_STATE_WAS_KICKED:
 		isOnPlatform = true;
-		vx = -KOOPA_WAS_KICKED_SPEED_X;
+		vx = (mario->GetNx() > 0) ? KOOPA_WAS_KICKED_SPEED_X :- KOOPA_WAS_KICKED_SPEED_X;
 		wasKicked = true;
 		isDefend = true;
 		wasHeld = false;

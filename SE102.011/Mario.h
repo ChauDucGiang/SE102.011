@@ -46,6 +46,8 @@
 
 #define MARIO_STATE_GOING_DOWN_PIPE 1100
 #define MARIO_STATE_GOING_UP_PIPE 1200
+
+#define MARIO_STATE_END_SCENE 1300
 #pragma endregion
 
 
@@ -222,7 +224,7 @@ class CMario : public CGameObject
 	BOOLEAN isSitting, isOnPlatform, isTailAttack = false, isHolding = false,
 		isFlying = false, isRunning = false,
 		isUsingPipe = false, isUsingPipeDown = false, isUsingPipeUp = false, isOutPipe = false, canDown = false;
-	int coin, score, level, untouchable, levelRunning = 0, limitTimeMap1 = 300;
+	int coin, score, level, untouchable, levelRunning = 0, limitTimeMap1 = 300, cardId = -1;
 #pragma region CollisionWithGameObject
 	void OnCollisionWithGoomba(LPCOLLISIONEVENT e);
 	void OnCollisionWithKoopa(LPCOLLISIONEVENT e);
@@ -237,6 +239,7 @@ class CMario : public CGameObject
 	void OnCollisionWithBrickColor(LPCOLLISIONEVENT e);
 	void OnCollisionWithSwitchBlock(LPCOLLISIONEVENT e);
 	void OnCollisionWithPipe(LPCOLLISIONEVENT e);
+	void OnCollisionWithBoxItem(LPCOLLISIONEVENT e);
 #pragma  endregion
 
 	int GetAniIdBig();
@@ -314,4 +317,7 @@ public:
 		DebugOut(L"[INFO] Mario ReturnToWorldMap\n");
 		SetPosition(POSITION_X_RETURN_WORLD_MAP, POSITION_Y_RETURN_WORLD_MAP);
 	}
+
+	int GetCardId() { return cardId; }
+	int SetCardId(int cardId) { return this->cardId = cardId; }
 };

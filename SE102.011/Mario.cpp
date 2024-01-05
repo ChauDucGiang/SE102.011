@@ -16,6 +16,7 @@
 #include "BrickCorlor.h"
 #include "SwitchBlock.h"
 #include "Pipe.h"
+#include "BoxItem.h"
 
 #include "Collision.h"
 
@@ -202,6 +203,10 @@ void CMario::OnCollisionWith(LPCOLLISIONEVENT e)
 	else if (dynamic_cast<CPipe*>(e->obj))
 	{
 		OnCollisionWithPipe(e);
+	}
+	else if (dynamic_cast<CBoxItem*>(e->obj))
+	{
+		OnCollisionWithBoxItem(e);
 	}
 }
 
@@ -458,6 +463,20 @@ void CMario::OnCollisionWithSwitchBlock(LPCOLLISIONEVENT e) {
 void CMario::OnCollisionWithPipe(LPCOLLISIONEVENT e) {
 	DebugOut(L"[INFO] Mario OnCollisionWithPipe\n");
 	CPipe* pipe = dynamic_cast<CPipe*>(e->obj);
+}
+void CMario::OnCollisionWithBoxItem(LPCOLLISIONEVENT e) {
+	DebugOut(L"[INFO] Mario OnCollisionWithBoxItem\n");
+	CBoxItem* box = dynamic_cast<CBoxItem*>(e->obj);
+
+	if (!box->IsCollected()) {
+		box->SetState(BOX_ITEM_STATE_COLLECTED);
+
+		int modelCollected = box->GetModel();
+		SetCardId(modelCollected);
+
+		SetState(MARIO_STATE_END_SCENE);
+
+	}
 }
 #pragma  endregion
 
@@ -799,6 +818,12 @@ void CMario::SetState(int state)
 		ay = 0;
 		startUsePiPeY = y;
 		vy = -MARIO_USE_PIPE_SPEED_Y;
+		break;
+	case MARIO_STATE_END_SCENE:
+		maxVx = MARIO_WALKING_SPEED;
+		ax = MARIO_ACCEL_WALK_X;
+		isRunning = false;
+		nx = 1;
 		break;
 	}
 

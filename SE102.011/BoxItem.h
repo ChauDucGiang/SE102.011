@@ -39,4 +39,7 @@ public:
 
 	void SwitchModel();
 
+	bool IsCollected() { return isCollected; }
+	int GetModel() { return model; }
+
 };

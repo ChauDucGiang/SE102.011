@@ -158,7 +158,7 @@ void CMario::OnCollisionWith(LPCOLLISIONEVENT e)
 		vy = 0;
 		if (e->ny < 0) {
 			isOnPlatform = true;
-			isFlying = false;
+			//isFlying = false;
 		}
 	}
 	else if (e->nx != 0 && e->obj->IsBlocking())
@@ -204,7 +204,7 @@ void CMario::OnCollisionWithPlatfom(LPCOLLISIONEVENT e)
 {
 	CPlatform* platform = dynamic_cast<CPlatform*>(e->obj);
 	if (platform->IsBlocking()) {
-		isOnPlatform = true;
+		//isOnPlatform = true;
 
 	}
 	if (platform->IsCanDown())
@@ -587,7 +587,7 @@ int CMario::GetAniIdTail() {
 	if (isFlying)
 	{
 		if (!isOnPlatform) {
-			if (vx > MARIO_RUNNING_SPEED) {
+			if (levelRunning >= MARIO_LEVEL_RUN_MAX) {
 				if (nx > 0) {
 					aniId = ID_ANI_MARIO_TAIL_FLY_UP_RIGHT;
 				}

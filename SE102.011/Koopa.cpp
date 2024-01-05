@@ -17,7 +17,9 @@ CKoopa::CKoopa(float x, float y, int model) :CGameObject(x, y) {
 	}
 	else {
 		ay = KOOPA_GRAVITY;
+		vx = -KOOPA_WALKING_SPEED;
 		SetState(KOOPA_STATE_WALKING);
+
 
 	}
 }
@@ -65,6 +67,7 @@ void CKoopa::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects) {
 			if (isRevival) {
 				DebugOut(L"[INFO] Koopa Revival\n");
 				this->y -= (KOOPA_BBOX_HEIGHT - KOOPA_BBOX_HEIGHT_DEFEND) / 2;
+				vx = (mario->GetNx() > 0) ? -KOOPA_WALKING_SPEED : KOOPA_WALKING_SPEED;
 				SetState(KOOPA_STATE_WALKING);
 				defendStart = 0;
 			}
@@ -300,7 +303,6 @@ void CKoopa::SetState(int state) {
 	CMario* mario = (CMario*)((LPPLAYSCENE)CGame::GetInstance()->GetCurrentScene())->GetPlayer();
 	switch (state) {
 	case KOOPA_STATE_WALKING:
-		vx = -KOOPA_WALKING_SPEED;
 		vy = 0;
 		ay = KOOPA_GRAVITY;
 		isRevival = false;

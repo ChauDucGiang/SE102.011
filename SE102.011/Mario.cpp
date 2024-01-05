@@ -99,6 +99,11 @@ void CMario::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 	//Flying
 	if (isFlying)
 	{
+		if (isOnPlatform) {
+			isFlying = false;
+			ay = MARIO_GRAVITY;
+
+		}
 		if (GetTickCount64() - flyStart > MARIO_FLY_TIME)
 		{
 			EndFly();

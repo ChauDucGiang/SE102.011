@@ -185,6 +185,7 @@
   <ItemGroup>
     <ClCompile Include="Animation.cpp" />
     <ClCompile Include="Animations.cpp" />
+    <ClCompile Include="BoxItem.cpp" />
     <ClCompile Include="Brick.cpp" />
     <ClCompile Include="BrickColor.cpp" />
     <ClCompile Include="SwitchBlock.cpp" />
@@ -226,6 +227,7 @@
     <ClInclude Include="AnimationFrame.h" />
     <ClInclude Include="Animations.h" />
     <ClInclude Include="AssetIDs.h" />
+    <ClInclude Include="BoxItem.h" />
     <ClInclude Include="Brick.h" />
     <ClInclude Include="BrickCorlor.h" />
     <ClInclude Include="FireBullet.h" />

@@ -177,6 +177,9 @@
     <ClCompile Include="SwitchBlock.cpp">
       <Filter>Source Files\Objects\Items</Filter>
     </ClCompile>
+    <ClCompile Include="BoxItem.cpp">
+      <Filter>Source Files\Objects\Items</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
@@ -300,6 +303,9 @@
       <Filter>Header Files\Objects\Items\Bricks</Filter>
     </ClInclude>
     <ClInclude Include="SwitchBlock.h">
+      <Filter>Header Files\Objects\Items</Filter>
+    </ClInclude>
+    <ClInclude Include="BoxItem.h">
       <Filter>Header Files\Objects\Items</Filter>
     </ClInclude>
   </ItemGroup>

@@ -85,6 +85,7 @@ class CKoopa : public CGameObject
 		virtual void OnCollisionWithMario(LPCOLLISIONEVENT e);
 		virtual void OnCollisionWithBrickColor(LPCOLLISIONEVENT e);
 		virtual void OnCollisionWithQuestionBlock(LPCOLLISIONEVENT e);
+		virtual void OnCollisionWithCoin(LPCOLLISIONEVENT e);
 
 		int GetModelGreenAnimation();
 		int GetModelRedAnimation();

@@ -5,6 +5,7 @@
 #include "KoopaDetector.h"
 #include "BrickCorlor.h"
 #include "QuestionBlock.h"
+#include "Coin.h"
 
 CKoopa::CKoopa(float x, float y, int model) :CGameObject(x, y) {
 
@@ -240,6 +241,8 @@ void CKoopa::OnCollisionWith(LPCOLLISIONEVENT e) {
 		this->OnCollisionWithBrickColor(e); 
 	else if (dynamic_cast<CQuestionBlock*>(e->obj))
 		this->OnCollisionWithQuestionBlock(e);
+	else if (dynamic_cast<CCoin*>(e->obj))
+		this->OnCollisionWithCoin(e);
 }
 
 void CKoopa::OnCollisionWithMario(LPCOLLISIONEVENT e) {
@@ -294,6 +297,10 @@ void CKoopa::OnCollisionWithQuestionBlock(LPCOLLISIONEVENT e) {
 	{
 		q->Unbox();
 	}
+}
+void CKoopa::OnCollisionWithCoin(LPCOLLISIONEVENT e) {
+	CCoin* coin = dynamic_cast<CCoin*>(e->obj);
+	//coin->Delete();
 }
 
 #pragma endregion

@@ -158,6 +158,7 @@ void CMario::OnCollisionWith(LPCOLLISIONEVENT e)
 		vy = 0;
 		if (e->ny < 0) {
 			isOnPlatform = true;
+			isFlying = false;
 		}
 	}
 	else if (e->nx != 0 && e->obj->IsBlocking())
@@ -439,9 +440,13 @@ void CMario::OnCollisionWithBrickColor(LPCOLLISIONEVENT e)
 }
 
 void CMario::OnCollisionWithSwitchBlock(LPCOLLISIONEVENT e) {
-	DebugOut(L"[INFO] Mario OnCollisionWithSwitchBlock\n");
-	CSwitchBlock* block = dynamic_cast<CSwitchBlock*>(e->obj);
-	block->SetWasCollected(true);
+
+	if (isTailAttack || e->ny < 0 || e->nx != 0) {
+		DebugOut(L"[INFO] Mario OnCollisionWithSwitchBlock\n");
+		CSwitchBlock* block = dynamic_cast<CSwitchBlock*>(e->obj);
+		block->SetWasCollected(true);
+	}
+
 }
 void CMario::OnCollisionWithPipe(LPCOLLISIONEVENT e) {
 	DebugOut(L"[INFO] Mario OnCollisionWithPipe\n");

@@ -58,6 +58,8 @@
 // Portal
 #define OBJECT_TYPE_PORTAL	50
 
+#define OBJECT_TYPE_BOX_ITEM 45
+
 #pragma endregion 
 
 

@@ -69,15 +69,18 @@ void CMario::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 	//Prepare Fly
 	if (isRunning)
 	{
-		if (GetTickCount64() - prepareFlyStart > MARIO_PREPARE_FLY_TIME)
+		if (level == MARIO_LEVEL_TAIL)
 		{
-			if (GetTickCount64() - levelRunningUpStart > MARIO_LEVEL_RUN_UP_TIME)
+			if (GetTickCount64() - prepareFlyStart > MARIO_PREPARE_FLY_TIME)
 			{
-				if (levelRunning < MARIO_LEVEL_RUN_MAX)
+				if (GetTickCount64() - levelRunningUpStart > MARIO_LEVEL_RUN_UP_TIME)
 				{
-					levelRunning++;
+					if (levelRunning < MARIO_LEVEL_RUN_MAX)
+					{
+						levelRunning++;
+					}
+					levelRunningUpStart = GetTickCount64();
 				}
-				levelRunningUpStart = GetTickCount64();
 			}
 		}
 	}
@@ -413,8 +416,15 @@ void CMario::OnCollisionWithFireBullet(LPCOLLISIONEVENT e) {
 	if (untouchable == 0){
 		if (level > MARIO_LEVEL_SMALL)
 		{
-			level = MARIO_LEVEL_SMALL;
-			StartUntouchable();
+			if (level == MARIO_LEVEL_BIG)
+			{
+				level = MARIO_LEVEL_SMALL;
+				StartUntouchable();
+			}else if (level == MARIO_LEVEL_TAIL)
+			{
+				level = MARIO_LEVEL_BIG;
+				StartUntouchable();
+			}
 		}
 		else
 		{
@@ -444,7 +454,7 @@ void CMario::OnCollisionWithBrickColor(LPCOLLISIONEVENT e)
 	//DebugOut(L"[INFO] Mario OnCollisionWithBrickColor\n");
 
 	CBrickColor* brick = dynamic_cast<CBrickColor*>(e->obj);
-	if (isTailAttack || e->ny > 0) {
+	if ((isTailAttack && e->nx != 0) || e->ny > 0) {
 		DebugOut(L"[INFO] Mario OnCollisionWithBrickColor BRICK_STATE_WAS_BROKEN\n");
 		//brick->SetState(BRICK_STATE_WAS_BROKEN);
 		brick->Destroy();
@@ -473,7 +483,6 @@ void CMario::OnCollisionWithBoxItem(LPCOLLISIONEVENT e) {
 
 		int modelCollected = box->GetModel();
 		SetCardId(modelCollected);
-
 		SetState(MARIO_STATE_END_SCENE);
 
 	}
@@ -699,7 +708,7 @@ void CMario::Render()
 {
 	CAnimations* animations = CAnimations::GetInstance();
 
-	DebugOutTitle(L">>> Mario Nx %d>>> \n", nx);
+	DebugOutTitle(L">>> Mario Level Run %d>>> \n", levelRunning);
 	int aniId = -1;
 
 	if (state == MARIO_STATE_DIE)
@@ -788,6 +797,7 @@ void CMario::SetState(int state)
 	case MARIO_STATE_IDLE:
 		ax = 0.0f;
 		vx = 0.0f;
+		isRunning = false;
 		break;
 
 	case MARIO_STATE_DIE:
@@ -822,8 +832,8 @@ void CMario::SetState(int state)
 	case MARIO_STATE_END_SCENE:
 		maxVx = MARIO_WALKING_SPEED;
 		ax = MARIO_ACCEL_WALK_X;
-		isRunning = false;
 		nx = 1;
+		isRunning = false;
 		break;
 	}
 

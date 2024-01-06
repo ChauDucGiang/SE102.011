@@ -6,6 +6,7 @@
 #include "BrickCorlor.h"
 #include "QuestionBlock.h"
 #include "Coin.h"
+#include "SwitchBlock.h"
 
 CKoopa::CKoopa(float x, float y, int model) :CGameObject(x, y) {
 
@@ -292,8 +293,11 @@ void CKoopa::OnCollisionWithBrickColor(LPCOLLISIONEVENT e) {
 
 void CKoopa::OnCollisionWithQuestionBlock(LPCOLLISIONEVENT e) {
 	CQuestionBlock* q = dynamic_cast<CQuestionBlock*>(e->obj);
-	vx = -vx;
-	if (!q->GetIsOpened() && !q->GetIsEmpty())
+	if (e->nx != 0)
+	{
+		vx = -vx;
+	}
+	if (!q->GetIsOpened() && !q->GetIsEmpty() && state == KOOPA_STATE_WAS_KICKED)
 	{
 		q->Unbox();
 	}

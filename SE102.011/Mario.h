@@ -21,7 +21,7 @@
 
 #define MARIO_FLY_DOWN_SPEED_Y 0.15f
 #define MARIO_FLY_UP_SPEED_Y 0.15f
-#define MARIO_FLY_START_SPEED_Y 0.25f
+#define MARIO_FLY_START_SPEED_Y 0.3f
 #define MARIO_USE_PIPE_SPEED_Y 0.075f
 
 #pragma region State
@@ -199,7 +199,7 @@
 #define MARIO_UNTOUCHABLE_TIME 2500
 #define MARIO_HOLDING_TIME 6000
 #define MARIO_FLY_TIME 10000
-#define MARIO_FLY_UP_TIME 250
+#define MARIO_FLY_UP_TIME 300
 #define MARIO_PREPARE_FLY_TIME 500
 
 //Map position
@@ -210,7 +210,7 @@
 
 #define MARIO_LEVEL_RUN_MAX 7
 #define MARIO_LEVEL_RUN_UP_TIME 250
-#define MARIO_LEVEL_RUN_DOWN_TIME 400
+#define MARIO_LEVEL_RUN_DOWN_TIME 500
 
 class CMario : public CGameObject
 {

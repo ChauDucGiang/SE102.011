@@ -42,6 +42,20 @@ void CMushRoom::OnNoCollision(DWORD dt)
 	y += vy * dt;
 }
 
+void CMushRoom::OnCollisionWith(LPCOLLISIONEVENT e)
+{
+	if (!e->obj->IsBlocking()) return;
+
+	if (e->ny != 0)
+	{
+		vy = 0;
+	}
+	else if (e->nx != 0)
+	{
+		vx = -vx;
+	}
+}
+
 void CMushRoom::GetBoundingBox(float& left, float& top, float& right, float& bottom)
 {
 	left = x - MUSHROOM_BBOX_WIDTH / 2;

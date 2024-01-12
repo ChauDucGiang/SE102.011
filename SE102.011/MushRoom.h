@@ -30,6 +30,7 @@ class CMushRoom : public CGameObject {
 		int IsBlocking() { return 0; }
 		virtual int IsCollidable() { return 1; }
 		void OnNoCollision(DWORD dt);
+		virtual void OnCollisionWith(LPCOLLISIONEVENT e);
 
 	public:
 		CMushRoom(float x, float y, int model);

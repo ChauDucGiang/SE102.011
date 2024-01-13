@@ -148,7 +148,10 @@ void CMario::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 		ay = MARIO_GRAVITY;
 	}
 
-
+	if (y <=0)
+	{
+		y = MARIO_BIG_BBOX_HEIGHT / 2;
+	}
 	isOnPlatform = false;
 	CCollision::GetInstance()->Process(this, dt, coObjects);
 }
@@ -709,6 +712,7 @@ void CMario::Render()
 	CAnimations* animations = CAnimations::GetInstance();
 
 	DebugOutTitle(L">>> Mario Level Run %d>>> \n", levelRunning);
+	//DebugOutTitle(L">>> Mario X %f>>> \n", x);
 	int aniId = -1;
 
 	if (state == MARIO_STATE_DIE)

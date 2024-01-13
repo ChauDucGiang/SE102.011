@@ -1,4 +1,5 @@
 #include "Goomba.h"
+#include "PlayScene.h"
 
 CGoomba::CGoomba(float x, float y, int model):CGameObject(x, y)
 {
@@ -82,6 +83,11 @@ void CGoomba::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 
 void CGoomba::Render()
 {
+	CMario* mario = (CMario*)((LPPLAYSCENE)CGame::GetInstance()->GetCurrentScene())->GetPlayer();
+	if (mario->GetX() + SCREEN_WIDTH/2 <= x)
+	{
+		return;
+	}
 	int aniId = ID_ANI_GOOMBA_WALKING;
 	if (state == GOOMBA_STATE_DIE) 
 	{

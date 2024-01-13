@@ -44,16 +44,19 @@ void CMushRoom::OnNoCollision(DWORD dt)
 
 void CMushRoom::OnCollisionWith(LPCOLLISIONEVENT e)
 {
-	if (!e->obj->IsBlocking()) return;
+	if (!dynamic_cast<CMario*>(e->obj)) {
+		if (!e->obj->IsBlocking()) return;
 
-	if (e->ny != 0)
-	{
-		vy = 0;
+		if (e->ny != 0)
+		{
+			vy = 0;
+		}
+		else if (e->nx != 0)
+		{
+			vx = -vx;
+		}
 	}
-	else if (e->nx != 0)
-	{
-		vx = -vx;
-	}
+
 }
 
 void CMushRoom::GetBoundingBox(float& left, float& top, float& right, float& bottom)

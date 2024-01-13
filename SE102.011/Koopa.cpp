@@ -82,6 +82,11 @@ void CKoopa::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects) {
 
 void CKoopa::Render() {
 	int aniId = -1;
+	CMario* mario = (CMario*)((LPPLAYSCENE)CGame::GetInstance()->GetCurrentScene())->GetPlayer();
+	if (mario->GetX() + SCREEN_WIDTH/2 <= x)
+	{
+		return;
+	}
 
 	switch (model)
 	{
@@ -93,6 +98,8 @@ void CKoopa::Render() {
 		aniId = GetModelGreenAnimation();
 		break;
 	}
+
+
 
 	CAnimations::GetInstance()->Get(aniId)->Render(x, y);
 	RenderBoundingBox();
@@ -338,6 +345,7 @@ void CKoopa::SetState(int state) {
 		wasKicked = true;
 		isDefend = true;
 		wasHeld = false;
+		isRevival = false;
 		break;
 	case KOOPA_STATE_UPSIDE:
 		isUpside = true;
